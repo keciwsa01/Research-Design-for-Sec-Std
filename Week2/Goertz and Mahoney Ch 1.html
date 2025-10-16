@@ -1,1 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Cultures of Social Science Research - Study Guide</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .study-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #2196F3;
+            color: white;
+        }
+
+        .btn-accent {
+            background: #FF9800;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .sidebar {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            background: #f8f9ff;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 4px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .highlight:hover {
+            background: #ffc107;
+            transform: scale(1.05);
+        }
+
+        .key-concept {
+            background: #e3f2fd;
+            border: 1px solid #2196F3;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .key-concept h3 {
+            color: #1976d2;
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9ff;
+        }
+
+        .quiz-section {
+            background: #fff3e0;
+            border: 2px solid #ff9800;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .quiz-question {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #e65100;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .quiz-option {
+            padding: 0.75rem;
+            background: white;
+            border: 2px solid #ffcc80;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .quiz-option:hover {
+            background: #ffcc80;
+            transform: translateX(5px);
+        }
+
+        .quiz-option.correct {
+            background: #c8e6c9;
+            border-color: #4caf50;
+        }
+
+        .quiz-option.incorrect {
+            background: #ffcdd2;
+            border-color: #f44336;
+        }
+
+        .progress-tracker {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50, #8bc34a);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .notes-section {
+            background: #fff;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .notes-textarea {
+            width: 100%;
+            min-height: 100px;
+            border: none;
+            resize: vertical;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        .notes-textarea:focus {
+            outline: none;
+        }
+
+        .accordion-item {
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background: #f8f9ff;
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .accordion-header:hover {
+            background: #e8f0ff;
+        }
+
+        .accordion-header span:first-child {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .accordion-icon {
+            font-size: 0.8rem;
+            color: #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: white;
+        }
+
+        .accordion-content.open {
+            padding: 1.5rem;
+            max-height: 1000px;
+        }
+
+        .accordion-content p {
+            margin-bottom: 1rem;
+        }
+
+        .accordion-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .study-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Two Cultures of Social Science Research</h1>
+            <p>Interactive Study Guide - Gertz & Mahoney's Revolutionary Framework</p>
+        </header>
+
+        <div class="study-controls">
+            <button class="btn btn-primary" onclick="toggleHighlights()">Toggle Key Terms</button>
+            <button class="btn btn-secondary" onclick="showQuiz()">Test Knowledge</button>
+            <button class="btn btn-accent" onclick="resetProgress()">Reset Progress</button>
+        </div>
+
+        <div class="content-grid">
+            <main class="main-content">
+                <div class="section">
+                    <h2>📖 Core Claim: Two Distinct Cultures</h2>
+                    <p><span class="highlight">Goertz and Mahoney's</span> revolutionary argument: Quantitative and qualitative research aren't just different "styles" - they are <span class="highlight">distinct cultures</span> with their own values, norms, and default tools. This is why misunderstandings across them are so common!</p>
+                    
+                    <div class="key-concept">
+                        <h3>The Book's Goal</h3>
+                        <p>Clarify differences to improve communication and enable smart mixing of methods. It's not about declaring a winner - it's about understanding what each culture brings to the table.</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🎯 Disagreement with KKV (King, Keohane & Verba)</h2>
+                    <p>The traditional <span class="highlight">"one logic" argument</span> claimed both approaches share the same logic of inference (basically statistical). <span class="highlight">Goertz & Mahoney disagree</span>:</p>
+                    <ul>
+                        <li>The two cultures rest on <strong>different foundations</strong></li>
+                        <li>They pursue inference <strong>differently</strong></li>
+                        <li><strong>Quantitative</strong> draws on probability/statistics</li>
+                        <li><strong>Qualitative</strong> often (implicitly) draws on logic and set theory</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>🔍 What Each Culture Actually Does</h2>
+                    <p>This isn't just <span class="highlight">"numbers vs words"</span> - it's about fundamentally different approaches to understanding causation:</p>
+                    
+                    <div class="key-concept">
+                        <h3>Quantitative Culture</h3>
+                        <p><strong>Cross-case analysis</strong> to make inferences about <strong>populations</strong></p>
+                        <p><em>Examples: experiments, statistical models, surveys</em></p>
+                    </div>
+
+                    <div class="key-concept">
+                        <h3>Qualitative Culture</h3>
+                        <p><strong>Within-case analysis</strong> to make inferences about <strong>individual cases</strong></p>
+                        <p><em>Examples: process tracing, case studies, historical analysis</em></p>
+                    </div>
+
+                    <p>The real distinction: <span class="highlight">Population vs Case</span> and <span class="highlight">Statistics vs Logic</span></p>
+                </div>
+
+                <div class="section">
+                    <h2>⚖️ Fundamental Differences</h2>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>Quantitative Culture</th>
+                                <th>Qualitative Culture</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Goal</strong></td>
+                                <td>Find patterns across many cases</td>
+                                <td>Explain why specific things happened</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Approach</strong></td>
+                                <td>Cross-case analysis</td>
+                                <td>Within-case analysis</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mathematical Foundation</strong></td>
+                                <td>Probability & Statistics</td>
+                                <td>Logic & Set Theory</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Focus</strong></td>
+                                <td>Average effects on populations</td>
+                                <td>Causal mechanisms in specific cases</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Example</strong></td>
+                                <td>Compare thousands of voters to predict voting patterns</td>
+                                <td>Deep dive into one election to find the "smoking gun"</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section">
+                    <h2>🧠 The Logic Behind Qualitative Thinking</h2>
+                    <p>Qualitative researchers think about causes in terms of <span class="highlight">necessary and sufficient conditions</span>:</p>
+                    
+                    <div class="key-concept">
+                        <h3>Necessary Condition</h3>
+                        <p>Something that <strong>must be present</strong> for an outcome to occur. Without it, the outcome cannot happen.</p>
+                        <p><em>Example: Oxygen is necessary for fire</em></p>
+                    </div>
+
+                    <div class="key-concept">
+                        <h3>Sufficient Condition</h3>
+                        <p>Something that, if present, <strong>guarantees</strong> the outcome will happen.</p>
+                        <p><em>Example: A match plus oxygen plus fuel is sufficient for fire</em></p>
+                    </div>
+
+                    <p>When qualitative researchers say a factor "prevents" something, they're making a claim about necessary conditions. When they say it "ensures" an outcome, that's the language of sufficiency.</p>
+                </div>
+
+                <div class="section">
+                    <h2>🤔 Why "Two Cultures" (Not One or Many)?</h2>
+                    <p>The authors focus on <span class="highlight">causal inference traditions</span> on both sides (not interpretive approaches). Here's why this framework makes sense:</p>
+                    <ul>
+                        <li>The <strong>quant/qual split already structures</strong> academic life</li>
+                        <li>Different departments, journals, and training institutes</li>
+                        <li><strong>ICPSR</strong> (quantitative) vs <strong>IQMR</strong> (qualitative) summer schools</li>
+                        <li>It's a useful map of how research actually works</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>📊 How They Study These Cultures</h2>
+                    <p>The authors don't just theorize - they provide <span class="highlight">evidence</span> by analyzing:</p>
+                    <ol>
+                        <li><strong>Methods textbooks</strong> - What gets taught</li>
+                        <li><strong>Exemplary studies</strong> - What gets celebrated</li>
+                        <li><strong>Coded sample of top journal articles</strong> - What researchers actually do</li>
+                    </ol>
+                    <p>This captures <span class="highlight">typical practice</span>, not just ideals!</p>
+                </div>
+
+                <div class="section">
+                    <h2>🎭 Explicit vs Implicit Methods</h2>
+                    <p>A key insight: <span class="highlight">Quantitative methods</span> are usually explicit and codified in textbooks. <span class="highlight">Qualitative methods</span> are often implicit, so the authors reconstruct the logic at work.</p>
+                    
+                    <div class="key-concept">
+                        <h3>The Monsieur Jourdan Moment</h3>
+                        <p>Like the character who discovers he's been speaking prose his whole life, many qualitative researchers have been using <span class="highlight">formal logic</span> (necessary/sufficient conditions, Mill's methods) without realizing it!</p>
+                    </div>
+                    
+                    <p>Seeing the two side-by-side exposes hidden assumptions like <span class="highlight">symmetry vs asymmetry</span>.</p>
+                </div>
+
+                <div class="section">
+                    <h2>🔬 What's Distinctive About Qualitative Work</h2>
+                    <p>The book identifies key features that make qualitative research unique:</p>
+                    
+                    <div class="key-concept">
+                        <h3>Heavy Use of Within-Case Analysis</h3>
+                        <p>Especially <span class="highlight">process tracing</span> to test causal claims by following the causal chain step-by-step within individual cases.</p>
+                    </div>
+
+                    <div class="key-concept">
+                        <h3>Pervasive Use of Logic and Set Theory</h3>
+                        <p>Often unspoken reliance on:</p>
+                        <ul>
+                            <li><strong>Necessary and sufficient conditions</strong></li>
+                            <li><strong>Mill's methods</strong> (agreement, difference, etc.)</li>
+                            <li><strong>Hoop and smoking-gun tests</strong></li>
+                            <li><strong>QCA</strong> (Qualitative Comparative Analysis)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🚀 The Bottom Line & Path Forward</h2>
+                    <p>The key insight: <strong>Neither culture is "better."</strong> Each suits different research goals!</p>
+                    
+                    <div class="key-concept">
+                        <h3>The Right Question</h3>
+                        <p>Instead of asking "Which is better?", ask: <strong>"What question am I trying to answer?"</strong></p>
+                        <ul>
+                            <li>Estimating average policy effects across a country? → <strong>Quantitative tools</strong></li>
+                            <li>Explaining why one revolution succeeded while another failed? → <strong>Qualitative tools</strong></li>
+                        </ul>
+                    </div>
+
+                    <p>Many projects benefit from <span class="highlight">mixed-methods</span> - but mixing works best when we:</p>
+                    <ol>
+                        <li><strong>First recognize</strong> real differences</li>
+                        <li><strong>Understand</strong> the strengths/limits each brings</li>
+                        <li><strong>Learn</strong> to communicate across the cultural divide</li>
+                        <li><strong>Create</strong> "bilingual scholars" fluent in both languages</li>
+                    </ol>
+                </div>
+
+                <div class="section">
+                    <h2>📝 Study Questions</h2>
+                    <p>Test your understanding with these detailed questions. Click to reveal the answers:</p>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(0)">
+                            <span>1) What do Goertz & Mahoney mean by calling quantitative and qualitative research "two cultures," and why isn't the difference just "numbers vs. words"?</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content" id="accordion-0">
+                            <p>Goertz and Mahoney use "two cultures" to signal that quantitative and qualitative research are not merely two ways of writing up results, but <strong>two coherent systems of values, norms, and default practices</strong>. Inside each culture, people share assumptions about good questions to ask, legitimate forms of evidence, and how to argue causally; across cultures, those assumptions often clash—leading to miscommunication and frustration.</p>
+                            
+                            <p>Crucially, they reject the popular claim (associated with King, Keohane, and Verba) that both traditions share one underlying statistical logic and differ only in style. Instead, they argue the foundations diverge:</p>
+                            
+                            <ul>
+                                <li><strong>Quantitative work</strong> is rooted in probability and inferential statistics and typically reasons <em>across cases</em> to draw conclusions about populations</li>
+                                <li><strong>Qualitative work</strong> is rooted (often implicitly) in logic and set theory and typically reasons <em>within cases</em> to make inferences about specific cases and the causal processes inside them</li>
+                            </ul>
+                            
+                            <p>So the real contrast isn't "numbers vs. words" but <strong>cross-case statistical inference vs. within-case logical/set-theoretic reasoning</strong>, each suited to different research goals. Mixed-methods can be powerful, they add, but only after we recognize these real differences and use each culture where it's strongest.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(1)">
+                            <span>2) How do the authors plan to characterize and compare the two cultures, and why do they focus on "typical practices" rather than "best practices"?</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content" id="accordion-1">
+                            <p>They triangulate using <strong>three sources</strong>:</p>
+                            
+                            <ol>
+                                <li><strong>Methods texts</strong> to surface each culture's official rules and rationales (e.g., econometrics and potential-outcomes texts for quant; Sartori, George & Bennett, Collier, and Ragin for qual)</li>
+                                <li><strong>Exemplary studies</strong> to show what those rules look like in real research on substantive topics</li>
+                                <li><strong>Coded journal articles</strong> from top outlets in political science and sociology to see what scholars actually do in practice</li>
+                            </ol>
+                            
+                            <p>This design lets them distinguish between <strong>explicit practices</strong> (more common in quantitative work because textbooks codify steps and assumptions) and <strong>implicit practices</strong> (more common in qualitative work, where researchers often deploy logic—like necessary and sufficient conditions—without always formalizing it).</p>
+                            
+                            <p>They emphasize <strong>typical practices</strong> because debates over "best" practices are endless and contested; by sticking to what appears in top journals, they capture the real, prevailing habits that define each culture. They also note some "possible practices"—things a culture could do with its tools but rarely does—because tools make certain moves natural (e.g., averages and symmetric effects in quant; asymmetry, necessity, sufficiency in qual) and others awkward.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(2)">
+                            <span>3) According to the authors, what is distinctive about qualitative research in this book, and how does it differ from interpretive approaches?</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content" id="accordion-2">
+                            <p>Within the scope of this book, the hallmark of qualitative research is <strong>within-case analysis</strong>, especially <strong>process tracing</strong>—using detailed, case-specific evidence (sometimes "smoking guns") to test whether a hypothesized cause actually operated through the expected steps inside a case.</p>
+                            
+                            <p>Alongside this, qualitative work leans heavily—often implicitly—on <strong>logic and set theory</strong>, particularly necessary and sufficient conditions. These ideas underpin classic tools like:</p>
+                            
+                            <ul>
+                                <li><strong>Mill's methods</strong></li>
+                                <li><strong>Hoop tests and smoking-gun tests</strong> in process tracing</li>
+                                <li><strong>Qualitative Comparative Analysis (QCA)</strong></li>
+                            </ul>
+                            
+                            <p>That package—<strong>within-case process evidence + logical/set-theoretic reasoning</strong>—distinguishes qualitative causal inference from the quantitative culture's cross-case statistical estimation.</p>
+                            
+                            <p>The authors explicitly <strong>bracket interpretive approaches</strong> (which prioritize meaning and power over estimating causal effects) to keep the comparison focused on two causal-inference traditions. In short, their "qualitative" is the <strong>causal, case-oriented tradition</strong>, not the interpretive one; it's distinct because it treats causation through case mechanisms and logical relations rather than population-level averages.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-section" id="quizSection" style="display: none;">
+                    <div class="quiz-question" id="quizQuestion"></div>
+                    <div class="quiz-options" id="quizOptions"></div>
+                    <div id="quizFeedback" style="margin-top: 1rem; font-weight: 600;"></div>
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn" style="margin-top: 1rem; display: none;">Next Question</button>
+                </div>
+            </main>
+
+            <aside class="sidebar">
+                <div class="progress-tracker">
+                    <h3>Study Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p id="progressText">0% Complete</p>
+                </div>
+
+                <div>
+                    <h3>Key Scholars</h3>
+                    <ul>
+                        <li><strong>King, Keohane & Verba (KKV):</strong> "One Logic" proponents</li>
+                        <li><strong>Goertz & Mahoney:</strong> "Two Cultures" theorists</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Quick Reference</h3>
+                    <ul>
+                        <li><strong>Inference:</strong> Drawing conclusions from evidence</li>
+                        <li><strong>Necessary:</strong> Must be present</li>
+                        <li><strong>Sufficient:</strong> Guarantees outcome</li>
+                        <li><strong>Cross-case:</strong> Population analysis</li>
+                        <li><strong>Within-case:</strong> Individual case mechanisms</li>
+                        <li><strong>Process tracing:</strong> Following causal chains</li>
+                        <li><strong>ICPSR:</strong> Quant training institute</li>
+                        <li><strong>IQMR:</strong> Qual training institute</li>
+                    </ul>
+                </div>
+
+
+            </aside>
+        </div>
+
+        <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Back to top">
+            ↑
+        </button>
+    </div>
+
+    <script>
+        let highlightsVisible = true;
+        let currentQuestionIndex = 0;
+        let correctAnswers = 0;
+        let sectionsRead = 0;
+        const totalSections = 11;
+
+        const allQuizQuestions = [
+            {
+                question: "What is Goertz and Mahoney's core claim about quantitative and qualitative research?",
+                options: ["They use different data types", "They are distinct cultures with different values and norms", "One is better than the other", "They should never be mixed"],
+                correct: 1,
+                explanation: "Goertz and Mahoney argue that quantitative and qualitative research are distinct cultures with their own values, norms, and default tools."
+            },
+            {
+                question: "According to King, Keohane & Verba (KKV), what should be the foundation of all research?",
+                options: ["Logic and set theory", "Statistical inference", "Case studies", "Mixed methods"],
+                correct: 1,
+                explanation: "KKV argued for 'one logic' - that statistical inference should be the foundation of all research."
+            },
+            {
+                question: "What does quantitative culture primarily focus on?",
+                options: ["Within-case analysis", "Cross-case analysis for population inferences", "Individual case mechanisms", "Historical narratives"],
+                correct: 1,
+                explanation: "Quantitative culture focuses on cross-case analysis to make inferences about populations."
+            },
+            {
+                question: "What does qualitative culture primarily focus on?",
+                options: ["Statistical patterns", "Cross-case comparisons", "Within-case analysis for individual cases", "Survey data"],
+                correct: 2,
+                explanation: "Qualitative culture focuses on within-case analysis to make inferences about individual cases."
+            },
+            {
+                question: "What mathematical foundation underlies qualitative research according to Goertz and Mahoney?",
+                options: ["Probability theory", "Statistics", "Logic and set theory", "Calculus"],
+                correct: 2,
+                explanation: "Qualitative research is built on the mathematics of logic and set theory, often without researchers realizing it."
+            },
+            {
+                question: "Why do the authors focus on 'two cultures' rather than one or many?",
+                options: ["It's simpler to understand", "The quant/qual split already structures academic institutions", "There are only two types of data", "It's traditional"],
+                correct: 1,
+                explanation: "The quant/qual split already structures departments, journals, and training institutes like ICPSR vs IQMR."
+            },
+            {
+                question: "How do the authors study these research cultures?",
+                options: ["Only through surveys", "Methods textbooks, exemplary studies, and coded journal articles", "Just theoretical analysis", "Only through interviews"],
+                correct: 1,
+                explanation: "They analyze methods textbooks, exemplary studies, and a coded sample of top journal articles to capture typical practice."
+            },
+            {
+                question: "What is process tracing?",
+                options: ["A statistical technique", "Following causal chains step-by-step within cases", "A survey method", "A way to code data"],
+                correct: 1,
+                explanation: "Process tracing is a qualitative method that follows causal chains step-by-step within individual cases."
+            },
+            {
+                question: "What does the Monsieur Jourdan analogy illustrate?",
+                options: ["Researchers are confused", "Qualitative researchers use formal logic without realizing it", "Quantitative methods are superior", "Research is like theater"],
+                correct: 1,
+                explanation: "Like Monsieur Jourdan discovering he'd been speaking prose, qualitative researchers have been using formal logic without realizing it."
+            },
+            {
+                question: "According to the authors, what's the key to successful mixed-methods research?",
+                options: ["Using more quantitative methods", "First recognizing the real differences between cultures", "Avoiding qualitative methods", "Only using one approach"],
+                correct: 1,
+                explanation: "Mixed-methods works best when we first recognize real differences and understand what each culture brings."
+            }
+        ];
+
+        let quizQuestions = [];
+
+        function toggleHighlights() {
+            const highlights = document.querySelectorAll('.highlight');
+            highlightsVisible = !highlightsVisible;
+            
+            highlights.forEach(highlight => {
+                highlight.style.background = highlightsVisible ? '#ffeb3b' : 'transparent';
+            });
+        }
+
+        function showQuiz() {
+            // Select 5 random questions
+            const shuffled = [...allQuizQuestions].sort(() => 0.5 - Math.random());
+            quizQuestions = shuffled.slice(0, 5);
+            
+            const quizSection = document.getElementById('quizSection');
+            quizSection.style.display = 'block';
+            currentQuestionIndex = 0;
+            correctAnswers = 0;
+            
+            // Scroll to quiz section
+            quizSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            const question = quizQuestions[currentQuestionIndex];
+            document.getElementById('quizQuestion').textContent = `Question ${currentQuestionIndex + 1}: ${question.question}`;
+            
+            const optionsContainer = document.getElementById('quizOptions');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => selectAnswer(index);
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            document.getElementById('quizFeedback').textContent = '';
+            document.getElementById('nextBtn').style.display = 'none';
+        }
+
+        function selectAnswer(selectedIndex) {
+            const question = quizQuestions[currentQuestionIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            
+            options.forEach((option, index) => {
+                if (index === question.correct) {
+                    option.classList.add('correct');
+                } else if (index === selectedIndex && index !== question.correct) {
+                    option.classList.add('incorrect');
+                }
+                option.onclick = null; // Disable further clicks
+            });
+            
+            const feedback = document.getElementById('quizFeedback');
+            if (selectedIndex === question.correct) {
+                correctAnswers++;
+                feedback.textContent = `Correct! ${question.explanation}`;
+                feedback.style.color = '#4caf50';
+            } else {
+                feedback.textContent = `Incorrect. ${question.explanation}`;
+                feedback.style.color = '#f44336';
+            }
+            
+            document.getElementById('nextBtn').style.display = 'inline-block';
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizQuestions.length) {
+                displayQuestion();
+            } else {
+                showQuizResults();
+            }
+        }
+
+        function showQuizResults() {
+            const percentage = Math.round((correctAnswers / quizQuestions.length) * 100);
+            document.getElementById('quizQuestion').textContent = `Quiz Complete! You scored ${correctAnswers}/${quizQuestions.length} (${percentage}%)`;
+            document.getElementById('quizOptions').innerHTML = '';
+            document.getElementById('quizFeedback').textContent = percentage >= 80 ? 'Excellent work! You have a strong grasp of the material.' : 'Good effort! Review the material and try again to improve your score.';
+            document.getElementById('nextBtn').style.display = 'none';
+            
+            updateProgress(100);
+        }
+
+        function resetProgress() {
+            sectionsRead = 0;
+            updateProgress(0);
+            document.getElementById('studyNotes').value = '';
+            document.getElementById('quizSection').style.display = 'none';
+        }
+
+        function updateProgress(percentage) {
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = percentage + '% Complete';
+        }
+
+        // Track section reading
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.read) {
+                    entry.target.dataset.read = 'true';
+                    sectionsRead++;
+                    const progress = Math.round((sectionsRead / totalSections) * 100);
+                    updateProgress(progress);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        function toggleAccordion(index) {
+            const content = document.getElementById(`accordion-${index}`);
+            const icon = content.previousElementSibling.querySelector('.accordion-icon');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                icon.classList.remove('rotated');
+            } else {
+                content.classList.add('open');
+                icon.classList.add('rotated');
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide back to top button based on scroll position
+        window.addEventListener('scroll', function() {
+            const backToTopBtn = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98fa2731117c4bab',t:'MTc2MDY0NDkzOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
 
