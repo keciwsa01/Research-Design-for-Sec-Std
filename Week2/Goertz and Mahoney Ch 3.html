@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detective vs Scientist: Two Paths to Understanding Causation</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .study-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f39c12;
+            color: white;
+        }
+
+        .btn-accent {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .sidebar {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            background: #f8faff;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .highlight {
+            background: #f1c40f;
+            padding: 2px 4px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .highlight:hover {
+            background: #f39c12;
+            transform: scale(1.05);
+        }
+
+        .character-card {
+            background: linear-gradient(135deg, #e8f4fd 0%, #d6eaf8 100%);
+            border: 2px solid #3498db;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .character-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+        }
+
+        .character-card.detective {
+            background: linear-gradient(135deg, #fdf2e9 0%, #fadbd8 100%);
+            border-color: #e74c3c;
+        }
+
+        .character-card.detective::before {
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+        }
+
+        .character-card h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .approach-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .approach-box {
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .approach-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .causes-of-effects {
+            background: linear-gradient(135deg, #fdf2e9 0%, #fadbd8 100%);
+            border: 2px solid #e74c3c;
+        }
+
+        .effects-of-causes {
+            background: linear-gradient(135deg, #e8f4fd 0%, #d6eaf8 100%);
+            border: 2px solid #3498db;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th {
+            background: #34495e;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8faff;
+        }
+
+        .quiz-section {
+            background: #fff8e1;
+            border: 2px solid #f39c12;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .quiz-question {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #d68910;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .quiz-option {
+            padding: 0.75rem;
+            background: white;
+            border: 2px solid #f7dc6f;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .quiz-option:hover {
+            background: #f7dc6f;
+            transform: translateX(5px);
+        }
+
+        .quiz-option.correct {
+            background: #d5f4e6;
+            border-color: #27ae60;
+        }
+
+        .quiz-option.incorrect {
+            background: #fadbd8;
+            border-color: #e74c3c;
+        }
+
+        .progress-tracker {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .accordion-item {
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background: #f8faff;
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .accordion-header:hover {
+            background: #e8f4fd;
+        }
+
+        .accordion-header span:first-child {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .accordion-icon {
+            font-size: 0.8rem;
+            color: #3498db;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: white;
+        }
+
+        .accordion-content.open {
+            padding: 1.5rem;
+            max-height: 1000px;
+        }
+
+        .accordion-content p {
+            margin-bottom: 1rem;
+        }
+
+        .accordion-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+
+        .vocabulary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .vocab-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .vocab-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .vocab-term {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .vocab-definition {
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .study-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .approach-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🔍 Detective vs 🧪 Scientist</h1>
+            <p>Two Fundamental Paths to Understanding Causation in Social Science</p>
+        </header>
+
+        <div class="study-controls">
+            <button class="btn btn-primary" onclick="toggleHighlights()">Toggle Key Terms</button>
+            <button class="btn btn-secondary" onclick="showQuiz()">Test Knowledge</button>
+            <button class="btn btn-accent" onclick="resetProgress()">Reset Progress</button>
+        </div>
+
+        <div class="content-grid">
+            <main class="main-content">
+                <div class="section">
+                    <h2>🎯 The Great Fork in the Road</h2>
+                    <p>Every time we ask <span class="highlight">"what causes X?"</span> in social science, we're actually standing at a massive fork in the research road. This one tiny word - <span class="highlight">"cause"</span> - can send us down two completely different paths to find answers.</p>
+                    
+                    <div class="approach-comparison">
+                        <div class="approach-box causes-of-effects">
+                            <h3>🔍 Causes-of-Effects</h3>
+                            <p><strong>Start with outcome → Work backward</strong></p>
+                            <p>"What caused global warming?"</p>
+                            <p>Detective's approach: See the crime, find all the clues</p>
+                        </div>
+                        <div class="approach-box effects-of-causes">
+                            <h3>🧪 Effects-of-Causes</h3>
+                            <p><strong>Start with cause → Measure forward</strong></p>
+                            <p>"What effect do carbon emissions have?"</p>
+                            <p>Scientist's approach: Test one factor, measure results</p>
+                        </div>
+                    </div>
+
+                    <p>This distinction is <span class="highlight">the key to understanding</span> the two separate worlds of social science research. It shapes everything - the questions we ask, the methods we use, and the answers we find.</p>
+                </div>
+
+                <div class="section">
+                    <h2>👥 Meet Our Two Characters</h2>
+                    <p>To really understand this split, let's meet two characters who represent these different approaches:</p>
+
+                    <div class="character-card detective">
+                        <h3>🔍 The Detective</h3>
+                        <p><strong>Shows up after something happened</strong></p>
+                        <ul>
+                            <li>Sees the outcome (the "crime scene")</li>
+                            <li>Works backward through all the clues</li>
+                            <li>Looks for the <em>entire web of causes</em></li>
+                            <li>Goal: Full explanation of a specific event</li>
+                            <li>Example: "What caused the French Revolution?"</li>
+                        </ul>
+                    </div>
+
+                    <div class="character-card">
+                        <h3>🧪 The Scientist</h3>
+                        <p><strong>Picks one cause and tests it</strong></p>
+                        <ul>
+                            <li>Chooses one potential cause (X)</li>
+                            <li>Measures what happens to outcome (Y)</li>
+                            <li>Looks for <em>average effects across populations</em></li>
+                            <li>Goal: General rule that applies broadly</li>
+                            <li>Example: "How does economic growth affect democracy?"</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🎯 The Fundamental Choice</h2>
+                    <p>This choice between detective and scientist approaches forces a crucial decision:</p>
+                    
+                    <div class="character-card">
+                        <h3>🔍 Individual Cases vs 🧪 Population Averages</h3>
+                        <p>Do you focus on explaining <strong>individual situations in incredible depth</strong>, or do you focus on finding the <strong>average trend across a whole population</strong>?</p>
+                    </div>
+
+                    <p>Famous statistician <span class="highlight">Paul Holland</span> called this an <strong>"unbridgeable gulf."</strong> For decades, detectives and scientists worked in different buildings, speaking completely different languages.</p>
+
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>🔍 Detective (Qualitative)</th>
+                                <th>🧪 Scientist (Quantitative)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Focus</strong></td>
+                                <td>Deep dive into one case</td>
+                                <td>Patterns across populations</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Goal</strong></td>
+                                <td>Complete, rich explanation</td>
+                                <td>Average effect estimation</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Success Metric</strong></td>
+                                <td>Theory explains every single case</td>
+                                <td>Statistically significant average effect</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Failure</strong></td>
+                                <td>Theory fails on even one case</td>
+                                <td>No significant average effect found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section">
+                    <h2>🧠 Different Worldviews</h2>
+                    <p>Their entire worldview is different, right down to the kind of questions they're interested in asking:</p>
+
+                    <div class="character-card detective">
+                        <h3>🔍 Detective's Mantra</h3>
+                        <p><strong>"Your theory must explain EVERY SINGLE case, period."</strong></p>
+                        <p>If you have a theory about revolutions, it must work for France, Russia, China, AND Cuba. If it fails on even one case, back to the drawing board!</p>
+                    </div>
+
+                    <div class="character-card">
+                        <h3>🧪 Scientist's Focus</h3>
+                        <p><strong>"Population average is the goal."</strong></p>
+                        <p>Finding that a policy reduces unemployment <em>on average</em> is huge success - even if it didn't work in one specific city. Explaining outliers isn't the main goal.</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🛠️ Different Toolkits</h2>
+                    <p>With such different goals, they naturally use completely different toolkits:</p>
+
+                    <div class="character-card">
+                        <h3>🧪 The Scientist's Kingdom</h3>
+                        <p>In most fields today, <span class="highlight">the scientist is king</span>. The effects-of-causes approach dominates, with the <strong>controlled experiment</strong> as the gold standard.</p>
+                        <ul>
+                            <li>Goal: Create sterile, lab-like environment</li>
+                            <li>Isolate effect of <em>one thing only</em></li>
+                            <li>Use control variables to "cancel out" other causes</li>
+                            <li>Get clean, uncontaminated estimate</li>
+                        </ul>
+                    </div>
+
+                    <div class="character-card detective">
+                        <h3>🔍 The Historical Shift</h3>
+                        <p><strong>Plot twist:</strong> It wasn't always like this! Scientists used to act more like detectives, trying to explain as much of the outcome as possible.</p>
+                        <p>Now? Only <span class="highlight">6% of quantitative articles</span> even mention how much their model explains. That's a massive priority shift!</p>
+                    </div>
+
+                    <p>As influential political scientist <span class="highlight">Gary King</span> put it: "The point isn't to explain everything. It's to do one thing really, really well: estimate the effect of a single cause."</p>
+                </div>
+
+                <div class="section">
+                    <h2>🌉 Building Bridges: Mixed Methods</h2>
+                    <p>What if that "unbridgeable gulf" is actually a bridge? What if detective and scientist aren't rivals, but <span class="highlight">partners</span>?</p>
+
+                    <div class="character-card">
+                        <h3>🔄 The Powerful Feedback Loop</h3>
+                        <ol>
+                            <li><strong>Detective</strong> studies political turmoil in one country → develops fascinating theory</li>
+                            <li><strong>Scientist</strong> tests that theory across 100 countries → finds patterns</li>
+                            <li><strong>Detective</strong> uses those results to understand another specific country better</li>
+                        </ol>
+                        <p>This continuous cycle is called <span class="highlight">mixed-methods research</span> - bringing detective and scientist into the same room to work together!</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>📚 Key Vocabulary</h2>
+                    <div class="vocabulary-grid">
+                        <div class="vocab-card">
+                            <div class="vocab-term">Causes-of-Effects (CoE)</div>
+                            <div class="vocab-definition">Starting from an observed outcome and seeking its causes</div>
+                        </div>
+                        <div class="vocab-card">
+                            <div class="vocab-term">Effects-of-Causes (EoC)</div>
+                            <div class="vocab-definition">Starting from a hypothesized cause and measuring its average effect</div>
+                        </div>
+                        <div class="vocab-card">
+                            <div class="vocab-term">Average Treatment Effect (ATE)</div>
+                            <div class="vocab-definition">Average difference in outcomes between treated and control groups</div>
+                        </div>
+                        <div class="vocab-card">
+                            <div class="vocab-term">Within-case Analysis</div>
+                            <div class="vocab-definition">Deep examination of causal processes inside a single case</div>
+                        </div>
+                        <div class="vocab-card">
+                            <div class="vocab-term">Cross-case Analysis</div>
+                            <div class="vocab-definition">Comparing multiple cases statistically to identify patterns</div>
+                        </div>
+                        <div class="vocab-card">
+                            <div class="vocab-term">Mixed-Methods Research</div>
+                            <div class="vocab-definition">Combining qualitative and quantitative approaches</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>💡 Your New Superpower</h2>
+                    <p>Next time you see a headline about research, ask yourself this <span class="highlight">one simple question</span>:</p>
+                    
+                    <div class="character-card">
+                        <h3>🤔 The Critical Question</h3>
+                        <p><strong>"Is this a detective trying to explain one complex event in full, or a scientist trying to isolate one single cause?"</strong></p>
+                        <p>Just by asking this question, you'll be a much more informed, critical consumer of information!</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>📝 Study Questions</h2>
+                    <p>Test your understanding with these questions. Click to reveal the answers:</p>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(0)">
+                            <span>1) What's the fundamental difference between causes-of-effects and effects-of-causes approaches?</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content" id="accordion-0">
+                            <p><strong>Causes-of-Effects (Detective approach):</strong> Starts with an outcome that already happened and works backward to find all the factors that caused it. Like a detective arriving at a crime scene and piecing together what led to the event.</p>
+                            
+                            <p><strong>Effects-of-Causes (Scientist approach):</strong> Starts with one potential cause and moves forward to measure its impact on outcomes. Like a scientist testing one variable in a controlled experiment.</p>
+                            
+                            <p>The key difference is <strong>direction</strong>: backward from outcome to causes vs. forward from cause to effects. This seemingly small distinction creates entirely different research cultures with different goals, methods, and standards of success.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(1)">
+                            <span>2) How do the detective and scientist approaches define "success" differently?</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content" id="accordion-1">
+                            <p><strong>Detective's Success:</strong> A theory must explain <em>every single case</em> perfectly. If your revolution theory works for France, Russia, and China but fails to explain Cuba, you must go back to the drawing board. No exceptions allowed.</p>
+                            
+                            <p><strong>Scientist's Success:</strong> Finding a statistically significant <em>average effect</em> across a population. If a policy reduces unemployment on average, that's a major success - even if it didn't work in some specific cities or states. Individual outliers don't invalidate the finding.</p>
+                            
+                            <p>This creates an "unbridgeable gulf" in standards: detectives demand perfection across all cases, while scientists celebrate population-level patterns despite individual exceptions.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(2)">
+                            <span>3) How has quantitative research changed historically, and what does this reveal about priorities?</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content" id="accordion-2">
+                            <p><strong>Historical Shift:</strong> Quantitative researchers used to act more like detectives, trying to build statistical models that explained as much of the outcome as possible (maximizing R² or variance explained).</p>
+                            
+                            <p><strong>Modern Approach:</strong> Now the focus has shifted dramatically to isolating the effect of <em>one single cause</em>. Only 6% of quantitative articles even bother mentioning how much of the outcome their model explains - a massive change in priorities.</p>
+                            
+                            <p><strong>What This Reveals:</strong> As Gary King noted, the goal isn't to explain everything anymore - it's to "do one thing really, really well: estimate the effect of a single cause." Control variables aren't there to help explain the outcome; they're there to statistically cancel out other potential causes to get a clean estimate of the one effect researchers care about.</p>
+                            
+                            <p>This shift shows how the scientist approach has become dominant, prioritizing causal isolation over comprehensive explanation.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(3)">
+                            <span>4) How can mixed-methods research bridge the detective-scientist divide?</span>
+                            <span class="accordion-icon">▼</span>
+                        </div>
+                        <div class="accordion-content" id="accordion-3">
+                            <p><strong>The Feedback Loop:</strong> Instead of seeing detective and scientist as rivals, mixed-methods treats them as partners in a continuous cycle:</p>
+                            
+                            <ol>
+                                <li><strong>Detective phase:</strong> Deep study of one case (like political turmoil in a specific country) generates new theories and insights about causal mechanisms</li>
+                                <li><strong>Scientist phase:</strong> Those theories get tested across many cases (like 100 countries) to see if patterns hold generally</li>
+                                <li><strong>Back to detective:</strong> The population-level findings inform understanding of new specific cases</li>
+                            </ol>
+                            
+                            <p><strong>Complementary Strengths:</strong> Qualitative insights can suggest hypotheses and causal mechanisms for quantitative testing, while quantitative findings can guide case selection and verify patterns in specific contexts.</p>
+                            
+                            <p>This approach recognizes that our complex world is best understood by bringing both perspectives into the same room, leveraging the unique strengths each brings to understanding causation.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-section" id="quizSection" style="display: none;">
+                    <div class="quiz-question" id="quizQuestion"></div>
+                    <div class="quiz-options" id="quizOptions"></div>
+                    <div id="quizFeedback" style="margin-top: 1rem; font-weight: 600;"></div>
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn" style="margin-top: 1rem; display: none;">Next Question</button>
+                </div>
+            </main>
+
+            <aside class="sidebar">
+                <div class="progress-tracker">
+                    <h3>Study Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p id="progressText">0% Complete</p>
+                </div>
+
+                <div>
+                    <h3>Key Scholars</h3>
+                    <ul>
+                        <li><strong>Paul Holland:</strong> "Unbridgeable gulf" concept</li>
+                        <li><strong>Gary King:</strong> Modern causal inference advocate</li>
+                        <li><strong>Theda Skocpol:</strong> Revolutionary case studies</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Quick Reference</h3>
+                    <ul>
+                        <li><strong>CoE:</strong> Outcome → Causes (Detective)</li>
+                        <li><strong>EoC:</strong> Cause → Effects (Scientist)</li>
+                        <li><strong>ATE:</strong> Average Treatment Effect</li>
+                        <li><strong>Within-case:</strong> Deep single case analysis</li>
+                        <li><strong>Cross-case:</strong> Population patterns</li>
+                        <li><strong>Mixed-methods:</strong> Combining both approaches</li>
+                        <li><strong>R²:</strong> Variance explained (old priority)</li>
+                        <li><strong>Control variables:</strong> Cancel out other causes</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+
+        <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="Back to top">
+            ↑
+        </button>
+    </div>
+
+    <script>
+        let highlightsVisible = true;
+        let currentQuestionIndex = 0;
+        let correctAnswers = 0;
+        let sectionsRead = 0;
+        const totalSections = 9;
+
+        const allQuizQuestions = [
+            {
+                question: "What is the fundamental difference between causes-of-effects and effects-of-causes approaches?",
+                options: ["One uses numbers, the other uses words", "One works backward from outcomes, the other forward from causes", "One is better than the other", "One is newer than the other"],
+                correct: 1,
+                explanation: "Causes-of-effects works backward from an outcome to find causes (detective), while effects-of-causes works forward from a cause to measure effects (scientist)."
+            },
+            {
+                question: "What does the 'detective' approach prioritize?",
+                options: ["Statistical significance", "Complete explanation of individual cases", "Large sample sizes", "Control variables"],
+                correct: 1,
+                explanation: "The detective approach focuses on providing a complete, comprehensive explanation for specific individual cases or events."
+            },
+            {
+                question: "What does the 'scientist' approach prioritize?",
+                options: ["Explaining every single case perfectly", "Finding average effects across populations", "Historical analysis", "Case studies"],
+                correct: 1,
+                explanation: "The scientist approach focuses on finding average treatment effects across populations, not explaining individual cases."
+            },
+            {
+                question: "According to Paul Holland, what exists between these two approaches?",
+                options: ["A small disagreement", "An unbridgeable gulf", "Perfect harmony", "A simple misunderstanding"],
+                correct: 1,
+                explanation: "Paul Holland famously called the divide between these approaches an 'unbridgeable gulf' - though mixed methods can bridge it."
+            },
+            {
+                question: "How has quantitative research changed historically?",
+                options: ["It's stayed exactly the same", "It now focuses more on explaining variance (R²)", "It shifted from explaining outcomes to isolating single causes", "It became less mathematical"],
+                correct: 2,
+                explanation: "Quantitative research shifted from trying to explain as much variance as possible to focusing on isolating the effect of single causes."
+            },
+            {
+                question: "What percentage of modern quantitative articles mention how much their model explains?",
+                options: ["50%", "25%", "Only 6%", "90%"],
+                correct: 2,
+                explanation: "Only 6% of quantitative articles now mention how much of the outcome their model explains - showing the shift in priorities."
+            },
+            {
+                question: "What is the main purpose of control variables in modern quantitative research?",
+                options: ["To help explain the outcome", "To make the study more complex", "To cancel out other causes for a clean estimate", "To increase sample size"],
+                correct: 2,
+                explanation: "Control variables are used to statistically cancel out other potential causes, allowing researchers to isolate the effect of their main variable of interest."
+            },
+            {
+                question: "What is mixed-methods research?",
+                options: ["Using only quantitative methods", "Using only qualitative methods", "Combining detective and scientist approaches", "A type of statistical analysis"],
+                correct: 2,
+                explanation: "Mixed-methods research combines both qualitative (detective) and quantitative (scientist) approaches to leverage their complementary strengths."
+            },
+            {
+                question: "What question should you ask when evaluating research claims?",
+                options: ["Is this study expensive?", "Is this a detective explaining one event or scientist isolating one cause?", "How many people were surveyed?", "What journal was this published in?"],
+                correct: 1,
+                explanation: "Asking whether research is taking a detective (explaining one event) or scientist (isolating one cause) approach helps you critically evaluate claims."
+            },
+            {
+                question: "What would make a detective's theory fail?",
+                options: ["Low statistical significance", "Small sample size", "Failing to explain even one case", "Not using control variables"],
+                correct: 2,
+                explanation: "For the detective approach, a theory must explain every single case - if it fails on even one case, it's back to the drawing board."
+            }
+        ];
+
+        let quizQuestions = [];
+
+        function toggleHighlights() {
+            const highlights = document.querySelectorAll('.highlight');
+            highlightsVisible = !highlightsVisible;
+            
+            highlights.forEach(highlight => {
+                highlight.style.background = highlightsVisible ? '#f1c40f' : 'transparent';
+            });
+        }
+
+        function showQuiz() {
+            // Select 5 random questions
+            const shuffled = [...allQuizQuestions].sort(() => 0.5 - Math.random());
+            quizQuestions = shuffled.slice(0, 5);
+            
+            const quizSection = document.getElementById('quizSection');
+            quizSection.style.display = 'block';
+            currentQuestionIndex = 0;
+            correctAnswers = 0;
+            
+            // Scroll to quiz section
+            quizSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            const question = quizQuestions[currentQuestionIndex];
+            document.getElementById('quizQuestion').textContent = `Question ${currentQuestionIndex + 1}: ${question.question}`;
+            
+            const optionsContainer = document.getElementById('quizOptions');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => selectAnswer(index);
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            document.getElementById('quizFeedback').textContent = '';
+            document.getElementById('nextBtn').style.display = 'none';
+        }
+
+        function selectAnswer(selectedIndex) {
+            const question = quizQuestions[currentQuestionIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            
+            options.forEach((option, index) => {
+                if (index === question.correct) {
+                    option.classList.add('correct');
+                } else if (index === selectedIndex && index !== question.correct) {
+                    option.classList.add('incorrect');
+                }
+                option.onclick = null; // Disable further clicks
+            });
+            
+            const feedback = document.getElementById('quizFeedback');
+            if (selectedIndex === question.correct) {
+                correctAnswers++;
+                feedback.textContent = `Correct! ${question.explanation}`;
+                feedback.style.color = '#27ae60';
+            } else {
+                feedback.textContent = `Incorrect. ${question.explanation}`;
+                feedback.style.color = '#e74c3c';
+            }
+            
+            document.getElementById('nextBtn').style.display = 'inline-block';
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizQuestions.length) {
+                displayQuestion();
+            } else {
+                showQuizResults();
+            }
+        }
+
+        function showQuizResults() {
+            const percentage = Math.round((correctAnswers / quizQuestions.length) * 100);
+            document.getElementById('quizQuestion').textContent = `Quiz Complete! You scored ${correctAnswers}/${quizQuestions.length} (${percentage}%)`;
+            document.getElementById('quizOptions').innerHTML = '';
+            document.getElementById('quizFeedback').textContent = percentage >= 80 ? 'Excellent work! You understand the detective vs scientist distinction!' : 'Good effort! Review the material to better understand the two approaches.';
+            document.getElementById('nextBtn').style.display = 'none';
+            
+            updateProgress(100);
+        }
+
+        function resetProgress() {
+            sectionsRead = 0;
+            updateProgress(0);
+            document.getElementById('quizSection').style.display = 'none';
+        }
+
+        function updateProgress(percentage) {
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = percentage + '% Complete';
+        }
+
+        // Track section reading
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.read) {
+                    entry.target.dataset.read = 'true';
+                    sectionsRead++;
+                    const progress = Math.round((sectionsRead / totalSections) * 100);
+                    updateProgress(progress);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        function toggleAccordion(index) {
+            const content = document.getElementById(`accordion-${index}`);
+            const icon = content.previousElementSibling.querySelector('.accordion-icon');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                icon.classList.remove('rotated');
+            } else {
+                content.classList.add('open');
+                icon.classList.add('rotated');
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide back to top button based on scroll position
+        window.addEventListener('scroll', function() {
+            const backToTopBtn = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98ffd9c100e4bd21',t:'MTc2MDcwNDY4MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
