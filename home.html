@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Science Research Methods - Course Hub</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .course-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow: hidden;
+            min-height: 600px;
+        }
+
+        .sidebar {
+            background: #f8f9fa;
+            padding: 0;
+            border-right: 1px solid #dee2e6;
+        }
+
+        .week-tab {
+            display: block;
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: none;
+            background: transparent;
+            text-align: left;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #495057;
+            border-bottom: 1px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
+
+        .week-tab:hover {
+            background: #e9ecef;
+            color: #2c3e50;
+        }
+
+        .week-tab.active {
+            background: #3498db;
+            color: white;
+            border-left: 4px solid #2980b9;
+        }
+
+        .main-content {
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .week-content {
+            display: none;
+        }
+
+        .week-content.active {
+            display: block;
+        }
+
+        .week-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .week-header h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .week-header .week-number {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            font-weight: normal;
+        }
+
+        .reading-item {
+            margin-bottom: 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .reading-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .reading-header:hover {
+            background: #e9ecef;
+        }
+
+        .reading-title {
+            flex: 1;
+            margin-right: 1rem;
+        }
+
+        .reading-title h3 {
+            margin: 0 0 0.25rem 0;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        .reading-title .author {
+            color: #6c757d;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .study-guide-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 1rem;
+        }
+
+        .study-guide-btn {
+            background: #27ae60;
+            color: white;
+        }
+
+        .study-guide-btn:hover {
+            background: #229954;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .accordion-icon {
+            font-size: 0.8rem;
+            color: #6c757d;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        .reading-details {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: white;
+        }
+
+        .reading-details.open {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+
+        .reading-details ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .reading-details li {
+            margin-bottom: 0.5rem;
+            color: #495057;
+        }
+
+        .chapter-info {
+            background: #f8f9ff;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            border-left: 3px solid #3498db;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .chapter-info h4 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+
+        .chapter-info p {
+            margin: 0;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .chapter-study-btn {
+            padding: 0.3rem 0.8rem;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.75rem;
+            background: #27ae60;
+            color: white;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .chapter-study-btn:hover {
+            background: #229954;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .ai-notice {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .course-layout {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr;
+            }
+            
+            .sidebar {
+                display: flex;
+                overflow-x: auto;
+                border-right: none;
+                border-bottom: 1px solid #dee2e6;
+            }
+            
+            .week-tab {
+                white-space: nowrap;
+                border-bottom: none;
+                border-right: 1px solid #dee2e6;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .reading-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📚 Social Science Research Methods</h1>
+            <p>Course Hub - Navigate Your Learning Journey</p>
+        </header>
+
+        <div class="course-layout">
+            <nav class="sidebar">
+                <button class="week-tab active" onclick="showWeek(2)">Week 2</button>
+                <button class="week-tab" onclick="showWeek(3)">Week 3</button>
+                <button class="week-tab" onclick="showWeek(4)">Week 4</button>
+                <button class="week-tab" onclick="showWeek(5)">Week 5</button>
+                <button class="week-tab" onclick="showWeek(6)">Week 6</button>
+                <button class="week-tab" onclick="showWeek(7)">Week 7</button>
+                <button class="week-tab" onclick="showWeek(8)">Week 8</button>
+                <button class="week-tab" onclick="showWeek(9)">Week 9</button>
+            </nav>
+
+            <main class="main-content">
+                <!-- Week 2 Content -->
+                <div class="week-content active" id="week-2">
+                    <div class="week-header">
+                        <h2>Ontology, Epistemology, and Research Questions</h2>
+                        <p class="week-number">Week 2</p>
+                    </div>
+
+                    <div class="reading-item">
+                        <div class="reading-header" onclick="toggleReading('reading-2-1')">
+                            <div class="reading-title">
+                                <h3>Designing Social Inquiry: Scientific Inference in Qualitative Research</h3>
+                                <p class="author">King, Gary, Robert O. Keohane, and Sidney Verba (1994)</p>
+                            </div>
+                            <a href="#" class="study-guide-btn">Study Guide - Coming Soon</a>
+                            <span class="accordion-icon" id="icon-reading-2-1">▼</span>
+                        </div>
+                        <div class="reading-details" id="reading-2-1">
+                            <div class="chapter-info">
+                                <div class="chapter-header">
+                                    <h4>Chapter 1: The Science in Social Science</h4>
+                                    <a href="#" class="chapter-study-btn">Study Guide - Coming Soon</a>
+                                </div>
+                                <p>Pages 1–33</p>
+                            </div>
+                            <ul>
+                                <li>Introduction to scientific inference in social research</li>
+                                <li>The relationship between qualitative and quantitative methods</li>
+                                <li>Fundamental principles of social science research</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="reading-item">
+                        <div class="reading-header" onclick="toggleReading('reading-2-2')">
+                            <div class="reading-title">
+                                <h3>A Tale of Two Cultures: Qualitative and Quantitative Research</h3>
+                                <p class="author">Goertz, Gary and James Mahoney (2012)</p>
+                            </div>
+                            <a href="#" class="study-guide-btn">Study Guide</a>
+                            <span class="accordion-icon" id="icon-reading-2-2">▼</span>
+                        </div>
+                        <div class="reading-details" id="reading-2-2">
+                            <div class="chapter-info">
+                                <div class="chapter-header">
+                                    <h4>Chapter 1: Introduction</h4>
+                                    <a href="/Week2/Goertz and Mahoney Ch 1.html" class="chapter-study-btn">Study Guide</a>
+                                </div>
+                                <p>Foundational concepts and framework</p>
+                            </div>
+                            <div class="chapter-info">
+                                <div class="chapter-header">
+                                    <h4>Chapter 3: Cause-of-Effects versus Effects-of-Causes</h4>
+                                    <a href="/Week2/Goertz and Mahoney Ch 3.html" class="chapter-study-btn">Study Guide - Coming Soon</a>
+                                </div>
+                                <p>The fundamental methodological divide</p>
+                            </div>
+                            <ul>
+                                <li>The two cultures framework in social science</li>
+                                <li>Detective vs Scientist approaches to causation</li>
+                                <li>Causes-of-effects vs effects-of-causes methodologies</li>
+                                <li>Mixed-methods research possibilities</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="reading-item">
+                        <div class="reading-header" onclick="toggleReading('reading-2-3')">
+                            <div class="reading-title">
+                                <h3>Toward a Scientific Understanding of International Conflict</h3>
+                                <p class="author">Bueno de Mesquita, Bruce (1985)</p>
+                            </div>
+                            <a href="#" class="study-guide-btn">Study Guide - Coming Soon</a>
+                            <span class="accordion-icon" id="icon-reading-2-3">▼</span>
+                        </div>
+                        <div class="reading-details" id="reading-2-3">
+                            <ul>
+                                <li>International Studies Quarterly, 29(2): 121–136</li>
+                                <li>Personal perspective on scientific approaches to conflict</li>
+                                <li>Methodological considerations in international relations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 3 Content -->
+                <div class="week-content" id="week-3">
+                    <div class="week-header">
+                        <h2>Causal Inference</h2>
+                        <p class="week-number">Week 3</p>
+                    </div>
+
+                    <div class="reading-item">
+                        <div class="reading-header" onclick="toggleReading('reading-3-1')">
+                            <div class="reading-title">
+                                <h3>Beginning Research in Political Science</h3>
+                                <p class="author">Forestiere, Carolyn (2017)</p>
+                            </div>
+                            <a href="#" class="study-guide-btn">Study Guide - Coming Soon</a>
+                            <span class="accordion-icon" id="icon-reading-3-1">▼</span>
+                        </div>
+                        <div class="reading-details" id="reading-3-1">
+                            <div class="chapter-info">
+                                <div class="chapter-header">
+                                    <h4>Chapter 4: Theory and Hypotheses</h4>
+                                    <a href="#" class="chapter-study-btn">Study Guide - Coming Soon</a>
+                                </div>
+                                <p>Pages 75–96</p>
+                            </div>
+                            <ul>
+                                <li>Building theoretical frameworks</li>
+                                <li>Developing testable hypotheses</li>
+                                <li>Connecting theory to empirical research</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="reading-item">
+                        <div class="reading-header" onclick="toggleReading('reading-3-2')">
+                            <div class="reading-title">
+                                <h3>Designing Social Inquiry: Causality and Causal Inference</h3>
+                                <p class="author">King, Gary, Robert O. Keohane, and Sidney Verba (1994)</p>
+                            </div>
+                            <a href="#" class="study-guide-btn">Study Guide - Coming Soon</a>
+                            <span class="accordion-icon" id="icon-reading-3-2">▼</span>
+                        </div>
+                        <div class="reading-details" id="reading-3-2">
+                            <div class="chapter-info">
+                                <div class="chapter-header">
+                                    <h4>Chapter 3: Causality and Causal Inference</h4>
+                                    <a href="#" class="chapter-study-btn">Study Guide - Coming Soon</a>
+                                </div>
+                                <p>Pages 75–112</p>
+                            </div>
+                            <ul>
+                                <li>Fundamental problems of causal inference</li>
+                                <li>Counterfactual reasoning</li>
+                                <li>Establishing causal relationships</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="reading-item">
+                        <div class="reading-header" onclick="toggleReading('reading-3-3')">
+                            <div class="reading-title">
+                                <h3>Counterfactuals and Hypothesis Testing in Political Science</h3>
+                                <p class="author">Fearon, James D. (1991)</p>
+                            </div>
+                            <a href="#" class="study-guide-btn">Study Guide - Coming Soon</a>
+                            <span class="accordion-icon" id="icon-reading-3-3">▼</span>
+                        </div>
+                        <div class="reading-details" id="reading-3-3">
+                            <ul>
+                                <li>World Politics, 43(2): 169–195</li>
+                                <li>Role of counterfactual reasoning</li>
+                                <li>Testing hypotheses with counterfactuals</li>
+                                <li>Applications in political science research</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 4 Content -->
+                <div class="week-content" id="week-4">
+                    <div class="week-header">
+                        <h2>Research Design</h2>
+                        <p class="week-number">Week 4</p>
+                    </div>
+
+                    <div class="reading-item">
+                        <div class="reading-header" onclick="toggleReading('reading-4-1')">
+                            <div class="reading-title">
+                                <h3>Beginning Research in Political Science</h3>
+                                <p class="author">Forestiere, Carolyn (2017)</p>
+                            </div>
+                            <a href="#" class="study-guide-btn">Study Guide - Coming Soon</a>
+                            <span class="accordion-icon" id="icon-reading-4-1">▼</span>
+                        </div>
+                        <div class="reading-details" id="reading-4-1">
+                            <div class="chapter-info">
+                                <div class="chapter-header">
+                                    <h4>Chapter 5: Research Design</h4>
+                                    <a href="#" class="chapter-study-btn">Study Guide - Coming Soon</a>
+                                </div>
+                                <p>Pages 97–126</p>
+                            </div>
+                            <ul>
+                                <li>Fundamentals of research design</li>
+                                <li>Choosing appropriate methodologies</li>
+                                <li>Balancing internal and external validity</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="reading-item">
+                        <div class="reading-header" onclick="toggleReading('reading-4-2')">
+                            <div class="reading-title">
+                                <h3>A Tale of Two Cultures: Case Selection and Generalizations</h3>
+                                <p class="author">Goertz, Gary and James Mahoney (2012)</p>
+                            </div>
+                            <a href="#" class="study-guide-btn">Study Guide - Coming Soon</a>
+                            <span class="accordion-icon" id="icon-reading-4-2">▼</span>
+                        </div>
+                        <div class="reading-details" id="reading-4-2">
+                            <div class="chapter-info">
+                                <div class="chapter-header">
+                                    <h4>Chapter 14: Case Selection and Hypothesis Testing</h4>
+                                    <a href="#" class="chapter-study-btn">Study Guide - Coming Soon</a>
+                                </div>
+                                <p>Strategic approaches to case selection</p>
+                            </div>
+                            <div class="chapter-info">
+                                <div class="chapter-header">
+                                    <h4>Chapter 15: Generalizations</h4>
+                                    <a href="#" class="chapter-study-btn">Study Guide - Coming Soon</a>
+                                </div>
+                                <p>Pages 177–204</p>
+                            </div>
+                            <ul>
+                                <li>Logic of case selection in qualitative research</li>
+                                <li>Testing hypotheses through case studies</li>
+                                <li>Making generalizations from qualitative evidence</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="reading-item">
+                        <div class="reading-header" onclick="toggleReading('reading-4-3')">
+                            <div class="reading-title">
+                                <h3>Publication, Publication</h3>
+                                <p class="author">King, Gary (2006)</p>
+                            </div>
+                            <a href="#" class="study-guide-btn">Study Guide - Coming Soon</a>
+                            <span class="accordion-icon" id="icon-reading-4-3">▼</span>
+                        </div>
+                        <div class="reading-details" id="reading-4-3">
+                            <ul>
+                                <li>PS: Political Science & Politics, 39(1): 119–125</li>
+                                <li>Academic publishing strategies</li>
+                                <li>Making research accessible and impactful</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 5 Content -->
+                <div class="week-content" id="week-5">
+                    <div class="week-header">
+                        <h2>Conceptualization, Measurement, and Descriptive Statistics</h2>
+                        <p class="week-number">Week 5</p>
+                    </div>
+
+                    <div class="reading-item">
+                        <div class="reading-header" onclick="toggleReading('reading-5-1')">
+                            <div class="reading-title">
+                                <h3>Conceptual "Stretching" Revisited</h3>
+                                <p class="author">Collier, David, and James E. Mahon Jr. (1993)</p>
+                            </div>
+                            <a href="#" class="study-guide-btn">Study Guide - Coming Soon</a>
+                            <span class="accordion-icon" id="icon-reading-5-1">▼</span>
+                        </div>
+                        <div class="reading-details" id="reading-5-1">
+                            <ul>
+                                <li>American Political Science Review, 87(4): 845–855</li>
+                                <li>Adapting categories in comparative analysis</li>
+                                <li>Balancing conceptual precision and scope</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="reading-item">
+                        <div class="reading-header" onclick="toggleReading('reading-5-2')">
+                            <div class="reading-title">
+                                <h3>Measurement Validity: A Shared Standard</h3>
+                                <p class="author">Adcock, Robert, and David Collier (2001)</p>
+                            </div>
+                            <a href="#" class="study-guide-btn">Study Guide - Coming Soon</a>
+                            <span class="accordion-icon" id="icon-reading-5-2">▼</span>
+                        </div>
+                        <div class="reading-details" id="reading-5-2">
+                            <ul>
+                                <li>American Political Science Review, 95(3): 529–546</li>
+                                <li>Shared standards for qualitative and quantitative research</li>
+                                <li>Ensuring valid measurement across methodologies</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 6 Content -->
+                <div class="week-content" id="week-6">
+                    <div class="week-header">
+                        <h2>Bivariate and Multivariate Regression</h2>
+                        <p class="week-number">Week 6</p>
+                    </div>
+
+                    <div class="reading-item">
+                        <div class="reading-header" onclick="toggleReading('reading-6-1')">
+                            <div class="reading-title">
+                                <h3>Beginning Research in Political Science</h3>
+                                <p class="author">Forestiere, Carolyn (2017)</p>
+                            </div>
+                            <a href="#" class="study-guide-btn">Study Guide - Coming Soon</a>
+                            <span class="accordion-icon" id="icon-reading-6-1">▼</span>
+                        </div>
+                        <div class="reading-details" id="reading-6-1">
+                            <div class="chapter-info">
+                                <div class="chapter-header">
+                                    <h4>Chapters 8 and 9</h4>
+                                    <a href="#" class="chapter-study-btn">Study Guide - Coming Soon</a>
+                                </div>
+                                <p>Statistical analysis fundamentals</p>
+                            </div>
+                            <ul>
+                                <li>Bivariate regression analysis</li>
+                                <li>Multivariate regression techniques</li>
+                                <li>Interpreting statistical results</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="reading-item">
+                        <div class="reading-header" onclick="toggleReading('reading-6-2')">
+                            <div class="reading-title">
+                                <h3>Regression Models for Categorical and Limited Dependent Variables</h3>
+                                <p class="author">Long, J. Scott (1997)</p>
+                            </div>
+                            <a href="#" class="study-guide-btn">Study Guide - Coming Soon</a>
+                            <span class="accordion-icon" id="icon-reading-6-2">▼</span>
+                        </div>
+                        <div class="reading-details" id="reading-6-2">
+                            <ul>
+                                <li>Sage Publications</li>
+                                <li>Advanced regression techniques</li>
+                                <li>Handling categorical outcomes</li>
+                                <li>Limited dependent variable models</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 7 Content -->
+                <div class="week-content" id="week-7">
+                    <div class="week-header">
+                        <h2>Maximum Likelihood Estimation</h2>
+                        <p class="week-number">Week 7</p>
+                    </div>
+
+                    <div class="reading-item">
+                        <div class="reading-header" onclick="toggleReading('reading-7-1')">
+                            <div class="reading-title">
+                                <h3>Regression Models for Categorical and Limited Dependent Variables</h3>
+                                <p class="author">Long, J. Scott (1997)</p>
+                            </div>
+                            <a href="#" class="study-guide-btn">Study Guide - Coming Soon</a>
+                            <span class="accordion-icon" id="icon-reading-7-1">▼</span>
+                        </div>
+                        <div class="reading-details" id="reading-7-1">
+                            <ul>
+                                <li>Sage Publications</li>
+                                <li>Maximum likelihood estimation principles</li>
+                                <li>Advanced statistical modeling</li>
+                                <li>Model specification and testing</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 8 Content -->
+                <div class="week-content" id="week-8">
+                    <div class="week-header">
+                        <h2>Qualitative Methods: Case Studies</h2>
+                        <p class="week-number">Week 8</p>
+                    </div>
+
+                    <div class="reading-item">
+                        <div class="reading-header" onclick="toggleReading('reading-8-1')">
+                            <div class="reading-title">
+                                <h3>What Is a Case Study and What Is It Good For?</h3>
+                                <p class="author">Gerring, John (2004)</p>
+                            </div>
+                            <a href="#" class="study-guide-btn">Study Guide - Coming Soon</a>
+                            <span class="accordion-icon" id="icon-reading-8-1">▼</span>
+                        </div>
+                        <div class="reading-details" id="reading-8-1">
+                            <ul>
+                                <li>American Political Science Review, 98(2): 341–354</li>
+                                <li>Defining case study methodology</li>
+                                <li>Strengths and limitations of case studies</li>
+                                <li>When to use case study approaches</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="reading-item">
+                        <div class="reading-header" onclick="toggleReading('reading-8-2')">
+                            <div class="reading-title">
+                                <h3>The Possibility Principle: Choosing Negative Cases</h3>
+                                <p class="author">Mahoney, James, and Gary Goertz (2004)</p>
+                            </div>
+                            <a href="#" class="study-guide-btn">Study Guide - Coming Soon</a>
+                            <span class="accordion-icon" id="icon-reading-8-2">▼</span>
+                        </div>
+                        <div class="reading-details" id="reading-8-2">
+                            <ul>
+                                <li>American Political Science Review, 98(4): 653–669</li>
+                                <li>Strategic selection of negative cases</li>
+                                <li>The possibility principle in comparative research</li>
+                                <li>Enhancing causal inference through case selection</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 9 Content -->
+                <div class="week-content" id="week-9">
+                    <div class="week-header">
+                        <h2>Field Research, Interviews, Process Tracing</h2>
+                        <p class="week-number">Week 9</p>
+                    </div>
+
+                    <div class="reading-item">
+                        <div class="reading-header" onclick="toggleReading('reading-9-1')">
+                            <div class="reading-title">
+                                <h3>Understanding Process Tracing</h3>
+                                <p class="author">Collier, David (2011)</p>
+                            </div>
+                            <a href="#" class="study-guide-btn">Study Guide - Coming Soon</a>
+                            <span class="accordion-icon" id="icon-reading-9-1">▼</span>
+                        </div>
+                        <div class="reading-details" id="reading-9-1">
+                            <ul>
+                                <li>PS: Political Science & Politics, 44(4): 823–830</li>
+                                <li>Fundamentals of process tracing methodology</li>
+                                <li>Tracing causal mechanisms within cases</li>
+                                <li>Combining process tracing with other methods</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="reading-item">
+                        <div class="reading-header" onclick="toggleReading('reading-9-2')">
+                            <div class="reading-title">
+                                <h3>The Logic of Historical Explanation in the Social Sciences</h3>
+                                <p class="author">Mahoney, James, Erin Kimball, and Kendra L. Koivu (2009)</p>
+                            </div>
+                            <a href="#" class="study-guide-btn">Study Guide - Coming Soon</a>
+                            <span class="accordion-icon" id="icon-reading-9-2">▼</span>
+                        </div>
+                        <div class="reading-details" id="reading-9-2">
+                            <ul>
+                                <li>Comparative Political Studies, 42(1): 114–146</li>
+                                <li>Historical explanation in social science</li>
+                                <li>Temporal dimensions of causal analysis</li>
+                                <li>Integrating historical and comparative methods</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <div class="ai-notice">
+            <p>This course hub was generated using AI assistance to organize and present course materials.</p>
+        </div>
+    </div>
+
+    <script>
+        function showWeek(weekNumber) {
+            // Hide all week contents
+            const allWeekContents = document.querySelectorAll('.week-content');
+            allWeekContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            const allTabs = document.querySelectorAll('.week-tab');
+            allTabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected week content
+            const selectedWeekContent = document.getElementById(`week-${weekNumber}`);
+            if (selectedWeekContent) {
+                selectedWeekContent.classList.add('active');
+            }
+
+            // Add active class to selected tab
+            const selectedTab = event.target;
+            selectedTab.classList.add('active');
+        }
+
+        function toggleReading(readingId) {
+            const readingDetails = document.getElementById(readingId);
+            const icon = document.getElementById(`icon-${readingId}`);
+            
+            if (readingDetails.classList.contains('open')) {
+                readingDetails.classList.remove('open');
+                icon.classList.remove('rotated');
+            } else {
+                readingDetails.classList.add('open');
+                icon.classList.add('rotated');
+            }
+        }
+
+        // Initialize first week as active
+        document.addEventListener('DOMContentLoaded', function() {
+            showWeek(2);
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9900287c647bda3d',t:'MTc2MDcwNzkwNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
