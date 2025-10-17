@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Guide: Toward a Scientific Understanding of International Conflict</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100%;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .top-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .top-controls .control-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .study-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .reference-box {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 2rem;
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
+        }
+
+        .progress-section {
+            margin-bottom: 2rem;
+        }
+
+        .progress-section h3 {
+            color: #4a5568;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #48bb78, #38a169);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            color: #718096;
+            text-align: center;
+        }
+
+        .control-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .control-btn {
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .toggle-btn {
+            background: #4299e1;
+            color: white;
+        }
+
+        .toggle-btn:hover {
+            background: #3182ce;
+            transform: translateY(-1px);
+        }
+
+        .toggle-btn.active {
+            background: #2b6cb0;
+        }
+
+        .test-btn {
+            background: #48bb78;
+            color: white;
+        }
+
+        .test-btn:hover {
+            background: #38a169;
+            transform: translateY(-1px);
+        }
+
+        .reset-btn {
+            background: #ed8936;
+            color: white;
+        }
+
+        .reset-btn:hover {
+            background: #dd6b20;
+            transform: translateY(-1px);
+        }
+
+        .reference-content {
+            font-size: 0.9rem;
+        }
+
+        .reference-content h4 {
+            color: #2d3748;
+            font-size: 1rem;
+            margin: 1.5rem 0 0.75rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .reference-content ul {
+            padding-left: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        .reference-content li {
+            margin-bottom: 0.4rem;
+            color: #4a5568;
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section h2 {
+            color: #2d3748;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h3 {
+            color: #4a5568;
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .section h4 {
+            color: #718096;
+            font-size: 1.1rem;
+            margin: 1.2rem 0 0.8rem 0;
+        }
+
+        .key-term {
+            background: #fef08a;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-weight: 600;
+            color: #713f12;
+            cursor: help;
+            transition: all 0.3s ease;
+        }
+
+        .key-term:hover {
+            background: #fde047;
+            transform: translateY(-1px);
+        }
+
+        .key-term.hidden {
+            background: transparent;
+            color: inherit;
+        }
+
+        .structure-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .structure-table th,
+        .structure-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .structure-table th {
+            background: #f7fafc;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .structure-table tr:hover {
+            background: #f7fafc;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .comparison-card {
+            background: #f7fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #4299e1;
+        }
+
+        .comparison-card h4 {
+            margin-top: 0;
+            color: #2d3748;
+        }
+
+        .comparison-card ul {
+            margin: 0.5rem 0;
+            padding-left: 1.2rem;
+        }
+
+        .comparison-card li {
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+        }
+
+        .highlight-box {
+            background: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box h4 {
+            color: #2c5282;
+            margin-top: 0;
+        }
+
+        .lecture-style {
+            background: #f0f9ff;
+            border: 1px solid #7dd3fc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+
+        .lecture-style h4 {
+            color: #0c4a6e;
+            margin-top: 0;
+            font-style: normal;
+        }
+
+        .lecture-style .quote {
+            font-size: 1.1rem;
+            color: #0369a1;
+            margin: 1rem 0;
+            padding-left: 1rem;
+            border-left: 3px solid #38bdf8;
+        }
+
+        .analogy-box {
+            background: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .analogy-box h4 {
+            color: #92400e;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .analogy-box .analogy-icon {
+            font-size: 1.2rem;
+        }
+
+        .study-questions {
+            background: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .study-questions h3 {
+            color: #22543d;
+            margin-top: 0;
+        }
+
+        .accordion-item {
+            border: 1px solid #c6f6d5;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background: #e6fffa;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-size: 1rem;
+            color: #2f855a;
+            font-weight: 600;
+        }
+
+        .accordion-header:hover {
+            background: #b2f5ea;
+        }
+
+        .accordion-header.active {
+            background: #81e6d9;
+        }
+
+        .accordion-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: white;
+        }
+
+        .accordion-content.active {
+            max-height: 1000px;
+        }
+
+        .accordion-answer {
+            padding: 1.5rem;
+            color: #2d3748;
+            line-height: 1.6;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .accordion-answer h4 {
+            color: #2f855a;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .accordion-answer ul {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .accordion-answer li {
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+        }
+
+        .quiz-container {
+            background: #fffaf0;
+            border: 1px solid #fbd38d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .quiz-container.active {
+            display: block;
+        }
+
+        .quiz-question {
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-question h4 {
+            color: #744210;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .quiz-option {
+            padding: 0.75rem;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: #cbd5e0;
+            background: #f7fafc;
+        }
+
+        .quiz-option.selected {
+            border-color: #4299e1;
+            background: #ebf8ff;
+        }
+
+        .quiz-option.correct {
+            border-color: #48bb78;
+            background: #f0fff4;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #f56565;
+            background: #fed7d7;
+        }
+
+        .quiz-submit {
+            background: #4299e1;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .quiz-submit:hover {
+            background: #3182ce;
+        }
+
+        .quiz-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .quiz-result.correct {
+            background: #f0fff4;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+
+        .quiz-result.incorrect {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 1px solid #fc8181;
+        }
+
+        .three-tests {
+            background: #fdf2f8;
+            border: 1px solid #f9a8d4;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .three-tests h4 {
+            color: #831843;
+            margin-top: 0;
+        }
+
+        .three-tests ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .three-tests li {
+            margin-bottom: 0.75rem;
+            color: #be185d;
+            font-weight: 500;
+        }
+
+        .toolkit-section {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .toolkit-section h4 {
+            color: #14532d;
+            margin-top: 0;
+        }
+
+        .teamwork-box {
+            background: #fef7ff;
+            border: 1px solid #d8b4fe;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .teamwork-box h4 {
+            color: #581c87;
+            margin-top: 0;
+        }
+
+        .team-roles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .team-role {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #a855f7;
+        }
+
+        .team-role h5 {
+            color: #6b21a8;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role p {
+            color: #4a5568;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1024px) {
+            .study-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .reference-box {
+                position: static;
+                max-height: none;
+                order: -1;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-roles {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+        }
+
+        .back-to-top:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .main-content {
+                padding: 1.5rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .top-controls {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+            }
+            
+            .top-controls .control-btn {
+                width: 200px;
+            }
+
+            .back-to-top {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📊 Toward a Scientific Understanding of International Conflict</h1>
+            <p class="subtitle">Bruce Bueno de Mesquita (1985) - Complete Study Guide</p>
+            
+            <div class="top-controls">
+                <button class="control-btn toggle-btn" id="toggle-terms" onclick="toggleKeyTerms()">
+                    Hide Key Terms
+                </button>
+                <button class="control-btn test-btn" onclick="toggleQuiz()">
+                    Test Knowledge
+                </button>
+                <button class="control-btn reset-btn" onclick="resetProgress()">
+                    Reset Progress
+                </button>
+            </div>
+        </header>
+
+        <div class="study-layout">
+            <main class="main-content">
+                <section class="section">
+                    <h2>🧭 The Big Picture</h2>
+                    
+                    <div class="lecture-style">
+                        <h4>🎯 The Core Question</h4>
+                        <div class="quote">
+                            "We all have ideas about why countries fight, right? But the real trick is, how do we know if those ideas are any good? How do we get past just having an opinion and actually build a real scientific understanding of it?"
+                        </div>
+                    </div>
+
+                    <p><strong>Author:</strong> Bruce Bueno de Mesquita</p>
+                    <p><strong>Published in:</strong> International Studies Quarterly (1985)</p>
+                    
+                    <h3>The Central Challenge:</h3>
+                    <p>The study of international conflict faces a fundamental problem: <strong>as a scientific field, it's still young, progress has been slow, and many doubt you can even apply the scientific method to something as messy and human as war.</strong></p>
+
+                    <p>Before we can solve massive global problems like conflict, we first need to solve the problem of <em>how we think about them</em>. The most important toolkit we have might be the one inside our own heads.</p>
+                </section>
+
+                <section class="section">
+                    <h2>⚠️ Mental Traps: Why Single Cases Mislead Us</h2>
+                    
+                    <div class="analogy-box">
+                        <h4><span class="analogy-icon">🔄</span> The WWI vs WWII Flip-Flop</h4>
+                        <p><strong>After World War I:</strong> "The problem was all these rigid, tangling alliances. Let's avoid them!"</p>
+                        <p><strong>After World War II:</strong> "Actually, the problem was the <em>lack</em> of clear alliances. We need NATO!"</p>
+                        <p><strong>The Problem:</strong> You can't build real science if your fundamental rules completely flip with every new data point.</p>
+                    </div>
+
+                    <h3>The Danger of Single Case Studies</h3>
+                    <p>Bueno de Mesquita warns that relying on just one or two examples is <span class="key-term">super risky</span>, because even the tiniest mistake in how you see that one case can lead to truly bizarre and dangerous conclusions.</p>
+
+                    <div class="analogy-box">
+                        <h4><span class="analogy-icon">📐</span> The "Lost Theorem of Euclid"</h4>
+                        <p>Here's how wild this can get: By making a tiny, almost invisible drawing error (less than 1% measurement error), you can "logically prove" that an obtuse angle equals a right angle.</p>
+                        <p><strong>Obviously that's not true</strong>, but the logic itself is sound if you accept that one initial flawed piece of evidence.</p>
+                        <p><strong>The Point:</strong> That's the danger of basing everything on a single case study.</p>
+                    </div>
+
+                    <h3>The Opposite Trap: Throwing Out the Baby</h3>
+                    <p>But this works both ways. The other big mistake is <span class="key-term">chucking a really useful theory just because you find one little thing it can't explain</span>.</p>
+
+                    <div class="analogy-box">
+                        <h4><span class="analogy-icon">🍎</span> Newton's Laws</h4>
+                        <p>Newton's laws of motion are a cornerstone of physics, right? Well, they had <strong>known issues</strong> — tiny anomalies from the very beginning.</p>
+                        <p>If we just tossed them out because of that, we'd have been left with nothing instead of a theory that explained the world incredibly well.</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2>🔄 The Power of Replacement</h2>
+                    
+                    <div class="highlight-box">
+                        <h4>The Crucial Insight</h4>
+                        <p>Even a flawed theory is usually better than no theory at all. It gives us a framework, some kind of order in all the chaos. Just getting rid of it without something better to put in its place doesn't help — it actually sets us back.</p>
+                    </div>
+
+                    <div class="analogy-box">
+                        <h4><span class="analogy-icon">🌍</span> Ptolemy to Copernicus</h4>
+                        <p>For almost 2,000 years, Ptolemy's model of the universe (Earth at the center) was <em>the</em> theory. It was wrong, but it worked well enough to predict the movement of stars and planets. It created order.</p>
+                        <p><strong>We didn't just throw it in the trash one day.</strong> We only abandoned it when folks like Copernicus and Kepler came along with a new theory that was clearly, demonstrably better — one that explained everything the old one did, and then some.</p>
+                    </div>
+
+                    <div class="three-tests">
+                        <h4>🏆 Sophisticated Falsificationism: The Gold Standard</h4>
+                        <p>This process has a name — it's called <span class="key-term">sophisticated falsificationism</span>, and it's the gold standard for making scientific progress. You only get to replace an old theory with a new one if it can pass three really tough tests:</p>
+                        <ol>
+                            <li><strong>Predict new things</strong> — stuff nobody even thought to look for before</li>
+                            <li><strong>Explain all the stuff the old theory got right</strong></li>
+                            <li><strong>At least some of those new bold predictions have to turn out to be true</strong></li>
+                        </ol>
+                        <p><em>That's when you know you've really taken a step forward.</em></p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2>🧰 The Scientific Toolkit</h2>
+                    
+                    <div class="lecture-style">
+                        <h4>The Goal</h4>
+                        <div class="quote">
+                            "We want to build better theories that replace the old, bigger ones, but how do we actually do that? What's in the toolkit for getting this done?"
+                        </div>
+                    </div>
+
+                    <div class="toolkit-section">
+                        <h4>🔍 Tool #1: Smart Evidence Collection</h4>
+                        <p><strong>The Problem:</strong> Like we saw with that bogus geometry proof, a single case study is just too risky. It's super vulnerable to weird errors and doesn't tell you much about the big picture.</p>
+                        
+                        <p><strong>The Solution:</strong> When you look at <span class="key-term">many cases — hundreds or thousands of them</span> — all the little quirks and random errors from each one start to cancel each other out. That's when the real general patterns can finally pop out.</p>
+                    </div>
+
+                    <div class="toolkit-section">
+                        <h4>🎯 Tool #2: Theory-First Approach (Deductive Method)</h4>
+                        <p>Instead of just grabbing a giant pile of data and sifting through it, hoping a pattern just magically appears, you <span class="key-term">do the hard work up front</span>.</p>
+                        
+                        <p><strong>The Process:</strong></p>
+                        <ol>
+                            <li>Build a tight logical theory first (like engineering a machine)</li>
+                            <li>Take it out and test it against the real world</li>
+                            <li>See if it actually works</li>
+                        </ol>
+                        <p><em>It's a much more rigorous way to do science.</em></p>
+                    </div>
+
+                    <div class="comparison-grid">
+                        <div class="comparison-card">
+                            <h4><span class="key-term">Induction</span></h4>
+                            <p>Data → Pattern → Theory</p>
+                            <ul>
+                                <li>Start with observations</li>
+                                <li>Look for patterns</li>
+                                <li>Generate theories</li>
+                                <li>Provides inspiration</li>
+                            </ul>
+                        </div>
+                        <div class="comparison-card">
+                            <h4><span class="key-term">Deduction</span> (Preferred)</h4>
+                            <p>Theory → Logic → Test</p>
+                            <ul>
+                                <li>Start with clear assumptions</li>
+                                <li>Use rigorous logic</li>
+                                <li>Test predictions</li>
+                                <li>Forces clarity and structure</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2>🤝 The Teamwork Solution</h2>
+                    
+                    <div class="lecture-style">
+                        <h4>The Reality Check</h4>
+                        <div class="quote">
+                            "All of this sounds pretty demanding, doesn't it? You'd have to be a logician, a statistician, and a master historian all rolled into one. Who could possibly do all that?"
+                        </div>
+                    </div>
+
+                    <div class="teamwork-box">
+                        <h4>🎯 The Answer: Nobody Can Do It All</h4>
+                        <p>No single person can master everything. <strong>The only way forward is with teamwork.</strong> Real progress only happens when all these people are in the same room talking to each other.</p>
+
+                        <div class="team-roles">
+                            <div class="team-role">
+                                <h5>🧮 The Theorist</h5>
+                                <p>Builds clean logical models and ensures mathematical rigor</p>
+                            </div>
+                            <div class="team-role">
+                                <h5>📊 The Data Analyst</h5>
+                                <p>Tests theories against massive amounts of data to find general patterns</p>
+                            </div>
+                            <div class="team-role">
+                                <h5>📚 The Historian</h5>
+                                <p>Dives deep into messy, specific details to see if theory makes sense on the ground</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <blockquote style="font-style: italic; border-left: 3px solid #4299e1; padding-left: 1rem; color: #2c5282; margin: 2rem 0;">
+                        "Knowledge will best be gained when those with traditionalist, behavioralist, and axiomatic skills communicate and cooperate."
+                    </blockquote>
+                </section>
+
+                <section class="section">
+                    <h2>📋 The Five Standards for Evaluating Knowledge</h2>
+                    
+                    <p>How do we decide what counts as "true" knowledge? Bueno de Mesquita reviews five philosophical approaches:</p>
+
+                    <div class="highlight-box">
+                        <h4>The Five Epistemological Standards:</h4>
+                        <ol>
+                            <li><strong><span class="key-term">Justificationism</span>:</strong> Believe it only if it's proven true.<br>
+                            → <em>Problem:</em> Unrealistic; you can never observe everything.</li>
+                            
+                            <li><strong><span class="key-term">Neo-justificationism</span>:</strong> Believe it if it's probably true.<br>
+                            → <em>Problem:</em> Still too subjective.</li>
+                            
+                            <li><strong><span class="key-term">Dogmatic Falsificationism</span>:</strong> Reject a theory after one counterexample.<br>
+                            → <em>Problem:</em> Too extreme — even Newton had exceptions.</li>
+                            
+                            <li><strong><span class="key-term">Naïve Methodological Falsificationism</span>:</strong> Use statistical significance tests to accept or reject theories.<br>
+                            → <em>Problem:</em> Too mechanical; produces confusion.</li>
+                            
+                            <li><strong><span class="key-term">Sophisticated Methodological Falsificationism (Lakatos)</span>:</strong><br>
+                            → <strong>✅ Best option.</strong> Replace an old theory only when a better one explains all the old facts plus new ones more accurately.</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2>📊 Quantitative vs. Qualitative Methods</h2>
+                    
+                    <div class="comparison-grid">
+                        <div class="comparison-card">
+                            <h4>Quantitative Methods</h4>
+                            <p><strong>Strengths:</strong></p>
+                            <ul>
+                                <li>Makes assumptions explicit</li>
+                                <li>Easier to replicate</li>
+                                <li>Helps spot errors and bias</li>
+                                <li>Supports cumulative progress</li>
+                            </ul>
+                            <p><strong>Weaknesses:</strong></p>
+                            <ul>
+                                <li>Often sacrifices detail (internal validity)</li>
+                            </ul>
+                        </div>
+                        <div class="comparison-card">
+                            <h4>Qualitative Methods</h4>
+                            <p><strong>Strengths:</strong></p>
+                            <ul>
+                                <li>Rich, deep descriptions</li>
+                                <li>Can reveal unique factors</li>
+                                <li>Good for understanding context</li>
+                            </ul>
+                            <p><strong>Weaknesses:</strong></p>
+                            <ul>
+                                <li>Harder to replicate</li>
+                                <li>More susceptible to bias</li>
+                                <li>Difficult to generalize</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <p><strong>Conclusion:</strong> Both are valuable, but <span class="key-term">quantitative approaches better support cumulative, scientific progress</span> because they make assumptions explicit and open to challenge.</p>
+                </section>
+
+                <section class="section">
+                    <h2>🎯 Final Takeaways</h2>
+                    
+                    <div class="highlight-box">
+                        <h4>Central Thesis:</h4>
+                        <p>International conflict can be studied scientifically through explicit, logically consistent, testable theories.</p>
+                    </div>
+                    
+                    <h3>Core Themes:</h3>
+                    <ul>
+                        <li><strong><span class="key-term">Science as Method, not Magic</span>:</strong> Be explicit, logical, and cumulative</li>
+                        <li><strong><span class="key-term">Lakatos over Popper</span>:</strong> Replace theories with better ones, don't just reject them</li>
+                        <li><strong><span class="key-term">Many Cases Beat One</span>:</strong> Look for generalizable patterns or formal proofs</li>
+                        <li><strong><span class="key-term">Theory First</span>:</strong> Logic and clear definitions must guide observation</li>
+                        <li><strong><span class="key-term">Transparency Matters</span>:</strong> Makes theories replicable and comparable</li>
+                        <li><strong><span class="key-term">Teamwork Works</span>:</strong> Blend methods and perspectives</li>
+                    </ul>
+
+                    <div class="lecture-style">
+                        <h4>🤔 The Ultimate Question</h4>
+                        <div class="quote">
+                            "Before we can even begin to solve massive global problems like conflict, do we first need to solve the problem of how we think about them? Maybe the most important toolkit we have is the one inside our own heads."
+                        </div>
+                    </div>
+                </section>
+
+                <div class="study-questions">
+                    <h3>📝 Study Questions</h3>
+                    
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>1. What does the WWI vs WWII example illustrate about the dangers of single case studies?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-answer">
+                                <h4>Answer:</h4>
+                                <p>This example perfectly shows how single cases can lead to completely contradictory conclusions:</p>
+                                <ul>
+                                    <li><strong>After WWI:</strong> Leaders concluded rigid alliances caused the war, so they avoided them</li>
+                                    <li><strong>After WWII:</strong> Leaders concluded the <em>lack</em> of clear alliances caused the war, so they created NATO</li>
+                                </ul>
+                                <p><strong>The Problem:</strong> You can't build real science if your fundamental rules completely flip with every new data point. Each war was treated as the definitive case, leading to opposite policy prescriptions.</p>
+                                <p><strong>The Lesson:</strong> Single cases are vulnerable to unique circumstances, measurement errors, and observer bias. We need multiple cases or rigorous logical proofs to build reliable knowledge.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>2. Explain the "Lost Theorem of Euclid" and what it teaches us about evidence.</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-answer">
+                                <h4>The Example:</h4>
+                                <p>By making a tiny, almost invisible drawing error (less than 1% measurement error), you can use perfectly sound logic to "prove" that an obtuse angle equals a right angle — which is obviously false.</p>
+                                <h4>What It Teaches:</h4>
+                                <ul>
+                                    <li><strong>Small errors, big consequences:</strong> Even tiny measurement mistakes can lead to absurd conclusions</li>
+                                    <li><strong>Logic isn't enough:</strong> Perfect reasoning based on flawed evidence produces wrong answers</li>
+                                    <li><strong>Single cases are risky:</strong> One flawed observation can mislead us completely</li>
+                                    <li><strong>Need multiple checks:</strong> Errors become obvious when you test across many cases</li>
+                                </ul>
+                                <p><strong>Application to Political Science:</strong> Just as one geometric proof can't overturn mathematics, one case study (like analyzing only World War I) can't reliably test theories about international conflict.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>3. What are the three tests a new theory must pass under sophisticated falsificationism?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-answer">
+                                <h4>The Three Tests:</h4>
+                                <ol>
+                                    <li><strong>Predict new things:</strong> The theory must make predictions about stuff nobody even thought to look for before</li>
+                                    <li><strong>Explain all the old successes:</strong> It must account for everything the previous theory got right</li>
+                                    <li><strong>Get some predictions right:</strong> At least some of those bold new predictions must turn out to be true</li>
+                                </ol>
+                                <h4>Why This Matters:</h4>
+                                <p>This approach ensures <em>progressive</em> science. We don't just tear down old theories — we replace them with demonstrably better ones. This is how we moved from Ptolemy's Earth-centered model to Copernicus's sun-centered model: the new theory explained everything the old one did, plus predicted new phenomena that turned out to be correct.</p>
+                                <p><strong>Result:</strong> Knowledge builds cumulatively rather than just cycling through different opinions.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>4. Why does Bueno de Mesquita prefer deductive over inductive approaches?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-answer">
+                                <h4>Deductive Approach (Preferred):</h4>
+                                <ul>
+                                    <li>Start with clear assumptions and logical theory</li>
+                                    <li>Derive testable predictions</li>
+                                    <li>Test against real-world data</li>
+                                </ul>
+                                <h4>Why It's Better:</h4>
+                                <ul>
+                                    <li><strong>Avoids wasted effort:</strong> Don't spend time on unclear theories</li>
+                                    <li><strong>Forces clarity:</strong> Must be explicit about assumptions</li>
+                                    <li><strong>Creates structure:</strong> Logical framework guides research</li>
+                                    <li><strong>Prevents casual theorizing:</strong> Stops "plausible" explanations that lack logical foundation</li>
+                                </ul>
+                                <h4>Inductive Approach:</h4>
+                                <ul>
+                                    <li>Start with data and observations</li>
+                                    <li>Look for patterns</li>
+                                    <li>Generate theories from patterns</li>
+                                </ul>
+                                <p><strong>His View:</strong> Both work together (induction provides ideas, deduction gives structure), but deduction is more efficient and rigorous for building scientific knowledge.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>5. What does the "division of labor" approach mean and why is it necessary?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-answer">
+                                <h4>The Challenge:</h4>
+                                <p>Scientific study of international conflict requires being "a logician, a statistician, and a master historian all rolled into one." <strong>No single person can do it all.</strong></p>
+                                <h4>The Solution - Three Essential Roles:</h4>
+                                <ul>
+                                    <li><strong>The Theorist:</strong> Builds clean logical models, ensures mathematical rigor</li>
+                                    <li><strong>The Data Analyst:</strong> Tests theories against massive datasets, finds general patterns</li>
+                                    <li><strong>The Historian:</strong> Provides deep contextual knowledge, checks if theories make sense on the ground</li>
+                                </ul>
+                                <h4>Why It Works:</h4>
+                                <p>Instead of these groups working in isolation or dismissing each other, they should communicate and cooperate. Each contributes essential pieces to the full scientific picture:</p>
+                                <ul>
+                                    <li>Historians provide the puzzles</li>
+                                    <li>Theorists ensure logical consistency</li>
+                                    <li>Data analysts test the patterns</li>
+                                </ul>
+                                <p><em>"Real progress only happens when all three of these people are in the same room talking to each other."</em></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>6. How does the Ptolemy to Copernicus example illustrate proper theory replacement?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-answer">
+                                <h4>The Historical Context:</h4>
+                                <p>For almost 2,000 years, Ptolemy's Earth-centered model was <em>the</em> theory of the universe. It was wrong, but it worked well enough to predict star and planet movements. It created order from chaos.</p>
+                                <h4>The Key Point:</h4>
+                                <p><strong>We didn't just throw it in the trash one day.</strong> Scientists only abandoned Ptolemy's model when Copernicus and Kepler came along with a theory that was clearly, demonstrably better.</p>
+                                <h4>Why This Illustrates Proper Replacement:</h4>
+                                <ul>
+                                    <li><strong>The old theory had value:</strong> Even wrong theories can be useful if they organize knowledge</li>
+                                    <li><strong>Replacement, not rejection:</strong> Don't abandon until you have something better</li>
+                                    <li><strong>Higher standard:</strong> New theory had to explain everything the old one did, plus more</li>
+                                    <li><strong>Demonstrated superiority:</strong> Copernican model made better predictions</li>
+                                </ul>
+                                <h4>The Lesson:</h4>
+                                <p>Even flawed theories are usually better than no theory at all. They provide frameworks and order. Progress comes through <em>replacement</em> with demonstrably superior theories, not just criticism and rejection.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>7. What is the ultimate question this article raises about studying conflict?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-answer">
+                                <h4>The Ultimate Question:</h4>
+                                <p><em>"Before we can even begin to solve massive global problems like conflict, do we first need to solve the problem of how we think about them?"</em></p>
+                                <h4>What This Means:</h4>
+                                <p>The article suggests that our <strong>methods of thinking and reasoning</strong> might be more important than any specific theory about war. If we're using flawed approaches to generate knowledge, we'll keep getting flawed answers.</p>
+                                <h4>The Deeper Implication:</h4>
+                                <ul>
+                                    <li><strong>Meta-problem:</strong> The problem isn't just understanding war, but understanding how to understand war</li>
+                                    <li><strong>Cognitive toolkit:</strong> "Maybe the most important toolkit we have is the one inside our own heads"</li>
+                                    <li><strong>Foundation first:</strong> Get the scientific method right before tackling specific conflicts</li>
+                                    <li><strong>Self-reflection:</strong> Scholars must examine their own reasoning processes</li>
+                                </ul>
+                                <h4>Why It Matters:</h4>
+                                <p>If we keep using the same flawed approaches (single case studies, casual theorizing, rejecting theories without replacements), we'll keep getting contradictory, unreliable knowledge about conflict. Fix the method, and better understanding of war will follow.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-container" id="quiz-container">
+                    <h3>🧠 Test Your Knowledge</h3>
+                    
+                    <div class="quiz-question">
+                        <h4>1. What lesson does the WWI vs WWII alliance example teach us?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-correct="false">Alliances always cause wars</div>
+                            <div class="quiz-option" data-correct="true">Single cases can lead to contradictory conclusions</div>
+                            <div class="quiz-option" data-correct="false">Historical analysis is unreliable</div>
+                            <div class="quiz-option" data-correct="false">NATO was a mistake</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>2. How many tests must a new theory pass under sophisticated falsificationism?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-correct="false">Two</div>
+                            <div class="quiz-option" data-correct="true">Three</div>
+                            <div class="quiz-option" data-correct="false">Four</div>
+                            <div class="quiz-option" data-correct="false">Five</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>3. What does the "Lost Theorem of Euclid" demonstrate?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-correct="false">Geometry is unreliable</div>
+                            <div class="quiz-option" data-correct="true">Small measurement errors can lead to absurd conclusions</div>
+                            <div class="quiz-option" data-correct="false">Mathematical proofs are always correct</div>
+                            <div class="quiz-option" data-correct="false">Ancient mathematics was flawed</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>4. Which approach does Bueno de Mesquita prefer for theory building?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-correct="false">Pure induction (data first)</div>
+                            <div class="quiz-option" data-correct="true">Deduction (theory first)</div>
+                            <div class="quiz-option" data-correct="false">Historical interpretation</div>
+                            <div class="quiz-option" data-correct="false">Statistical analysis only</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>5. What are the three essential roles in the "division of labor" approach?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-correct="false">Theorist, Politician, Journalist</div>
+                            <div class="quiz-option" data-correct="true">Theorist, Data Analyst, Historian</div>
+                            <div class="quiz-option" data-correct="false">Mathematician, Sociologist, Economist</div>
+                            <div class="quiz-option" data-correct="false">Qualitative, Quantitative, Mixed Methods</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>6. Why didn't scientists immediately reject Ptolemy's Earth-centered model?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-correct="false">They thought it was correct</div>
+                            <div class="quiz-option" data-correct="false">They were afraid of religious persecution</div>
+                            <div class="quiz-option" data-correct="true">It worked well enough and they had no better alternative</div>
+                            <div class="quiz-option" data-correct="false">They lacked the technology to test it</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>7. What is the "ultimate question" the article raises?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-correct="false">Why do wars happen?</div>
+                            <div class="quiz-option" data-correct="false">How can we prevent all conflicts?</div>
+                            <div class="quiz-option" data-correct="true">Do we need to fix how we think before we can solve global problems?</div>
+                            <div class="quiz-option" data-correct="false">Should political science be more like physics?</div>
+                        </div>
+                    </div>
+
+                    <button class="quiz-submit" onclick="submitQuiz()">Submit Quiz</button>
+                    <div id="quiz-result" class="quiz-result" style="display: none;"></div>
+                </div>
+            </main>
+
+            <aside class="reference-box">
+                <div class="progress-section">
+                    <h3>📊 Study Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <div class="progress-text" id="progress-text">0% Complete</div>
+                </div>
+
+                <div class="control-buttons">
+                    <button class="control-btn toggle-btn" id="toggle-terms-sidebar" onclick="toggleKeyTerms()">
+                        Hide Key Terms
+                    </button>
+                    <button class="control-btn test-btn" onclick="toggleQuiz()">
+                        Test Knowledge
+                    </button>
+                    <button class="control-btn reset-btn" onclick="resetProgress()">
+                        Reset Progress
+                    </button>
+                </div>
+
+                <div class="reference-content">
+                    <h4>📚 Quick Reference</h4>
+                    
+                    <h4>The Three Tests (Sophisticated Falsificationism)</h4>
+                    <ol>
+                        <li>Predict new things</li>
+                        <li>Explain all old successes</li>
+                        <li>Get some predictions right</li>
+                    </ol>
+
+                    <h4>The Scientific Toolkit</h4>
+                    <ul>
+                        <li><strong>Many cases</strong> over single studies</li>
+                        <li><strong>Theory-first</strong> (deductive) approach</li>
+                        <li><strong>Explicit assumptions</strong> and logic</li>
+                        <li><strong>Testable predictions</strong></li>
+                    </ul>
+
+                    <h4>Division of Labor Team</h4>
+                    <ul>
+                        <li><strong>Theorist:</strong> Logical models</li>
+                        <li><strong>Data Analyst:</strong> Pattern testing</li>
+                        <li><strong>Historian:</strong> Contextual expertise</li>
+                    </ul>
+
+                    <h4>Key Examples</h4>
+                    <ul>
+                        <li><strong>WWI vs WWII:</strong> Alliance flip-flop</li>
+                        <li><strong>Lost Theorem:</strong> Measurement errors</li>
+                        <li><strong>Newton's Laws:</strong> Useful despite flaws</li>
+                        <li><strong>Ptolemy → Copernicus:</strong> Proper replacement</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Back to Top Button -->
+        <button class="back-to-top" id="back-to-top" onclick="scrollToTop()" title="Back to top">
+            ↑
+        </button>
+    </div>
+
+    <script>
+        let keyTermsVisible = true;
+        let sectionsRead = new Set();
+        let quizVisible = false;
+
+        function toggleKeyTerms() {
+            const keyTerms = document.querySelectorAll('.key-term');
+            const toggleBtn = document.getElementById('toggle-terms');
+            const toggleBtnSidebar = document.getElementById('toggle-terms-sidebar');
+            
+            keyTermsVisible = !keyTermsVisible;
+            
+            keyTerms.forEach(term => {
+                if (keyTermsVisible) {
+                    term.classList.remove('hidden');
+                } else {
+                    term.classList.add('hidden');
+                }
+            });
+            
+            const buttonText = keyTermsVisible ? 'Hide Key Terms' : 'Show Key Terms';
+            if (toggleBtn) toggleBtn.textContent = buttonText;
+            if (toggleBtnSidebar) toggleBtnSidebar.textContent = buttonText;
+            
+            if (toggleBtn) toggleBtn.classList.toggle('active', !keyTermsVisible);
+            if (toggleBtnSidebar) toggleBtnSidebar.classList.toggle('active', !keyTermsVisible);
+        }
+
+        function toggleQuiz() {
+            const quizContainer = document.getElementById('quiz-container');
+            quizVisible = !quizVisible;
+            
+            if (quizVisible) {
+                quizContainer.classList.add('active');
+                quizContainer.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                quizContainer.classList.remove('active');
+            }
+        }
+
+        function submitQuiz() {
+            const questions = document.querySelectorAll('.quiz-question');
+            let correct = 0;
+            let total = questions.length;
+
+            questions.forEach(question => {
+                const options = question.querySelectorAll('.quiz-option');
+                const selectedOption = question.querySelector('.quiz-option.selected');
+                
+                options.forEach(option => {
+                    const isCorrect = option.dataset.correct === 'true';
+                    const isSelected = option.classList.contains('selected');
+                    
+                    if (isCorrect) {
+                        option.classList.add('correct');
+                        if (isSelected) correct++;
+                    } else if (isSelected) {
+                        option.classList.add('incorrect');
+                    }
+                });
+            });
+
+            const resultDiv = document.getElementById('quiz-result');
+            const percentage = Math.round((correct / total) * 100);
+            
+            resultDiv.style.display = 'block';
+            resultDiv.className = `quiz-result ${percentage >= 70 ? 'correct' : 'incorrect'}`;
+            resultDiv.textContent = `You scored ${correct}/${total} (${percentage}%). ${percentage >= 70 ? 'Great job!' : 'Review the material and try again.'}`;
+
+            // Update progress
+            if (percentage >= 70) {
+                sectionsRead.add('quiz');
+                updateProgress();
+            }
+        }
+
+        function resetProgress() {
+            sectionsRead.clear();
+            updateProgress();
+            
+            // Reset quiz
+            const quizOptions = document.querySelectorAll('.quiz-option');
+            quizOptions.forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            const resultDiv = document.getElementById('quiz-result');
+            resultDiv.style.display = 'none';
+            
+            // Reset key terms
+            keyTermsVisible = true;
+            const keyTerms = document.querySelectorAll('.key-term');
+            keyTerms.forEach(term => term.classList.remove('hidden'));
+            
+            const toggleBtn = document.getElementById('toggle-terms');
+            const toggleBtnSidebar = document.getElementById('toggle-terms-sidebar');
+            if (toggleBtn) {
+                toggleBtn.textContent = 'Hide Key Terms';
+                toggleBtn.classList.remove('active');
+            }
+            if (toggleBtnSidebar) {
+                toggleBtnSidebar.textContent = 'Hide Key Terms';
+                toggleBtnSidebar.classList.remove('active');
+            }
+        }
+
+        function updateProgress() {
+            const totalSections = 8; // Updated for new section count
+            const completedSections = sectionsRead.size;
+            const percentage = Math.round((completedSections / totalSections) * 100);
+            
+            document.getElementById('progress-fill').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = percentage + '% Complete';
+        }
+
+        // Track reading progress
+        function trackReading() {
+            const sections = document.querySelectorAll('.section');
+            const windowHeight = window.innerHeight;
+            const scrollTop = window.pageYOffset;
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollTop + windowHeight > sectionTop + sectionHeight * 0.5) {
+                    sectionsRead.add(`section-${index}`);
+                }
+            });
+            
+            updateProgress();
+        }
+
+        // Quiz option selection
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('quiz-option')) {
+                const question = e.target.closest('.quiz-question');
+                const options = question.querySelectorAll('.quiz-option');
+                
+                options.forEach(option => option.classList.remove('selected'));
+                e.target.classList.add('selected');
+            }
+        });
+
+        // Accordion functionality
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('.accordion-icon');
+            
+            // Close all other accordions
+            const allHeaders = document.querySelectorAll('.accordion-header');
+            const allContents = document.querySelectorAll('.accordion-content');
+            
+            allHeaders.forEach(h => {
+                if (h !== header) {
+                    h.classList.remove('active');
+                    h.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
+                }
+            });
+            
+            allContents.forEach(c => {
+                if (c !== content) {
+                    c.classList.remove('active');
+                }
+            });
+            
+            // Toggle current accordion
+            header.classList.toggle('active');
+            content.classList.toggle('active');
+            
+            if (header.classList.contains('active')) {
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Back to top functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        function toggleBackToTopButton() {
+            const backToTopBtn = document.getElementById('back-to-top');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        }
+
+        // Combined scroll handler
+        function handleScroll() {
+            trackReading();
+            toggleBackToTopButton();
+        }
+
+        // Track scroll for progress and back-to-top button
+        window.addEventListener('scroll', handleScroll);
+        
+        // Initial updates
+        updateProgress();
+        toggleBackToTopButton();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9903a7c527e87ba2',t:'MTc2MDc0NDU3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
