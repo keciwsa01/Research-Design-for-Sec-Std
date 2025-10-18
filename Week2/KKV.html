@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Guide: Designing Social Inquiry - Scientific Inference in Qualitative Research</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2d5aa0 0%, #1e3a8a 100%);
+            min-height: 100%;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .top-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .top-controls .control-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .study-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .reference-box {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 2rem;
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
+        }
+
+        .progress-section {
+            margin-bottom: 2rem;
+        }
+
+        .progress-section h3 {
+            color: #4a5568;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            color: #718096;
+            text-align: center;
+        }
+
+        .control-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .control-btn {
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .toggle-btn {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .toggle-btn:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .toggle-btn.active {
+            background: #1d4ed8;
+        }
+
+        .test-btn {
+            background: #10b981;
+            color: white;
+        }
+
+        .test-btn:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+
+        .reset-btn {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .reset-btn:hover {
+            background: #d97706;
+            transform: translateY(-1px);
+        }
+
+        .reference-content {
+            font-size: 0.9rem;
+        }
+
+        .reference-content h4 {
+            color: #2d3748;
+            font-size: 1rem;
+            margin: 1.5rem 0 0.75rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .reference-content ul {
+            padding-left: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        .reference-content li {
+            margin-bottom: 0.4rem;
+            color: #4a5568;
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section h2 {
+            color: #1e3a8a;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h3 {
+            color: #2563eb;
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .section h4 {
+            color: #3b82f6;
+            font-size: 1.1rem;
+            margin: 1.2rem 0 0.8rem 0;
+        }
+
+        .key-term {
+            background: #dbeafe;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-weight: 600;
+            color: #1e40af;
+            cursor: help;
+            transition: all 0.3s ease;
+        }
+
+        .key-term:hover {
+            background: #bfdbfe;
+            transform: translateY(-1px);
+        }
+
+        .key-term.hidden {
+            background: transparent;
+            color: inherit;
+        }
+
+        .highlight-box {
+            background: #eff6ff;
+            border: 1px solid #93c5fd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box h4 {
+            color: #1e40af;
+            margin-top: 0;
+        }
+
+        .lecture-style {
+            background: #f0f9ff;
+            border: 1px solid #7dd3fc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+
+        .lecture-style h4 {
+            color: #0c4a6e;
+            margin-top: 0;
+            font-style: normal;
+        }
+
+        .lecture-style .quote {
+            font-size: 1.1rem;
+            color: #0369a1;
+            margin: 1rem 0;
+            padding-left: 1rem;
+            border-left: 3px solid #38bdf8;
+        }
+
+        .causal-inference-box {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .causal-inference-box h4 {
+            color: #92400e;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .counterfactual-example {
+            background: #fef2f2;
+            border: 1px solid #fca5a5;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .counterfactual-example h5 {
+            color: #dc2626;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .rule-card {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid #22c55e;
+        }
+
+        .rule-card h4 {
+            color: #15803d;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .rule-card .rule-number {
+            background: #22c55e;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .comparison-card {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .comparison-card h4 {
+            margin-top: 0;
+            color: #1e40af;
+        }
+
+        .comparison-card ul {
+            margin: 0.5rem 0;
+            padding-left: 1.2rem;
+        }
+
+        .comparison-card li {
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+        }
+
+        .practical-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .practical-box h4 {
+            color: #15803d;
+            margin-top: 0;
+        }
+
+        .concepts-table {
+            background: #f8fafc;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        .concepts-table table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .concepts-table th {
+            background: #e2e8f0;
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            color: #2d3748;
+            border-bottom: 2px solid #cbd5e0;
+        }
+
+        .concepts-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+
+        .concepts-table tr:hover {
+            background: #f7fafc;
+        }
+
+        .research-diagram {
+            background: #f0f9ff;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .research-diagram h4 {
+            color: #1e40af;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .diagram-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .diagram-box {
+            background: white;
+            border: 2px solid #3b82f6;
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            color: #1e40af;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .diagram-arrow {
+            font-size: 1.5rem;
+            color: #3b82f6;
+            font-weight: bold;
+        }
+
+        .study-questions {
+            background: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .study-questions h3 {
+            color: #22543d;
+            margin-top: 0;
+        }
+
+        .accordion-item {
+            border: 1px solid #c6f6d5;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background: #e6fffa;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-size: 1rem;
+            color: #2f855a;
+            font-weight: 600;
+        }
+
+        .accordion-header:hover {
+            background: #b2f5ea;
+        }
+
+        .accordion-header.active {
+            background: #81e6d9;
+        }
+
+        .accordion-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: white;
+        }
+
+        .accordion-content.active {
+            max-height: 1000px;
+        }
+
+        .accordion-answer {
+            padding: 1.5rem;
+            color: #2d3748;
+            line-height: 1.6;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .accordion-answer h4 {
+            color: #2f855a;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .accordion-answer ul {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .accordion-answer li {
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+        }
+
+        .quiz-container {
+            background: #fffaf0;
+            border: 1px solid #fbd38d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .quiz-container.active {
+            display: block;
+        }
+
+        .quiz-question {
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-question h4 {
+            color: #744210;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .quiz-option {
+            padding: 0.75rem;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: #cbd5e0;
+            background: #f7fafc;
+        }
+
+        .quiz-option.selected {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .quiz-option.correct {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .quiz-submit {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .quiz-submit:hover {
+            background: #2563eb;
+        }
+
+        .quiz-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .quiz-result.correct {
+            background: #f0fdf4;
+            color: #15803d;
+            border: 1px solid #86efac;
+        }
+
+        .quiz-result.incorrect {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fca5a5;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2d5aa0 0%, #1e3a8a 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+        }
+
+        .back-to-top:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 1024px) {
+            .study-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .reference-box {
+                position: static;
+                max-height: none;
+                order: -1;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .rules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .diagram-flow {
+                flex-direction: column;
+            }
+
+            .diagram-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .main-content {
+                padding: 1.5rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .top-controls {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+            }
+            
+            .top-controls .control-btn {
+                width: 200px;
+            }
+
+            .back-to-top {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+
+            .concepts-table {
+                font-size: 0.9rem;
+            }
+
+            .concepts-table th,
+            .concepts-table td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🔬 Designing Social Inquiry</h1>
+            <p class="subtitle">Scientific Inference in Qualitative Research - King, Keohane & Verba (1994)</p>
+            
+            <div class="top-controls">
+                <button class="control-btn toggle-btn" id="toggle-terms" onclick="toggleKeyTerms()">
+                    Hide Key Terms
+                </button>
+                <button class="control-btn test-btn" onclick="toggleQuiz()">
+                    Test Knowledge
+                </button>
+                <button class="control-btn reset-btn" onclick="resetProgress()">
+                    Reset Progress
+                </button>
+            </div>
+        </header>
+
+        <div class="study-layout">
+            <main class="main-content">
+                <section class="section">
+                    <h2>🔬 Chapter 1: The Science in Social Science</h2>
+                    
+                    <div class="lecture-style">
+                        <h4>🎯 The Central Challenge</h4>
+                        <div class="quote">
+                            "Social science has been split into two camps for decades. On one side, you have the 'quants' with their numbers and statistics. On the other, the 'quals' with their deep case studies and rich descriptions. But what if this divide is actually holding us back?"
+                        </div>
+                    </div>
+
+                    <p><strong>Authors:</strong> Gary King (Harvard), Robert Keohane (Princeton), Sidney Verba (Harvard)</p>
+                    <p><strong>Published:</strong> 1994 - Princeton University Press</p>
+                    
+                    <div class="highlight-box">
+                        <h4>KKV's Revolutionary Argument</h4>
+                        <p>The divide is artificial! <span class="key-term">Both quantitative and qualitative research share the same logic of scientific inference</span>. Although they use different tools, both aim to move from what we can observe to what we can infer about the world.</p>
+                        <p><strong>The Goal:</strong> Help qualitative researchers apply the same rigorous standards that make quantitative research powerful, without losing what makes qualitative research valuable.</p>
+                    </div>
+
+                    <h3>Understanding the Two Styles</h3>
+                    <div class="comparison-grid">
+                        <div class="comparison-card">
+                            <h4>📊 Quantitative Studies</h4>
+                            <ul>
+                                <li><strong>Tools:</strong> Numbers, statistics, large samples</li>
+                                <li><strong>Goal:</strong> Find general patterns across many cases</li>
+                                <li><strong>Strengths:</strong> Statistical rigor, replicable</li>
+                                <li><strong>Example:</strong> Survey of 1000 voters on election preferences</li>
+                            </ul>
+                        </div>
+                        <div class="comparison-card">
+                            <h4>📚 Qualitative Studies</h4>
+                            <ul>
+                                <li><strong>Tools:</strong> Cases, interviews, documents</li>
+                                <li><strong>Goal:</strong> Uncover detailed processes in depth</li>
+                                <li><strong>Strengths:</strong> Rich context, deep understanding</li>
+                                <li><strong>Example:</strong> In-depth study of one community's politics</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p><strong>Key Insight:</strong> Despite these differences, both must follow the same rules: <span class="key-term">use evidence to make valid inferences, describe uncertainty, and explain methods openly</span>.</p>
+
+                    <div class="practical-box">
+                        <h4>🌟 Success Stories</h4>
+                        <p><strong>Lisa Martin's Economic Sanctions Study:</strong> Combined statistical analysis with detailed case studies to understand when sanctions work.</p>
+                        <p><strong>Robert Putnam's Italian Regional Governments:</strong> Used both quantitative measures and qualitative insights to explain why some regions govern better than others.</p>
+                    </div>
+
+                    <h3>Four Features of Scientific Research</h3>
+                    <div class="rules-grid">
+                        <div class="rule-card">
+                            <h4><span class="rule-number">1</span>Inference</h4>
+                            <p><span class="key-term">Going beyond describing facts to explaining why or how</span>. Not just "what happened" but "why it happened" or "what it means."</p>
+                            <p><strong>Example:</strong> Not just counting campaign ads, but inferring their effect on voter turnout.</p>
+                        </div>
+
+                        <div class="rule-card">
+                            <h4><span class="rule-number">2</span>Public Procedures</h4>
+                            <p><span class="key-term">Making methods clear so others can evaluate or replicate</span>. Show exactly how research was done.</p>
+                            <p><strong>Why:</strong> Transparency lets others evaluate, replicate, or improve the work.</p>
+                        </div>
+
+                        <div class="rule-card">
+                            <h4><span class="rule-number">3</span>Acknowledged Uncertainty</h4>
+                            <p><span class="key-term">Reporting how confident or uncertain findings are</span>. Admitting that conclusions are not perfect.</p>
+                            <p><strong>Why:</strong> Builds honesty and credibility - uncertainty doesn't weaken science, it strengthens it.</p>
+                        </div>
+
+                        <div class="rule-card">
+                            <h4><span class="rule-number">4</span>Method Over Topic</h4>
+                            <p><span class="key-term">Any subject can be studied scientifically if the process is systematic</span>. Science is about how we study, not what we study.</p>
+                            <p><strong>Insight:</strong> Even emotional or cultural topics can be studied scientifically.</p>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4>Science and Complexity</h4>
+                        <p>Social life is complex, but <strong>complexity does not make science impossible</strong>. Instead, researchers should use clear concepts, comparisons, and <span class="key-term">counterfactuals</span> (what would have happened otherwise) to find patterns and test explanations.</p>
+                        <p><strong>The Goal:</strong> Good theory simplifies without oversimplifying.</p>
+                    </div>
+
+                    <h3>Components of Research Design</h3>
+                    <p>KKV identify four major parts of every research project:</p>
+                    <div class="rules-grid">
+                        <div class="rule-card">
+                            <h4><span class="rule-number">1</span>Research Question</h4>
+                            <p>Must be both <span class="key-term">important and answerable</span>. Should connect real-world importance with scholarly relevance.</p>
+                        </div>
+
+                        <div class="rule-card">
+                            <h4><span class="rule-number">2</span>Theory</h4>
+                            <p>Should be <span class="key-term">precise, falsifiable, and produce observable implications</span>. Must be testable and open to being proven wrong.</p>
+                        </div>
+
+                        <div class="rule-card">
+                            <h4><span class="rule-number">3</span>Data</h4>
+                            <p>Must be <span class="key-term">valid, reliable, and well-documented</span>. High-quality data are transparent and replicable.</p>
+                        </div>
+
+                        <div class="rule-card">
+                            <h4><span class="rule-number">4</span>Use of Data</h4>
+                            <p>Involves <span class="key-term">analyzing and reporting results clearly</span>. Must avoid bias and test multiple predictions.</p>
+                        </div>
+                    </div>
+
+                    <p><strong>Key Point:</strong> Research design is an <span class="key-term">iterative process</span> — you refine your question, theory, and data as you learn more.</p>
+
+                    <div class="research-diagram">
+                        <h4>🔄 How Scientific Social Research Works</h4>
+                        <div class="diagram-flow">
+                            <div class="diagram-box">THEORY</div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box">OBSERVABLE IMPLICATIONS</div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box">DATA COLLECTION</div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box">ANALYSIS & INFERENCE</div>
+                        </div>
+                        <div class="diagram-flow">
+                            <div class="diagram-box">↑ (revise)</div>
+                            <div class="diagram-arrow">←</div>
+                            <div class="diagram-box">(compare evidence to predictions)</div>
+                            <div class="diagram-arrow">←</div>
+                            <div class="diagram-box">(report uncertainty & rivals) ↓</div>
+                        </div>
+                        <p style="margin-top: 1rem; color: #4a5568;">This diagram shows the "loop" that KKV emphasize: theory generates predictions, which are tested with data, leading to refined understanding and updated theory.</p>
+                    </div>
+
+                    <h3>Four Themes of the Book</h3>
+                    <div class="rules-grid">
+                        <div class="rule-card">
+                            <h4><span class="rule-number">1</span>Observable Implications</h4>
+                            <p><span class="key-term">Every theory must make predictions that can be checked with evidence</span>. Turns abstract ideas into testable evidence.</p>
+                        </div>
+
+                        <div class="rule-card">
+                            <h4><span class="rule-number">2</span>Maximizing Leverage</h4>
+                            <p><span class="key-term">The best studies explain a lot with a few clear causes</span>. Makes research efficient and powerful.</p>
+                        </div>
+
+                        <div class="rule-card">
+                            <h4><span class="rule-number">3</span>Reporting Uncertainty</h4>
+                            <p><span class="key-term">All findings are partial; good researchers show their confidence level</span>. Builds honesty and credibility.</p>
+                        </div>
+
+                        <div class="rule-card">
+                            <h4><span class="rule-number">4</span>Thinking Like a Scientist</h4>
+                            <p><span class="key-term">Skepticism, testing rival hypotheses, and refining work through feedback</span>. Always question results and look for alternatives.</p>
+                        </div>
+                    </div>
+
+                    <div class="concepts-table">
+                        <h4>📊 Key Concepts from Chapter 1</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Concept</th>
+                                    <th>Simple Definition</th>
+                                    <th>Why It Matters</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Inference</strong></td>
+                                    <td>Making a claim that goes beyond direct facts</td>
+                                    <td>Core of scientific reasoning</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Public Procedures</strong></td>
+                                    <td>Showing exactly how research was done</td>
+                                    <td>Allows replication and critique</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Uncertainty</strong></td>
+                                    <td>Admitting that conclusions are not perfect</td>
+                                    <td>Builds honesty and credibility</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Observable Implications</strong></td>
+                                    <td>What a theory predicts we should see</td>
+                                    <td>Turns abstract ideas into testable evidence</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Leverage</strong></td>
+                                    <td>Explaining much with few clear causes</td>
+                                    <td>Makes research efficient and powerful</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Counterfactual</strong></td>
+                                    <td>Imagining what would happen without X</td>
+                                    <td>Helps test causality</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Transparency</strong></td>
+                                    <td>Sharing data and methods clearly</td>
+                                    <td>Enables cumulative science</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2>🧩 The Fundamental Problem of Causal Inference</h2>
+                    
+                    <div class="lecture-style">
+                        <h4>The Impossible Dream</h4>
+                        <div class="quote">
+                            "Here's the thing that keeps social scientists up at night: We want to know if X causes Y. But to really prove it, we'd need to see the same exact situation both with X and without X. That's literally impossible."
+                        </div>
+                    </div>
+
+                    <div class="causal-inference-box">
+                        <h4>🔄 The Counterfactual Problem</h4>
+                        <p>To prove causation, we need to observe <span class="key-term">the counterfactual</span> — what would have happened if everything else stayed exactly the same, but our cause was absent.</p>
+                        
+                        <div class="counterfactual-example">
+                            <h5>🗳️ Example: Does Democracy Cause Peace?</h5>
+                            <p><strong>What we observe:</strong> Germany is democratic and peaceful today.</p>
+                            <p><strong>What we need but can't see:</strong> The exact same Germany, with the same history, culture, economy, and leaders, but somehow <em>not</em> democratic.</p>
+                            <p><strong>The problem:</strong> We can't rewind history and run the experiment again!</p>
+                        </div>
+                    </div>
+
+                    <h3>Why This Matters</h3>
+                    <p>This isn't just a philosophical puzzle — it's the core challenge of all social science research. Every time we ask:</p>
+                    <ul>
+                        <li>"Did this policy reduce crime?"</li>
+                        <li>"Does education increase income?"</li>
+                        <li>"Do international organizations prevent war?"</li>
+                    </ul>
+                    <p>We're bumping up against <span class="key-term">the fundamental problem of causal inference</span>.</p>
+
+                    <div class="highlight-box">
+                        <h4>The Solution Strategy</h4>
+                        <p>Since we can't observe the counterfactual directly, we have to get creative:</p>
+                        <ul>
+                            <li><strong>Find similar cases:</strong> Look for situations that are as close as possible to identical</li>
+                            <li><strong>Use variation:</strong> Study cases where the cause is present and absent</li>
+                            <li><strong>Control for differences:</strong> Account for other factors that might matter</li>
+                            <li><strong>Be explicit about assumptions:</strong> Acknowledge what we're assuming to make causal claims</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2>📏 Five Rules for Strong Theories</h2>
+                    
+                    <div class="lecture-style">
+                        <h4>Building Better Explanations</h4>
+                        <div class="quote">
+                            "A theory isn't just a hunch or an opinion. It's a systematic explanation that can be tested, challenged, and improved. Here's how to build one that actually works."
+                        </div>
+                    </div>
+
+                    <div class="rules-grid">
+                        <div class="rule-card">
+                            <h4><span class="rule-number">1</span>Falsifiability</h4>
+                            <p>Your theory must make <span class="key-term">specific predictions that could be proven wrong</span>. If there's no way to test it, it's not science — it's just opinion.</p>
+                            <p><strong>Example:</strong> "Democracies never fight each other" is falsifiable. "Democracies are more peaceful" is too vague.</p>
+                        </div>
+
+                        <div class="rule-card">
+                            <h4><span class="rule-number">2</span>Concrete Consequences</h4>
+                            <p>Spell out exactly what your theory predicts we should observe in the real world. <span class="key-term">Vague theories can't be tested</span>.</p>
+                            <p><strong>Bad:</strong> "Culture matters for development."<br>
+                            <strong>Good:</strong> "Countries with higher trust levels will have 2% higher GDP growth."</p>
+                        </div>
+
+                        <div class="rule-card">
+                            <h4><span class="rule-number">3</span>Consider Alternatives</h4>
+                            <p>Always ask: <span class="key-term">What else could explain this pattern?</span> The best theories beat out competing explanations.</p>
+                            <p><strong>Example:</strong> If democracies are peaceful, is it because of democracy, wealth, or something else entirely?</p>
+                        </div>
+
+                        <div class="rule-card">
+                            <h4><span class="rule-number">4</span>Select on the Dependent Variable</h4>
+                            <p>Don't just study cases where your theory "works." <span class="key-term">Include cases where the outcome is different</span> to really test your ideas.</p>
+                            <p><strong>Bad:</strong> Only studying successful democracies.<br>
+                            <strong>Good:</strong> Studying both successful and failed democracies.</p>
+                        </div>
+
+                        <div class="rule-card">
+                            <h4><span class="rule-number">5</span>Report Uncertainty</h4>
+                            <p>Be honest about what you don't know. <span class="key-term">Good science acknowledges its limitations</span> and areas of uncertainty.</p>
+                            <p><strong>Example:</strong> "This relationship holds in Europe, but we're not sure about other regions."</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2>🔍 Research Design Strategies</h2>
+                    
+                    <h3>Maximizing Leverage</h3>
+                    <p>The key insight: <span class="key-term">Get the most explanatory power from the fewest assumptions</span>. This means:</p>
+                    
+                    <div class="highlight-box">
+                        <h4>Smart Case Selection</h4>
+                        <ul>
+                            <li><strong>Most Similar Systems:</strong> Compare cases that are alike in most ways but differ on your key variable</li>
+                            <li><strong>Most Different Systems:</strong> Compare very different cases that share the same outcome</li>
+                            <li><strong>Crucial Cases:</strong> Find cases where your theory should definitely work — if it fails here, it's in trouble</li>
+                        </ul>
+                    </div>
+
+                    <h3>Increasing Observations</h3>
+                    <p>Even with just one case study, you can increase your observations by:</p>
+                    <ul>
+                        <li><strong>Over time:</strong> Look at the same case across different periods</li>
+                        <li><strong>Across levels:</strong> Examine national, regional, and local patterns</li>
+                        <li><strong>Within cases:</strong> Find variation within your main case</li>
+                    </ul>
+
+                    <div class="practical-box">
+                        <h4>🛠️ Practical Example: Studying Democratic Transitions</h4>
+                        <p><strong>Bad approach:</strong> Just study successful transitions to democracy</p>
+                        <p><strong>Better approach:</strong> Compare successful transitions with failed attempts</p>
+                        <p><strong>Best approach:</strong> Include cases of:</p>
+                        <ul>
+                            <li>Successful democratization</li>
+                            <li>Failed democratization attempts</li>
+                            <li>Stable authoritarian regimes</li>
+                            <li>Cases that moved backward from democracy</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2>🎯 Why This Matters Beyond the Classroom</h2>
+                    
+                    <div class="lecture-style">
+                        <h4>Critical Thinking in Daily Life</h4>
+                        <div class="quote">
+                            "These aren't just academic concepts. Every day, politicians, journalists, and experts make causal claims. KKV gives you the tools to evaluate whether those claims actually hold up."
+                        </div>
+                    </div>
+
+                    <div class="practical-box">
+                        <h4>🗞️ Evaluating News Claims</h4>
+                        <p><strong>Headline:</strong> "Study Shows Coffee Reduces Heart Disease Risk"</p>
+                        <p><strong>KKV Questions to Ask:</strong></p>
+                        <ul>
+                            <li>Is this <span class="key-term">falsifiable</span>? Could we find evidence that would disprove it?</li>
+                            <li>What's the <span class="key-term">counterfactual</span>? How do we know it's the coffee and not something else?</li>
+                            <li>Did they consider <span class="key-term">alternative explanations</span>? Maybe coffee drinkers exercise more?</li>
+                            <li>What about <span class="key-term">selection bias</span>? Did they only study healthy coffee drinkers?</li>
+                        </ul>
+                    </div>
+
+                    <div class="practical-box">
+                        <h4>🏛️ Evaluating Policy Arguments</h4>
+                        <p><strong>Claim:</strong> "Charter schools improve student performance"</p>
+                        <p><strong>KKV Analysis:</strong></p>
+                        <ul>
+                            <li><strong>Causal inference problem:</strong> How do we know it's the charter school and not motivated parents?</li>
+                            <li><strong>Selection on dependent variable:</strong> Are we only looking at successful charter schools?</li>
+                            <li><strong>Alternative explanations:</strong> Could it be resources, teacher quality, or peer effects?</li>
+                            <li><strong>Uncertainty:</strong> What don't we know about long-term effects?</li>
+                        </ul>
+                    </div>
+
+                    <h3>Building Better Arguments</h3>
+                    <p>Whether you're writing a paper, making a business case, or debating policy, KKV helps you:</p>
+                    <ul>
+                        <li><strong>Make testable claims:</strong> Say exactly what evidence would prove you wrong</li>
+                        <li><strong>Address counterarguments:</strong> Anticipate and respond to alternative explanations</li>
+                        <li><strong>Be honest about limits:</strong> Acknowledge what your evidence can and can't prove</li>
+                        <li><strong>Think systematically:</strong> Consider the full range of relevant cases</li>
+                    </ul>
+                </section>
+
+                <section class="section">
+                    <h2>🔗 Connecting to Bueno de Mesquita</h2>
+                    
+                    <div class="highlight-box">
+                        <h4>Building on Scientific Foundations</h4>
+                        <p>KKV takes Bueno de Mesquita's call for scientific rigor and shows exactly how to apply it to qualitative research:</p>
+                    </div>
+
+                    <div class="comparison-grid">
+                        <div class="comparison-card">
+                            <h4>Bueno de Mesquita's Vision</h4>
+                            <ul>
+                                <li>Scientific method for conflict studies</li>
+                                <li>Theory-first approach</li>
+                                <li>Multiple cases over single studies</li>
+                                <li>Explicit assumptions</li>
+                                <li>Sophisticated falsificationism</li>
+                            </ul>
+                        </div>
+                        <div class="comparison-card">
+                            <h4>KKV's Contribution</h4>
+                            <ul>
+                                <li>Applies scientific logic to qualitative work</li>
+                                <li>Concrete rules for theory building</li>
+                                <li>Strategies for case selection</li>
+                                <li>Tools for causal inference</li>
+                                <li>Bridges quant-qual divide</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p><strong>The Synthesis:</strong> Both works argue that <span class="key-term">good social science requires explicit theories, systematic testing, and honest acknowledgment of uncertainty</span>. KKV shows how qualitative researchers can achieve these standards without abandoning what makes their approach valuable.</p>
+                </section>
+
+                <div class="study-questions">
+                    <h3>📝 Study Questions</h3>
+                    
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>1. Why do KKV say quantitative and qualitative research follow the same logic?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-answer">
+                                <h4>The Shared Logic:</h4>
+                                <p>Because <span class="key-term">both seek to make inferences from evidence</span>, even though they use different tools. The logic of explanation and testing applies to both styles.</p>
+                                
+                                <h4>What This Means:</h4>
+                                <ul>
+                                    <li><strong>Same goal:</strong> Both try to move from observations to broader understanding</li>
+                                    <li><strong>Same challenges:</strong> Both face the counterfactual problem and selection bias</li>
+                                    <li><strong>Same standards:</strong> Both need falsifiable theories and transparent methods</li>
+                                    <li><strong>Different tools:</strong> Numbers vs. words, but same underlying reasoning</li>
+                                </ul>
+                                
+                                <h4>Example:</h4>
+                                <p>A quantitative study might survey 1000 people about voting behavior, while a qualitative study might interview 20 people in depth. Both are trying to understand <em>why</em> people vote the way they do - they just use different approaches to get there.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>2. What does "inference" mean in social science?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-answer">
+                                <h4>Simple Definition:</h4>
+                                <p><span class="key-term">Drawing conclusions that go beyond what is directly observed</span>. It means making claims about patterns, causes, or meanings that aren't immediately visible in the data.</p>
+                                
+                                <h4>Examples:</h4>
+                                <ul>
+                                    <li><strong>Description (not inference):</strong> "Candidate A received 55% of votes"</li>
+                                    <li><strong>Inference:</strong> "Campaign ads caused higher voter turnout"</li>
+                                    <li><strong>Description:</strong> "Germany has been peaceful since 1945"</li>
+                                    <li><strong>Inference:</strong> "Democracy makes countries less likely to fight wars"</li>
+                                </ul>
+                                
+                                <h4>Why It's Central:</h4>
+                                <p>Inference is what makes research scientific rather than just descriptive. Anyone can count things or describe events. Science happens when we try to explain <em>why</em> those patterns exist and what they mean for other cases.</p>
+                                
+                                <h4>The Challenge:</h4>
+                                <p>Good inference requires moving carefully from specific observations to general claims, while acknowledging uncertainty and considering alternative explanations.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>3. What is the "fundamental problem of causal inference" and why is it impossible to solve completely?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-answer">
+                                <h4>The Problem:</h4>
+                                <p>To prove that X causes Y, we need to observe the exact same situation both with X present and with X absent — the <span class="key-term">counterfactual</span>. This is literally impossible because we can't rewind time and run the same situation twice.</p>
+                                
+                                <h4>Why It's Impossible:</h4>
+                                <ul>
+                                    <li><strong>Time moves forward:</strong> We can't replay history with different conditions</li>
+                                    <li><strong>Everything is connected:</strong> Changing one thing affects everything else</li>
+                                    <li><strong>Unique contexts:</strong> No two situations are exactly identical</li>
+                                </ul>
+                                
+                                <h4>Example:</h4>
+                                <p>To prove democracy causes peace, we'd need to see the exact same Germany — same history, culture, leaders, economy — but somehow not democratic. Since that's impossible, we have to use approximations and make assumptions.</p>
+                                
+                                <h4>The Workaround:</h4>
+                                <p>We get as close as possible by finding similar cases, controlling for differences, and being explicit about our assumptions. Perfect proof is impossible, but we can build strong evidence.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>4. What does KKV mean by "the content is the method"?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-answer">
+                                <h4>The Core Idea:</h4>
+                                <p><span class="key-term">Science is defined by how we study, not what we study</span>. The topic doesn't determine whether research is scientific — the method does.</p>
+                                
+                                <h4>What This Means:</h4>
+                                <ul>
+                                    <li><strong>Any topic can be scientific:</strong> Love, culture, religion, emotions — if studied systematically</li>
+                                    <li><strong>Method matters most:</strong> Clear theories, transparent procedures, acknowledged uncertainty</li>
+                                    <li><strong>No "soft" vs "hard" subjects:</strong> Only rigorous vs non-rigorous approaches</li>
+                                </ul>
+                                
+                                <h4>Examples:</h4>
+                                <p><strong>Scientific approach to culture:</strong> "Countries with higher social trust have 15% lower corruption rates" (testable, specific)</p>
+                                <p><strong>Non-scientific approach:</strong> "Culture is really important for understanding politics" (vague, untestable)</p>
+                                
+                                <h4>Why This Matters:</h4>
+                                <p>It breaks down artificial barriers between "quantitative" and "qualitative" topics. Even the most complex human behaviors can be studied scientifically if we use rigorous methods.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>5. What are "observable implications," and why are they key?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-answer">
+                                <h4>Definition:</h4>
+                                <p><span class="key-term">Specific outcomes we expect if our theory is right</span>. They connect abstract ideas to concrete evidence that can be observed and measured.</p>
+                                
+                                <h4>Why They're Essential:</h4>
+                                <ul>
+                                    <li><strong>Make theories testable:</strong> Turn vague ideas into specific predictions</li>
+                                    <li><strong>Enable falsification:</strong> Give clear criteria for what would prove the theory wrong</li>
+                                    <li><strong>Guide research:</strong> Tell us what evidence to look for</li>
+                                    <li><strong>Allow comparison:</strong> Let us evaluate competing theories</li>
+                                </ul>
+                                
+                                <h4>Example:</h4>
+                                <p><strong>Theory:</strong> "Democratic institutions reduce conflict"</p>
+                                <p><strong>Observable implications:</strong></p>
+                                <ul>
+                                    <li>Democracies should fight fewer wars than non-democracies</li>
+                                    <li>Democratic transitions should be followed by reduced military spending</li>
+                                    <li>Countries with stronger democratic institutions should have fewer civil conflicts</li>
+                                </ul>
+                                
+                                <h4>The Test:</h4>
+                                <p>If we don't find these patterns in the real world, we have reason to doubt or revise our theory. Observable implications are the bridge between abstract thinking and empirical evidence.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>6. What does it mean to "maximize leverage"?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-answer">
+                                <h4>The Concept:</h4>
+                                <p><span class="key-term">Use a small set of clear causes to explain a large amount of variation</span>. Get the most explanatory power from the fewest assumptions.</p>
+                                
+                                <h4>Why It's Valuable:</h4>
+                                <ul>
+                                    <li><strong>Efficiency:</strong> Explains more with less</li>
+                                    <li><strong>Clarity:</strong> Focuses on what really matters</li>
+                                    <li><strong>Generalizability:</strong> Simple explanations often apply more broadly</li>
+                                    <li><strong>Testability:</strong> Fewer moving parts make theories easier to test</li>
+                                </ul>
+                                
+                                <h4>Example:</h4>
+                                <p><strong>High leverage:</strong> "Economic inequality explains both crime rates and political instability across countries"</p>
+                                <p><strong>Low leverage:</strong> "Crime depends on inequality, culture, history, geography, institutions, demographics, and weather patterns"</p>
+                                
+                                <h4>The Balance:</h4>
+                                <p>The goal isn't oversimplification — it's finding the right level of complexity. Good theories are as simple as possible, but no simpler than necessary to explain the phenomena.</p>
+                                
+                                <h4>Practical Application:</h4>
+                                <p>When designing research, ask: "What are the few key factors that really drive the outcomes I care about?" Focus your limited time and resources on testing those crucial relationships.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>7. How does KKV's approach bridge the quantitative-qualitative divide in social science?</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-answer">
+                                <h4>The Traditional Divide:</h4>
+                                <ul>
+                                    <li><strong>Quantitative:</strong> Numbers, statistics, large samples, generalization</li>
+                                    <li><strong>Qualitative:</strong> Words, case studies, deep context, understanding</li>
+                                    <li><strong>The Problem:</strong> Seen as fundamentally different approaches with different goals</li>
+                                </ul>
+                                
+                                <h4>KKV's Bridge:</h4>
+                                <p><span class="key-term">Both approaches share the same logic of scientific inference</span> — they're trying to make valid causal claims about the world.</p>
+                                
+                                <h4>Shared Principles:</h4>
+                                <ul>
+                                    <li><strong>Causal inference:</strong> Both face the counterfactual problem</li>
+                                    <li><strong>Theory testing:</strong> Both need falsifiable theories</li>
+                                    <li><strong>Bias concerns:</strong> Both must worry about selection effects</li>
+                                    <li><strong>Uncertainty:</strong> Both should acknowledge limitations</li>
+                                </ul>
+                                
+                                <h4>What This Means:</h4>
+                                <ul>
+                                    <li><strong>Qualitative researchers</strong> can use rigorous scientific standards without losing depth</li>
+                                    <li><strong>Quantitative researchers</strong> can learn from qualitative insights about context and process</li>
+                                    <li><strong>Both approaches</strong> can inform and strengthen each other</li>
+                                </ul>
+                                
+                                <h4>The Result:</h4>
+                                <p>Instead of two separate camps, we get <strong>one social science</strong> with different tools but shared standards for making reliable knowledge about the social world.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>8. Give an example of how you would apply KKV's principles to evaluate a real-world policy claim.</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-answer">
+                                <h4>Policy Claim Example:</h4>
+                                <p><strong>"Mandatory minimum sentences reduce crime rates"</strong></p>
+                                
+                                <h4>Applying KKV's Framework:</h4>
+                                
+                                <h4>1. Falsifiability Test:</h4>
+                                <ul>
+                                    <li><strong>Good:</strong> The claim makes a specific, testable prediction</li>
+                                    <li><strong>Question:</strong> What would count as evidence against it? Rising crime despite mandatory minimums?</li>
+                                </ul>
+                                
+                                <h4>2. Causal Inference Challenge:</h4>
+                                <ul>
+                                    <li><strong>Counterfactual problem:</strong> What would crime rates be WITHOUT mandatory minimums?</li>
+                                    <li><strong>Need:</strong> Compare similar jurisdictions with and without the policy</li>
+                                </ul>
+                                
+                                <h4>3. Alternative Explanations:</h4>
+                                <ul>
+                                    <li>Economic conditions improving?</li>
+                                    <li>More police on the streets?</li>
+                                    <li>Demographic changes?</li>
+                                    <li>Other criminal justice reforms?</li>
+                                </ul>
+                                
+                                <h4>4. Selection Bias Check:</h4>
+                                <ul>
+                                    <li><strong>Bad:</strong> Only studying places where crime fell after implementing policy</li>
+                                    <li><strong>Better:</strong> Include places where crime stayed same or rose</li>
+                                </ul>
+                                
+                                <h4>5. Uncertainty Assessment:</h4>
+                                <ul>
+                                    <li>What don't we know about long-term effects?</li>
+                                    <li>Does it work for all types of crime?</li>
+                                    <li>What about unintended consequences?</li>
+                                </ul>
+                                
+                                <h4>Better Research Design:</h4>
+                                <p>Compare states before/after implementation, control for economic and demographic factors, include states that didn't adopt the policy, and be honest about what the evidence can and can't tell us.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-container" id="quiz-container">
+                    <h3>🧠 Test Your Knowledge</h3>
+                    
+                    <div class="quiz-question">
+                        <h4>1. What do KKV mean by "inference" in social science?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-correct="false">Using statistical software to analyze data</div>
+                            <div class="quiz-option" data-correct="true">Drawing conclusions that go beyond what is directly observed</div>
+                            <div class="quiz-option" data-correct="false">Making educated guesses about the future</div>
+                            <div class="quiz-option" data-correct="false">Collecting data through surveys and interviews</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>2. What is the "fundamental problem of causal inference"?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-correct="false">Social science is too complex for causal claims</div>
+                            <div class="quiz-option" data-correct="true">We can't observe the counterfactual - what would have happened without the cause</div>
+                            <div class="quiz-option" data-correct="false">Qualitative research can't establish causation</div>
+                            <div class="quiz-option" data-correct="false">We need more data to prove causation</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>3. Which of these is a falsifiable theory?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-correct="false">"Culture influences political behavior"</div>
+                            <div class="quiz-option" data-correct="true">"Democracies never fight wars against each other"</div>
+                            <div class="quiz-option" data-correct="false">"Leadership matters in international relations"</div>
+                            <div class="quiz-option" data-correct="false">"Economic factors affect political outcomes"</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>4. What does "maximizing leverage" mean in research design?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-correct="false">Using the most advanced statistical techniques</div>
+                            <div class="quiz-option" data-correct="false">Collecting as much data as possible</div>
+                            <div class="quiz-option" data-correct="true">Explaining a lot of variation with a few clear causes</div>
+                            <div class="quiz-option" data-correct="false">Focusing only on the most important cases</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>5. What's wrong with "selecting on the dependent variable"?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-correct="false">It's too expensive and time-consuming</div>
+                            <div class="quiz-option" data-correct="false">It requires too much statistical knowledge</div>
+                            <div class="quiz-option" data-correct="true">You only study cases where your theory "works," missing important variation</div>
+                            <div class="quiz-option" data-correct="false">It's only appropriate for quantitative research</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>6. How does KKV bridge the quantitative-qualitative divide?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-correct="false">By showing qualitative research is superior</div>
+                            <div class="quiz-option" data-correct="true">By arguing both approaches share the same logic of scientific inference</div>
+                            <div class="quiz-option" data-correct="false">By requiring all research to use statistics</div>
+                            <div class="quiz-option" data-correct="false">By eliminating case study methods</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>7. What are "observable implications"?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-correct="false">The practical consequences of research findings</div>
+                            <div class="quiz-option" data-correct="true">Specific outcomes we expect if our theory is correct</div>
+                            <div class="quiz-option" data-correct="false">The ethical implications of research</div>
+                            <div class="quiz-option" data-correct="false">Data that can be directly measured</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>8. What does KKV mean by "the content is the method"?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-correct="false">Research topics determine which methods to use</div>
+                            <div class="quiz-option" data-correct="true">Science is defined by how we study, not what we study</div>
+                            <div class="quiz-option" data-correct="false">Content analysis is the best research method</div>
+                            <div class="quiz-option" data-correct="false">Methods should match the subject matter</div>
+                        </div>
+                    </div>
+
+                    <button class="quiz-submit" onclick="submitQuiz()">Submit Quiz</button>
+                    <div id="quiz-result" class="quiz-result" style="display: none;"></div>
+                </div>
+            </main>
+
+            <aside class="reference-box">
+                <div class="progress-section">
+                    <h3>📊 Study Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <div class="progress-text" id="progress-text">0% Complete</div>
+                </div>
+
+                <div class="control-buttons">
+                    <button class="control-btn toggle-btn" id="toggle-terms-sidebar" onclick="toggleKeyTerms()">
+                        Hide Key Terms
+                    </button>
+                    <button class="control-btn test-btn" onclick="toggleQuiz()">
+                        Test Knowledge
+                    </button>
+                    <button class="control-btn reset-btn" onclick="resetProgress()">
+                        Reset Progress
+                    </button>
+                </div>
+
+                <div class="reference-content">
+                    <h4>📚 Quick Reference</h4>
+                    
+                    <h4>Four Features of Scientific Research</h4>
+                    <ol>
+                        <li><strong>Inference:</strong> Beyond description to explanation</li>
+                        <li><strong>Public procedures:</strong> Transparent methods</li>
+                        <li><strong>Acknowledged uncertainty:</strong> Honest about limits</li>
+                        <li><strong>Method over topic:</strong> How, not what we study</li>
+                    </ol>
+
+                    <h4>Four Components of Research Design</h4>
+                    <ol>
+                        <li><strong>Research Question:</strong> Important and answerable</li>
+                        <li><strong>Theory:</strong> Precise and falsifiable</li>
+                        <li><strong>Data:</strong> Valid and reliable</li>
+                        <li><strong>Use of Data:</strong> Clear analysis and reporting</li>
+                    </ol>
+
+                    <h4>Four Themes of the Book</h4>
+                    <ol>
+                        <li><strong>Observable implications:</strong> Testable predictions</li>
+                        <li><strong>Maximizing leverage:</strong> Explain more with less</li>
+                        <li><strong>Reporting uncertainty:</strong> Show confidence levels</li>
+                        <li><strong>Think like a scientist:</strong> Skepticism and testing</li>
+                    </ol>
+
+                    <h4>Causal Inference Challenge</h4>
+                    <ul>
+                        <li><strong>Problem:</strong> Can't observe counterfactual</li>
+                        <li><strong>Solution:</strong> Find similar cases with variation</li>
+                        <li><strong>Control:</strong> Account for other factors</li>
+                        <li><strong>Assumptions:</strong> Be explicit about what you're assuming</li>
+                    </ul>
+
+                    <h4>Research Strategies</h4>
+                    <ul>
+                        <li><strong>Most Similar:</strong> Cases alike except key variable</li>
+                        <li><strong>Most Different:</strong> Different cases, same outcome</li>
+                        <li><strong>Crucial Cases:</strong> Theory should definitely work</li>
+                        <li><strong>Increase observations:</strong> Time, levels, within-case</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Back to Top Button -->
+        <button class="back-to-top" id="back-to-top" onclick="scrollToTop()" title="Back to top">
+            ↑
+        </button>
+    </div>
+
+    <script>
+        let keyTermsVisible = true;
+        let sectionsRead = new Set();
+        let quizVisible = false;
+
+        function toggleKeyTerms() {
+            const keyTerms = document.querySelectorAll('.key-term');
+            const toggleBtn = document.getElementById('toggle-terms');
+            const toggleBtnSidebar = document.getElementById('toggle-terms-sidebar');
+            
+            keyTermsVisible = !keyTermsVisible;
+            
+            keyTerms.forEach(term => {
+                if (keyTermsVisible) {
+                    term.classList.remove('hidden');
+                } else {
+                    term.classList.add('hidden');
+                }
+            });
+            
+            const buttonText = keyTermsVisible ? 'Hide Key Terms' : 'Show Key Terms';
+            if (toggleBtn) toggleBtn.textContent = buttonText;
+            if (toggleBtnSidebar) toggleBtnSidebar.textContent = buttonText;
+            
+            if (toggleBtn) toggleBtn.classList.toggle('active', !keyTermsVisible);
+            if (toggleBtnSidebar) toggleBtnSidebar.classList.toggle('active', !keyTermsVisible);
+        }
+
+        function toggleQuiz() {
+            const quizContainer = document.getElementById('quiz-container');
+            quizVisible = !quizVisible;
+            
+            if (quizVisible) {
+                quizContainer.classList.add('active');
+                quizContainer.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                quizContainer.classList.remove('active');
+            }
+        }
+
+        function submitQuiz() {
+            const questions = document.querySelectorAll('.quiz-question');
+            let correct = 0;
+            let total = questions.length;
+
+            questions.forEach(question => {
+                const options = question.querySelectorAll('.quiz-option');
+                const selectedOption = question.querySelector('.quiz-option.selected');
+                
+                options.forEach(option => {
+                    const isCorrect = option.dataset.correct === 'true';
+                    const isSelected = option.classList.contains('selected');
+                    
+                    if (isCorrect) {
+                        option.classList.add('correct');
+                        if (isSelected) correct++;
+                    } else if (isSelected) {
+                        option.classList.add('incorrect');
+                    }
+                });
+            });
+
+            const resultDiv = document.getElementById('quiz-result');
+            const percentage = Math.round((correct / total) * 100);
+            
+            resultDiv.style.display = 'block';
+            resultDiv.className = `quiz-result ${percentage >= 70 ? 'correct' : 'incorrect'}`;
+            resultDiv.textContent = `You scored ${correct}/${total} (${percentage}%). ${percentage >= 70 ? 'Great job!' : 'Review the material and try again.'}`;
+
+            // Update progress
+            if (percentage >= 70) {
+                sectionsRead.add('quiz');
+                updateProgress();
+            }
+        }
+
+        function resetProgress() {
+            sectionsRead.clear();
+            updateProgress();
+            
+            // Reset quiz
+            const quizOptions = document.querySelectorAll('.quiz-option');
+            quizOptions.forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            const resultDiv = document.getElementById('quiz-result');
+            resultDiv.style.display = 'none';
+            
+            // Reset key terms
+            keyTermsVisible = true;
+            const keyTerms = document.querySelectorAll('.key-term');
+            keyTerms.forEach(term => term.classList.remove('hidden'));
+            
+            const toggleBtn = document.getElementById('toggle-terms');
+            const toggleBtnSidebar = document.getElementById('toggle-terms-sidebar');
+            if (toggleBtn) {
+                toggleBtn.textContent = 'Hide Key Terms';
+                toggleBtn.classList.remove('active');
+            }
+            if (toggleBtnSidebar) {
+                toggleBtnSidebar.textContent = 'Hide Key Terms';
+                toggleBtnSidebar.classList.remove('active');
+            }
+        }
+
+        function updateProgress() {
+            const totalSections = 6; // Updated count: Chapter 1, Causal Inference, Five Rules, Research Design, Why This Matters, Connecting to BdM
+            const completedSections = sectionsRead.size;
+            const percentage = Math.round((completedSections / totalSections) * 100);
+            
+            document.getElementById('progress-fill').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = percentage + '% Complete';
+        }
+
+        // Track reading progress
+        function trackReading() {
+            const sections = document.querySelectorAll('.section');
+            const windowHeight = window.innerHeight;
+            const scrollTop = window.pageYOffset;
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollTop + windowHeight > sectionTop + sectionHeight * 0.5) {
+                    sectionsRead.add(`section-${index}`);
+                }
+            });
+            
+            updateProgress();
+        }
+
+        // Quiz option selection
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('quiz-option')) {
+                const question = e.target.closest('.quiz-question');
+                const options = question.querySelectorAll('.quiz-option');
+                
+                options.forEach(option => option.classList.remove('selected'));
+                e.target.classList.add('selected');
+            }
+        });
+
+        // Accordion functionality
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('.accordion-icon');
+            
+            // Close all other accordions
+            const allHeaders = document.querySelectorAll('.accordion-header');
+            const allContents = document.querySelectorAll('.accordion-content');
+            
+            allHeaders.forEach(h => {
+                if (h !== header) {
+                    h.classList.remove('active');
+                    h.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
+                }
+            });
+            
+            allContents.forEach(c => {
+                if (c !== content) {
+                    c.classList.remove('active');
+                }
+            });
+            
+            // Toggle current accordion
+            header.classList.toggle('active');
+            content.classList.toggle('active');
+            
+            if (header.classList.contains('active')) {
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Back to top functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        function toggleBackToTopButton() {
+            const backToTopBtn = document.getElementById('back-to-top');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        }
+
+        // Combined scroll handler
+        function handleScroll() {
+            trackReading();
+            toggleBackToTopButton();
+        }
+
+        // Track scroll for progress and back-to-top button
+        window.addEventListener('scroll', handleScroll);
+        
+        // Initial updates
+        updateProgress();
+        toggleBackToTopButton();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9903bf6d16ed7ba2',t:'MTc2MDc0NTU0NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
