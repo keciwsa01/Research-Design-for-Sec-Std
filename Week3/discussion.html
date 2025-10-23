@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discussion Questions</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100%;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .discussion-container {
+            display: grid;
+            gap: 20px;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border-left: 5px solid transparent;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideIn 0.6s ease-in-out forwards;
+        }
+
+        .question-card:nth-child(1) { animation-delay: 0.1s; border-left-color: #e74c3c; }
+        .question-card:nth-child(2) { animation-delay: 0.2s; border-left-color: #3498db; }
+        .question-card:nth-child(3) { animation-delay: 0.3s; border-left-color: #27ae60; }
+        .question-card:nth-child(4) { animation-delay: 0.4s; border-left-color: #f39c12; }
+        .question-card:nth-child(5) { animation-delay: 0.5s; border-left-color: #9b59b6; }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+
+        .question-header {
+            padding: 25px 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .question-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.05), rgba(155, 89, 182, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .question-header:hover::before {
+            opacity: 1;
+        }
+
+        .question-icon {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3em;
+            color: white;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .question-text {
+            flex: 1;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2c3e50;
+            line-height: 1.4;
+            margin: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .expand-icon {
+            font-size: 1.5em;
+            color: #7f8c8d;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .question-card.active .question-header {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(155, 89, 182, 0.1));
+        }
+
+        .question-card.active .question-icon {
+            background: linear-gradient(135deg, #27ae60, #229954);
+            transform: scale(1.1);
+        }
+
+        .question-card.active .expand-icon {
+            transform: rotate(180deg);
+            color: #27ae60;
+        }
+
+        .answer-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            background: #f8f9fa;
+        }
+
+        .answer-container.active {
+            max-height: 300px;
+        }
+
+        .answer-content {
+            padding: 30px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .answer-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .answer-icon {
+            background: linear-gradient(135deg, #27ae60, #229954);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1em;
+            color: white;
+        }
+
+        .answer-label {
+            font-weight: 600;
+            color: #27ae60;
+            font-size: 1.1em;
+        }
+
+        .answer-text {
+            font-size: 1.1em;
+            line-height: 1.7;
+            color: #34495e;
+            margin: 0;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #27ae60;
+        }
+
+        .instructions {
+            background: rgba(52, 152, 219, 0.1);
+            color: #2980b9;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 2px solid rgba(52, 152, 219, 0.2);
+        }
+
+        .instructions-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 25px 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .question-header {
+                padding: 20px;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .question-text {
+                font-size: 1.1em;
+            }
+
+            .answer-content {
+                padding: 20px;
+            }
+
+            .answer-text {
+                font-size: 1em;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+
+        <div class="discussion-container">
+            <div class="question-card">
+                <div class="question-header" onclick="toggleAnswer(this)">
+                    <div class="question-icon">❓</div>
+                    <h3 class="question-text">Why is theory important in political science research?</h3>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="answer-container">
+                    <div class="answer-content">
+                        <div class="answer-header">
+                            <div class="answer-icon">💡</div>
+                            <div class="answer-label">Answer</div>
+                        </div>
+                        <p class="answer-text">
+                            Theory provides a framework to explain why certain political or social phenomena occur and connects variables in a logical, causal way.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-header" onclick="toggleAnswer(this)">
+                    <div class="question-icon">🔗</div>
+                    <h3 class="question-text">What is the difference between correlation and causation?</h3>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="answer-container">
+                    <div class="answer-content">
+                        <div class="answer-header">
+                            <div class="answer-icon">💡</div>
+                            <div class="answer-label">Answer</div>
+                        </div>
+                        <p class="answer-text">
+                            Correlation means two variables move together; causation means one directly influences the other.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-header" onclick="toggleAnswer(this)">
+                    <div class="question-icon">🎲</div>
+                    <h3 class="question-text">Why are social science theories typically probabilistic?</h3>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="answer-container">
+                    <div class="answer-content">
+                        <div class="answer-header">
+                            <div class="answer-icon">💡</div>
+                            <div class="answer-label">Answer</div>
+                        </div>
+                        <p class="answer-text">
+                            Human behavior is complex and unpredictable; probabilistic theories account for likelihoods rather than certainties.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-header" onclick="toggleAnswer(this)">
+                    <div class="question-icon">📚</div>
+                    <h3 class="question-text">What role does the literature review play in theory building?</h3>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="answer-container">
+                    <div class="answer-content">
+                        <div class="answer-header">
+                            <div class="answer-icon">💡</div>
+                            <div class="answer-label">Answer</div>
+                        </div>
+                        <p class="answer-text">
+                            It helps researchers understand what explanations already exist and provides insights for developing or refining their own theories.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-header" onclick="toggleAnswer(this)">
+                    <div class="question-icon">🔬</div>
+                    <h3 class="question-text">How do null and research hypotheses work together?</h3>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="answer-container">
+                    <div class="answer-content">
+                        <div class="answer-header">
+                            <div class="answer-icon">💡</div>
+                            <div class="answer-label">Answer</div>
+                        </div>
+                        <p class="answer-text">
+                            The research hypothesis proposes a relationship; the null hypothesis assumes no relationship. Researchers test data to see which is supported.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAnswer(header) {
+            const card = header.parentElement;
+            const answerContainer = card.querySelector('.answer-container');
+            const isActive = card.classList.contains('active');
+
+            // Close all other cards
+            document.querySelectorAll('.question-card').forEach(otherCard => {
+                if (otherCard !== card) {
+                    otherCard.classList.remove('active');
+                    otherCard.querySelector('.answer-container').classList.remove('active');
+                }
+            });
+
+            // Toggle current card
+            if (isActive) {
+                card.classList.remove('active');
+                answerContainer.classList.remove('active');
+            } else {
+                card.classList.add('active');
+                answerContainer.classList.add('active');
+            }
+        }
+
+        // Add keyboard accessibility
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                // Close all open answers
+                document.querySelectorAll('.question-card').forEach(card => {
+                    card.classList.remove('active');
+                    card.querySelector('.answer-container').classList.remove('active');
+                });
+            }
+        });
+
+        // Add click outside to close functionality
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.question-card')) {
+                document.querySelectorAll('.question-card').forEach(card => {
+                    card.classList.remove('active');
+                    card.querySelector('.answer-container').classList.remove('active');
+                });
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9933ccdb7699217c',t:'MTc2MTI0OTQxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
