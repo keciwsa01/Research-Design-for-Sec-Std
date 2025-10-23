@@ -312,6 +312,29 @@
 <body>
     <div class="container">
         <table class="glossary-table">
+            <tr class="header-row">
+                <td class="header-cell">
+                    <h1 class="header-title">📚 Political Science Glossary</h1>
+                </td>
+            </tr>
+            <tr class="search-row">
+                <td class="search-cell">
+                    <div class="search-container">
+                        <div class="search-header">
+                            <div class="search-icon">🔍</div>
+                            <h2 class="search-title">Search Terms</h2>
+                        </div>
+                        <input 
+                            type="text" 
+                            class="search-input" 
+                            id="searchInput" 
+                            placeholder="Type to search for terms..."
+                            autocomplete="off"
+                        >
+                        <div class="term-count" id="termCount">11 terms available</div>
+                    </div>
+                </td>
+            </tr>
             <tr class="content-row">
                 <td class="content-cell">
                     <div class="glossary-grid" id="glossaryGrid">
@@ -427,19 +450,104 @@
         </div>
 
                     </div>
+
+                    <div class="no-results" id="noResults" style="display: none;">
+                        <div class="no-results-icon">🔍</div>
+                        <p>No terms found matching your search.</p>
+                        <small>Try searching for different keywords or check your spelling.</small>
+                    </div>
                 </td>
             </tr>
         </table>
     </div>
 
     <script>
-        // Simple initialization for animations
-        document.addEventListener('DOMContentLoaded', function() {
+        function initializeGlossary() {
+            const searchInput = document.getElementById('searchInput');
+            const glossaryGrid = document.getElementById('glossaryGrid');
+            const noResults = document.getElementById('noResults');
+            const termCount = document.getElementById('termCount');
             const termCards = document.querySelectorAll('.term-card');
-            termCards.forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.1}s`;
+            const totalTerms = termCards.length;
+
+            function filterTerms() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                let visibleCount = 0;
+
+                termCards.forEach(card => {
+                    const termName = card.getAttribute('data-term').toLowerCase();
+                    const termTitle = card.querySelector('.term-title').textContent.toLowerCase();
+                    const termDefinition = card.querySelector('.term-definition').textContent.toLowerCase();
+                    
+                    const matches = termName.includes(searchTerm) || 
+                                  termTitle.includes(searchTerm) || 
+                                  termDefinition.includes(searchTerm);
+
+                    if (matches) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeIn 0.3s ease-in-out';
+                        visibleCount++;
+                        
+                        // Highlight matching text
+                        highlightText(card, searchTerm);
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Update term count
+                if (searchTerm === '') {
+                    termCount.textContent = `${totalTerms} terms available`;
+                } else {
+                    termCount.textContent = `${visibleCount} of ${totalTerms} terms found`;
+                }
+
+                // Show/hide no results message
+                if (visibleCount === 0 && searchTerm !== '') {
+                    noResults.style.display = 'block';
+                    glossaryGrid.style.display = 'none';
+                } else {
+                    noResults.style.display = 'none';
+                    glossaryGrid.style.display = 'grid';
+                }
+            }
+
+            function highlightText(card, searchTerm) {
+                if (searchTerm === '') return;
+
+                const title = card.querySelector('.term-title');
+                const definition = card.querySelector('.term-definition');
+                
+                // Remove existing highlights
+                title.innerHTML = title.textContent;
+                definition.innerHTML = definition.textContent;
+
+                if (searchTerm.length > 0) {
+                    const regex = new RegExp(`(${searchTerm})`, 'gi');
+                    
+                    title.innerHTML = title.textContent.replace(regex, '<span class="highlight">$1</span>');
+                    definition.innerHTML = definition.textContent.replace(regex, '<span class="highlight">$1</span>');
+                }
+            }
+
+            // Add event listener for search input
+            searchInput.addEventListener('input', filterTerms);
+
+            // Add keyboard navigation
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    searchInput.value = '';
+                    filterTerms();
+                    searchInput.blur();
+                }
             });
-        });
+
+            // Focus search input when page loads
+            searchInput.focus();
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializeGlossary);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9933c11d7135bca7',t:'MTc2MTI0ODkzMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9933b81d96cbbca7',t:'MTc2MTI0ODU2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
