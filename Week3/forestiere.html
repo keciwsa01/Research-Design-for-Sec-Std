@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theory and Hypotheses - Learning Hub</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100%;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 0;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 2px solid #34495e;
+        }
+
+        .sidebar-header h1 {
+            margin: 0;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        .sidebar-header p {
+            margin: 8px 0 0 0;
+            opacity: 0.9;
+            font-size: 0.9em;
+        }
+
+        .nav-menu {
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            display: block;
+            width: 100%;
+            background: none;
+            border: none;
+            color: white;
+            padding: 15px 25px;
+            text-align: left;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(52, 152, 219, 0.2);
+            border-left-color: #3498db;
+            transform: translateX(5px);
+        }
+
+        .nav-item.active {
+            background: rgba(52, 152, 219, 0.3);
+            border-left-color: #3498db;
+            font-weight: 600;
+        }
+
+        .nav-item::before {
+            content: "📚";
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
+
+        .nav-item[data-section="overview"]::before { content: "🏠"; }
+        .nav-item[data-section="content"]::before { content: "📖"; }
+        .nav-item[data-section="examples"]::before { content: "💡"; }
+        .nav-item[data-section="extended"]::before { content: "🔬"; }
+        .nav-item[data-section="glossary"]::before { content: "📝"; }
+        .nav-item[data-section="interactives"]::before { content: "🎯"; }
+        .nav-item[data-section="discussion"]::before { content: "💬"; }
+        .nav-item[data-section="quiz"]::before { content: "🎓"; }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-header {
+            background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
+            padding: 20px 30px;
+            border-bottom: 1px solid #bdc3c7;
+        }
+
+        .main-header h2 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 1.8em;
+            font-weight: 400;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .embed-area {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+            background: #f8f9fa;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            overflow-y: auto;
+            padding-top: 20px;
+        }
+
+        .embed-area.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #ecf0f1;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .welcome-content {
+            text-align: center;
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .welcome-content h3 {
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .welcome-content p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+            
+            .nav-menu {
+                display: flex;
+                overflow-x: auto;
+                padding: 10px;
+            }
+            
+            .nav-item {
+                white-space: nowrap;
+                min-width: 150px;
+                text-align: center;
+            }
+            
+            .main-content {
+                order: 1;
+            }
+            
+            .welcome-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>Theory & Hypotheses</h1>
+                <p>Learning Hub</p>
+            </div>
+            
+            <nav class="nav-menu">
+                <button class="nav-item active" data-section="overview" onclick="loadSection('overview', 'Theory and Hypotheses Overview')">Overview</button>
+                <button class="nav-item" data-section="content" onclick="loadSection('content', 'Content')">Content</button>
+                <button class="nav-item" data-section="examples" onclick="loadSection('examples', 'Examples of Theories and Hypotheses')">Examples of Theories and Hypotheses</button>
+                <button class="nav-item" data-section="extended" onclick="loadSection('extended', 'Extended Political Science Examples')">Extended Political Science Examples</button>
+                <button class="nav-item" data-section="glossary" onclick="loadSection('glossary', 'Glossary')">Glossary</button>
+                <button class="nav-item" data-section="interactives" onclick="loadSection('interactives', 'Interactives')">Interactives</button>
+                <button class="nav-item" data-section="discussion" onclick="loadSection('discussion', 'Discussion')">Discussion</button>
+                <button class="nav-item" data-section="quiz" onclick="loadSection('quiz', 'Quiz')">Quiz</button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <h2 id="pageTitle">Theory and Hypotheses Overview</h2>
+            </header>
+            
+            <div class="content-wrapper">
+                <div class="embed-area active" id="embedArea">
+                    <div class="welcome-content">
+                        <!-- Hero Section with SVG -->
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; padding: 40px; margin-bottom: 30px; color: white; position: relative; overflow: hidden; text-align: center;">
+                            <div style="position: absolute; top: -50px; right: -50px; opacity: 0.1;">
+                                <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
+                                    <circle cx="100" cy="100" r="80" stroke="white" stroke-width="2"/>
+                                    <circle cx="100" cy="100" r="60" stroke="white" stroke-width="2"/>
+                                    <circle cx="100" cy="100" r="40" stroke="white" stroke-width="2"/>
+                                    <circle cx="100" cy="100" r="20" stroke="white" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <h3 style="color: white; font-size: 2.5em; margin-bottom: 20px; position: relative; z-index: 2;">Theory and Hypotheses</h3>
+                            <div style="position: relative; z-index: 2; max-width: 600px; margin: 0 auto;">
+                                <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; backdrop-filter: blur(10px);">
+                                    <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px;">
+                                        <div style="background: #3498db; padding: 12px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2em;">
+                                            🧠
+                                        </div>
+                                        <h4 style="margin: 0; color: white; font-size: 1.3em;">Research Foundation</h4>
+                                    </div>
+                                    <p style="margin: 0; color: rgba(255,255,255,0.9); line-height: 1.6; font-size: 1.1em;">Explore the building blocks of scientific inquiry and evidence-based understanding.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Content Cards -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px;">
+                            <!-- Theory Card -->
+                            <div style="background: linear-gradient(135deg, #74b9ff, #0984e3); border-radius: 15px; padding: 30px; color: white; position: relative; overflow: hidden; min-height: 180px;">
+                                <div style="position: absolute; top: -20px; right: -20px; opacity: 0.2;">
+                                    <svg width="100" height="100" viewBox="0 0 100 100" fill="white">
+                                        <path d="M50 10 L90 90 L10 90 Z"/>
+                                    </svg>
+                                </div>
+                                <div style="position: relative; z-index: 2;">
+                                    <div style="background: rgba(255,255,255,0.25); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.6em; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                                        🔍
+                                    </div>
+                                    <h4 style="margin: 0 0 15px 0; font-size: 1.5em; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">Theory</h4>
+                                    <p style="margin: 0; font-size: 1.05em; line-height: 1.5; font-weight: 400; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">Generalized explanations that connect causes and effects, answering the fundamental question "why?"</p>
+                                </div>
+                            </div>
+
+                            <!-- Hypothesis Card -->
+                            <div style="background: linear-gradient(135deg, #fd79a8, #e84393); border-radius: 15px; padding: 30px; color: white; position: relative; overflow: hidden; min-height: 180px;">
+                                <div style="position: absolute; top: -20px; right: -20px; opacity: 0.2;">
+                                    <svg width="100" height="100" viewBox="0 0 100 100" fill="white">
+                                        <rect x="20" y="20" width="60" height="60" rx="10"/>
+                                        <circle cx="50" cy="50" r="15"/>
+                                    </svg>
+                                </div>
+                                <div style="position: relative; z-index: 2;">
+                                    <div style="background: rgba(255,255,255,0.25); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.6em; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                                        🧪
+                                    </div>
+                                    <h4 style="margin: 0 0 15px 0; font-size: 1.5em; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">Hypotheses</h4>
+                                    <p style="margin: 0; font-size: 1.05em; line-height: 1.5; font-weight: 400; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">Specific, testable statements about relationships between variables that can be measured with data.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Main Content -->
+                        <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: left;">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
+                                <div style="background: linear-gradient(135deg, #00b894, #00a085); padding: 12px; border-radius: 50%; color: white; font-size: 1.2em;">
+                                    📚
+                                </div>
+                                <h4 style="margin: 0; color: #2d3436; font-size: 1.4em;">Understanding the Connection</h4>
+                            </div>
+                            
+                            <p style="color: #636e72; font-size: 1.1em; line-height: 1.7; margin-bottom: 20px;">Social science research relies on theory to explain why things happen the way they do. A <strong style="color: #2d3436;">theory</strong> is a generalized explanation that connects causes and effects—essentially answering the question "why?"</p>
+                            
+                            <p style="color: #636e72; font-size: 1.1em; line-height: 1.7; margin-bottom: 25px;">To test these explanations, researchers create <strong style="color: #2d3436;">hypotheses</strong>—specific, testable statements about how two or more variables are related. For example, a theory might claim that education affects political participation, while a hypothesis might state, "People with more education are more likely to vote."</p>
+                            
+                            <!-- Example Box -->
+                            <div style="background: linear-gradient(135deg, #ffeaa7, #fdcb6e); border-radius: 12px; padding: 20px; margin-top: 25px; position: relative; overflow: hidden;">
+                                <div style="position: absolute; top: -10px; right: -10px; opacity: 0.3;">
+                                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                                        <path d="M40 10 L70 40 L40 70 L10 40 Z" stroke="#e17055" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                                <div style="position: relative; z-index: 2;">
+                                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                        <span style="font-size: 1.2em;">💡</span>
+                                        <strong style="color: #2d3436;">Example Connection</strong>
+                                    </div>
+                                    <p style="margin: 0; color: #2d3436; font-style: italic;">Theory: Education influences political engagement<br>
+                                    Hypothesis: "People with higher education levels are more likely to vote in elections"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let currentSection = 'overview';
+        
+        function loadSection(section, title) {
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`[data-section="${section}"]`).classList.add('active');
+            
+            // Update page title
+            document.getElementById('pageTitle').textContent = title;
+            
+            // Fade out current content
+            const embedArea = document.getElementById('embedArea');
+            embedArea.classList.remove('active');
+            
+            // Show loading spinner
+            setTimeout(() => {
+                embedArea.innerHTML = '<div class="loading-spinner"></div>';
+                
+                // For overview, show the built-in content
+                if (section === 'overview') {
+                    setTimeout(() => {
+                        embedArea.innerHTML = `
+                            <div class="welcome-content">
+                                <!-- Hero Section with SVG -->
+                                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; padding: 40px; margin-bottom: 30px; color: white; position: relative; overflow: hidden; text-align: center;">
+                                    <div style="position: absolute; top: -50px; right: -50px; opacity: 0.1;">
+                                        <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
+                                            <circle cx="100" cy="100" r="80" stroke="white" stroke-width="2"/>
+                                            <circle cx="100" cy="100" r="60" stroke="white" stroke-width="2"/>
+                                            <circle cx="100" cy="100" r="40" stroke="white" stroke-width="2"/>
+                                            <circle cx="100" cy="100" r="20" stroke="white" stroke-width="2"/>
+                                        </svg>
+                                    </div>
+                                    <h3 style="color: white; font-size: 2.5em; margin-bottom: 20px; position: relative; z-index: 2;">Theory and Hypotheses</h3>
+                                    <div style="position: relative; z-index: 2; max-width: 600px; margin: 0 auto;">
+                                        <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; backdrop-filter: blur(10px);">
+                                            <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px;">
+                                                <div style="background: #3498db; padding: 12px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2em;">
+                                                    🧠
+                                                </div>
+                                                <h4 style="margin: 0; color: white; font-size: 1.3em;">Research Foundation</h4>
+                                            </div>
+                                            <p style="margin: 0; color: rgba(255,255,255,0.9); line-height: 1.6; font-size: 1.1em;">Explore the building blocks of scientific inquiry and evidence-based understanding.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Content Cards -->
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px;">
+                                    <!-- Theory Card -->
+                                    <div style="background: linear-gradient(135deg, #74b9ff, #0984e3); border-radius: 15px; padding: 30px; color: white; position: relative; overflow: hidden; min-height: 180px;">
+                                        <div style="position: absolute; top: -20px; right: -20px; opacity: 0.2;">
+                                            <svg width="100" height="100" viewBox="0 0 100 100" fill="white">
+                                                <path d="M50 10 L90 90 L10 90 Z"/>
+                                            </svg>
+                                        </div>
+                                        <div style="position: relative; z-index: 2;">
+                                            <div style="background: rgba(255,255,255,0.25); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.6em; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                                                🔍
+                                            </div>
+                                            <h4 style="margin: 0 0 15px 0; font-size: 1.5em; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">Theory</h4>
+                                            <p style="margin: 0; font-size: 1.05em; line-height: 1.5; font-weight: 400; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">Generalized explanations that connect causes and effects, answering the fundamental question "why?"</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Hypothesis Card -->
+                                    <div style="background: linear-gradient(135deg, #fd79a8, #e84393); border-radius: 15px; padding: 30px; color: white; position: relative; overflow: hidden; min-height: 180px;">
+                                        <div style="position: absolute; top: -20px; right: -20px; opacity: 0.2;">
+                                            <svg width="100" height="100" viewBox="0 0 100 100" fill="white">
+                                                <rect x="20" y="20" width="60" height="60" rx="10"/>
+                                                <circle cx="50" cy="50" r="15"/>
+                                            </svg>
+                                        </div>
+                                        <div style="position: relative; z-index: 2;">
+                                            <div style="background: rgba(255,255,255,0.25); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.6em; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                                                🧪
+                                            </div>
+                                            <h4 style="margin: 0 0 15px 0; font-size: 1.5em; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">Hypotheses</h4>
+                                            <p style="margin: 0; font-size: 1.05em; line-height: 1.5; font-weight: 400; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">Specific, testable statements about relationships between variables that can be measured with data.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Main Content -->
+                                <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: left;">
+                                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
+                                        <div style="background: linear-gradient(135deg, #00b894, #00a085); padding: 12px; border-radius: 50%; color: white; font-size: 1.2em;">
+                                            📚
+                                        </div>
+                                        <h4 style="margin: 0; color: #2d3436; font-size: 1.4em;">Understanding the Connection</h4>
+                                    </div>
+                                    
+                                    <p style="color: #636e72; font-size: 1.1em; line-height: 1.7; margin-bottom: 20px;">Social science research relies on theory to explain why things happen the way they do. A <strong style="color: #2d3436;">theory</strong> is a generalized explanation that connects causes and effects—essentially answering the question "why?"</p>
+                                    
+                                    <p style="color: #636e72; font-size: 1.1em; line-height: 1.7; margin-bottom: 25px;">To test these explanations, researchers create <strong style="color: #2d3436;">hypotheses</strong>—specific, testable statements about how two or more variables are related. For example, a theory might claim that education affects political participation, while a hypothesis might state, "People with more education are more likely to vote."</p>
+                                    
+                                    <!-- Example Box -->
+                                    <div style="background: linear-gradient(135deg, #ffeaa7, #fdcb6e); border-radius: 12px; padding: 20px; margin-top: 25px; position: relative; overflow: hidden;">
+                                        <div style="position: absolute; top: -10px; right: -10px; opacity: 0.3;">
+                                            <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                                                <path d="M40 10 L70 40 L40 70 L10 40 Z" stroke="#e17055" stroke-width="2"/>
+                                            </svg>
+                                        </div>
+                                        <div style="position: relative; z-index: 2;">
+                                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                                <span style="font-size: 1.2em;">💡</span>
+                                                <strong style="color: #2d3436;">Example Connection</strong>
+                                            </div>
+                                            <p style="margin: 0; color: #2d3436; font-style: italic;">Theory: Education influences political engagement<br>
+                                            Hypothesis: "People with higher education levels are more likely to vote in elections"</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        
+                        embedArea.classList.add('active');
+                        currentSection = section;
+                    }, 600);
+                } else {
+                    // Load external HTML files for other sections
+                    const fileMap = {
+                        'content': 'content.html',
+                        'examples': 'examples.html',
+                        'extended': 'extended-examples.html',
+                        'glossary': 'glossary.html',
+                        'interactives': 'interactives.html',
+                        'discussion': 'discussion.html',
+                        'quiz': 'quiz.html'
+                    };
+                    
+                    const fileName = fileMap[section];
+                    
+                    if (fileName) {
+                        fetch(fileName)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('File not found');
+                                }
+                                return response.text();
+                            })
+                            .then(html => {
+                                setTimeout(() => {
+                                    embedArea.innerHTML = html;
+                                    embedArea.classList.add('active');
+                                    currentSection = section;
+                                }, 600);
+                            })
+                            .catch(error => {
+                                setTimeout(() => {
+                                    embedArea.innerHTML = `
+                                        <div class="welcome-content">
+                                            <h3>${title}</h3>
+                                            <p style="color: #e74c3c;">⚠️ Content file "${fileName}" not found.</p>
+                                            <p style="color: #95a5a6; font-style: italic;">Please create the HTML file to load this section.</p>
+                                        </div>
+                                    `;
+                                    embedArea.classList.add('active');
+                                    currentSection = section;
+                                }, 600);
+                            });
+                    }
+                }
+            }, 200);
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99334724107bb055',t:'MTc2MTI0MzkzNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
