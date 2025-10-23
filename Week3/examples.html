@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examples of Theories and Hypotheses</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header p {
+            margin: 15px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tabs-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .tabs-nav {
+            display: flex;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            flex: 1;
+            background: none;
+            border: none;
+            color: white;
+            padding: 20px 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            white-space: nowrap;
+            min-width: 200px;
+        }
+
+        .tab-button:hover {
+            background: rgba(52, 152, 219, 0.2);
+        }
+
+        .tab-button.active {
+            background: rgba(52, 152, 219, 0.3);
+            font-weight: 600;
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #3498db;
+        }
+
+        .tab-button::before {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .tab-button[data-tab="socialization"]::before { content: "👨‍👩‍👧‍👦"; }
+        .tab-button[data-tab="information"]::before { content: "📰"; }
+        .tab-button[data-tab="intimidation"]::before { content: "😰"; }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .theory-section {
+            margin-bottom: 40px;
+        }
+
+        .theory-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theory-header::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .theory-icon {
+            background: rgba(255,255,255,0.25);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            position: relative;
+            z-index: 2;
+        }
+
+        .theory-title {
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        .theory-description {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 5px solid #3498db;
+            margin-bottom: 30px;
+            line-height: 1.7;
+            font-size: 1.1em;
+            color: #2c3e50;
+        }
+
+        .hypotheses-container {
+            display: grid;
+            gap: 25px;
+        }
+
+        .hypothesis-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .hypothesis-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .null-hypothesis {
+            border-left-color: #e74c3c;
+        }
+
+        .research-hypothesis {
+            border-left-color: #27ae60;
+        }
+
+        .hypothesis-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .hypothesis-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            color: white;
+        }
+
+        .null-hypothesis .hypothesis-icon {
+            background: #e74c3c;
+        }
+
+        .research-hypothesis .hypothesis-icon {
+            background: #27ae60;
+        }
+
+        .hypothesis-label {
+            font-weight: 600;
+            font-size: 1.2em;
+            color: #2c3e50;
+        }
+
+        .hypothesis-text {
+            font-size: 1.05em;
+            line-height: 1.6;
+            color: #34495e;
+            margin: 0;
+        }
+
+        .alternative-phrasing {
+            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alternative-phrasing::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+        }
+
+        .alternative-phrasing .label {
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .alternative-phrasing .text {
+            color: #2d3436;
+            font-style: italic;
+            margin: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 25px 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .tabs-nav {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                min-width: auto;
+                text-align: left;
+            }
+
+            .tab-content {
+                padding: 20px;
+            }
+
+            .theory-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .theory-title {
+                font-size: 1.5em;
+            }
+
+            .theory-description {
+                padding: 20px;
+            }
+
+            .hypothesis-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Examples of Theories and Hypotheses</h1>
+            <p>Exploring Political Science Research Through Real-World Examples</p>
+        </div>
+
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-button active" data-tab="socialization">Political Socialization</button>
+                <button class="tab-button" data-tab="information">Information Asymmetries</button>
+                <button class="tab-button" data-tab="intimidation">Intimidation</button>
+            </div>
+
+            <!-- Political Socialization Tab -->
+            <div class="tab-content active" id="socialization">
+                <div class="theory-section">
+                    <div class="theory-header">
+                        <div class="theory-icon">👨‍👩‍👧‍👦</div>
+                        <h2 class="theory-title">Political Socialization Theory</h2>
+                    </div>
+
+                    <div class="theory-description">
+                        Many young people are not interested in politics because they were not introduced to political ideas by their families, schools, or communities when they were children. They may not come from politically active parents and thus are not subject to norms or customs concerning political participation. The lack of civic education in their schools or the lack of political resources in their communities may reinforce these outcomes. They do not see politics as important. 
+                        <br><br>
+                        Conversely, other young people are interested in politics because they come from politically active families. They were taught about the importance of voting by their schools or communities. They had exposure to civic education classes and their communities may have had resources to help young people learn the importance of political participation. These young people were politically socialized from an early age. They developed the habit of engaging in political participation early in their adulthood because they were brought up in a culture where political participation is considered important, essential, and a right.
+                    </div>
+
+                    <div class="hypotheses-container">
+                        <div class="hypothesis-card null-hypothesis">
+                            <div class="hypothesis-header">
+                                <div class="hypothesis-icon">H₀</div>
+                                <div class="hypothesis-label">Null Hypothesis</div>
+                            </div>
+                            <p class="hypothesis-text">
+                                Political socialization is not associated with interest in politics.
+                            </p>
+                        </div>
+
+                        <div class="hypothesis-card research-hypothesis">
+                            <div class="hypothesis-header">
+                                <div class="hypothesis-icon">H₁</div>
+                                <div class="hypothesis-label">Research Hypothesis</div>
+                            </div>
+                            <p class="hypothesis-text">
+                                People who were not politically socialized as children will exhibit a lower interest in politics as adults than people who were politically socialized as children.
+                            </p>
+                            
+                            <div class="alternative-phrasing">
+                                <div class="label">
+                                    <span>💡</span>
+                                    Alternative Phrasing:
+                                </div>
+                                <p class="text">
+                                    If someone was not politically socialized as a child, then he or she will have less interest in politics than someone who was politically socialized as a child.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Information Asymmetries Tab -->
+            <div class="tab-content" id="information">
+                <div class="theory-section">
+                    <div class="theory-header">
+                        <div class="theory-icon">📰</div>
+                        <h2 class="theory-title">Information Asymmetries Theory</h2>
+                    </div>
+
+                    <div class="theory-description">
+                        Many young people are not interested in politics because they do not possess the appropriate information to participate meaningfully in politics. They may not read or watch the news or be aware of the salient issues facing their government. They may not know about political parties or the political process or how their interests are represented at different levels in the political system. 
+                        <br><br>
+                        Conversely, other young people are interested in politics because they are much more knowledgeable about politics. They actively seek information about current events. They are aware of the most pressing issues facing their societies and have developed reasoned opinions about them. They know which parties best represent their interests.
+                    </div>
+
+                    <div class="hypotheses-container">
+                        <div class="hypothesis-card null-hypothesis">
+                            <div class="hypothesis-header">
+                                <div class="hypothesis-icon">H₀</div>
+                                <div class="hypothesis-label">Null Hypothesis</div>
+                            </div>
+                            <p class="hypothesis-text">
+                                The amount of information someone has about the political process is not related to the level of interest he or she expresses for politics.
+                            </p>
+                        </div>
+
+                        <div class="hypothesis-card research-hypothesis">
+                            <div class="hypothesis-header">
+                                <div class="hypothesis-icon">H₂</div>
+                                <div class="hypothesis-label">Research Hypothesis</div>
+                            </div>
+                            <p class="hypothesis-text">
+                                People who have less information about the political process are less likely to be interested in politics than people who have more information about the political process.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intimidation Tab -->
+            <div class="tab-content" id="intimidation">
+                <div class="theory-section">
+                    <div class="theory-header">
+                        <div class="theory-icon">😰</div>
+                        <h2 class="theory-title">Intimidation Theory</h2>
+                    </div>
+
+                    <div class="theory-description">
+                        Many young people are not interested in politics because they are intimidated by the formal political process. They may not know the rules concerning registration, voting, and other forms of political participation. They may not believe that they can contribute meaningfully to the democratic political process. 
+                        <br><br>
+                        Conversely, other young people are interested in politics because they are not intimidated by the formal political process and look forward to participating in their democracy through voting and other means of participation. They understand the rules associated with voting: how to register, where to vote, and what to bring (identification, for example). They are confident that their participation is meaningful.
+                    </div>
+
+                    <div class="hypotheses-container">
+                        <div class="hypothesis-card null-hypothesis">
+                            <div class="hypothesis-header">
+                                <div class="hypothesis-icon">H₀</div>
+                                <div class="hypothesis-label">Null Hypothesis</div>
+                            </div>
+                            <p class="hypothesis-text">
+                                Different levels of intimidation are not related to different levels of interest in politics.
+                            </p>
+                        </div>
+
+                        <div class="hypothesis-card research-hypothesis">
+                            <div class="hypothesis-header">
+                                <div class="hypothesis-icon">H₃</div>
+                                <div class="hypothesis-label">Research Hypothesis</div>
+                            </div>
+                            <p class="hypothesis-text">
+                                People who are intimidated by the political process are less likely to be interested in politics than people who are not intimidated by the political process.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function initializeTabs() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.getAttribute('data-tab');
+
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    // Add active class to clicked button and corresponding content
+                    button.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
+        }
+
+        // Initialize tabs when page loads
+        document.addEventListener('DOMContentLoaded', initializeTabs);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'993391fa912a1371',t:'MTc2MTI0NzAwMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
