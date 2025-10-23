@@ -509,105 +509,27 @@
             }
         }
 
-        async function loadContent(contentType) {
+        function loadContent(contentType) {
             // Close menu
             toggleMenu();
             
-            // All content is now available - no coming soon pages
-            
             const welcomeScreen = document.getElementById('welcomeScreen');
             const embeddedContent = document.getElementById('embeddedContent');
-            
-            // Show loading state
-            embeddedContent.innerHTML = `
-                <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: white;">
-                    <div style="text-align: center; padding: 40px;">
-                        <div style="width: 50px; height: 50px; border: 4px solid #f3f3f3; border-top: 4px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;"></div>
-                        <p style="color: #7f8c8d; font-size: 1.1em;">Loading ${getContentTitle(contentType)}...</p>
-                    </div>
-                </div>
-                <style>
-                    @keyframes spin {
-                        0% { transform: rotate(0deg); }
-                        100% { transform: rotate(360deg); }
-                    }
-                </style>
-            `;
             
             // Hide welcome screen and show embedded content
             welcomeScreen.style.display = 'none';
             embeddedContent.classList.add('active');
             
-            try {
-                // Fetch the content
-                const response = await fetch(`${contentType}.html`);
-                if (!response.ok) {
-                    throw new Error(`Failed to load ${contentType}.html`);
-                }
-                
-                let html = await response.text();
-                
-                // Extract body content and inline styles/scripts
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                
-                // Get the body content
-                const bodyContent = doc.body.innerHTML;
-                
-                // Get styles and scripts
-                const styles = Array.from(doc.querySelectorAll('style')).map(style => style.outerHTML).join('\n');
-                const scripts = Array.from(doc.querySelectorAll('script')).map(script => script.outerHTML).join('\n');
-                
-                // Combine everything
-                const fullContent = styles + bodyContent + scripts;
-                
-                // Load the content
-                embeddedContent.innerHTML = fullContent;
-                currentContent = contentType;
-                
-                // Execute any scripts that were loaded
-                const scriptElements = embeddedContent.querySelectorAll('script');
-                scriptElements.forEach(script => {
-                    const newScript = document.createElement('script');
-                    if (script.src) {
-                        newScript.src = script.src;
-                    } else {
-                        newScript.textContent = script.textContent;
-                    }
-                    // Append to body instead of head for better execution
-                    document.body.appendChild(newScript);
-                });
-                
-                // Re-initialize any interactive elements after content loads
-                setTimeout(() => {
-                    initializeEmbeddedContent();
-                }, 100);
-                
-            } catch (error) {
-                console.error('Error loading content:', error);
-                embeddedContent.innerHTML = `
-                    <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: white;">
-                        <div style="text-align: center; padding: 40px; max-width: 500px;">
-                            <div style="font-size: 3em; margin-bottom: 20px;">⚠️</div>
-                            <h2 style="color: #e74c3c; margin-bottom: 15px;">Content Not Found</h2>
-                            <p style="color: #7f8c8d; line-height: 1.6;">
-                                The ${getContentTitle(contentType)} page (${contentType}.html) could not be loaded. 
-                                Please make sure the file exists in the same directory.
-                            </p>
-                            <button onclick="showWelcome()" style="
-                                background: linear-gradient(135deg, #667eea, #764ba2);
-                                color: white;
-                                border: none;
-                                padding: 12px 24px;
-                                border-radius: 8px;
-                                cursor: pointer;
-                                font-size: 1em;
-                                margin-top: 20px;
-                            ">Return to Home</button>
-                        </div>
-                    </div>
-                `;
-            }
+            // Create embed element
+            embeddedContent.innerHTML = `
+                <embed src="${contentType}.html" 
+                       type="text/html" 
+                       width="100%" 
+                       height="100%" 
+                       style="min-height: 100vh; border: none;">
+            `;
+            
+            currentContent = contentType;
         }
 
         function showComingSoon(contentType) {
@@ -673,42 +595,7 @@
             }
         });
 
-        // Initialize embedded content functionality
-        function initializeEmbeddedContent() {
-            // Re-trigger any click events for tabs or interactive elements
-            const tabButtons = document.querySelectorAll('.tab-button, .tab-btn, [onclick*="showTab"], [onclick*="openTab"]');
-            tabButtons.forEach(button => {
-                if (button.onclick) {
-                    // Re-bind onclick events
-                    const onclickStr = button.getAttribute('onclick');
-                    if (onclickStr) {
-                        button.onclick = new Function(onclickStr);
-                    }
-                }
-            });
-            
-            // Re-initialize any other interactive elements
-            const interactiveElements = document.querySelectorAll('[onclick], [onchange], [oninput]');
-            interactiveElements.forEach(element => {
-                ['onclick', 'onchange', 'oninput'].forEach(eventType => {
-                    const eventStr = element.getAttribute(eventType);
-                    if (eventStr) {
-                        element[eventType] = new Function('event', eventStr);
-                    }
-                });
-            });
-            
-            // Trigger any initialization functions that might exist
-            if (typeof initializeTabs === 'function') {
-                initializeTabs();
-            }
-            if (typeof initializeContent === 'function') {
-                initializeContent();
-            }
-            if (typeof init === 'function') {
-                init();
-            }
-        }
+
 
         // Handle escape key
         document.addEventListener('keydown', function(e) {
@@ -721,5 +608,5 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9933fba6e0d6bca7',t:'MTc2MTI1MTMyOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'993402d1c4c6b055',t:'MTc2MTI1MTYyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
