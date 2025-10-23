@@ -468,9 +468,18 @@
         <div class="welcome-screen" id="welcomeScreen">
             <div class="welcome-content">
                 <h1 class="welcome-title">🎓 Political Science Theory</h1>
-                <p class="welcome-subtitle">
-                    Master the fundamentals of political science research and theory building through interactive learning materials.
-                </p>
+                <h2 style="color: #667eea; font-size: 1.4em; margin: 0 0 20px 0; position: relative; z-index: 2;">General Overview: Theory and Hypotheses</h2>
+                
+                <div style="text-align: left; margin-bottom: 30px; position: relative; z-index: 2;">
+                    <p style="color: #2c3e50; line-height: 1.7; margin-bottom: 20px;">
+                        Social science research relies on <strong>theory</strong> to explain why things happen the way they do. A theory is a generalized explanation that connects causes and effects—essentially answering the question "why?"
+                    </p>
+                    
+                    <p style="color: #2c3e50; line-height: 1.7; margin-bottom: 20px;">
+                        To test these explanations, researchers create <strong>hypotheses</strong>—specific, testable statements about how two or more variables are related. For example, a theory might claim that education affects political participation, while a hypothesis might state, "People with more education are more likely to vote."
+                    </p>
+                </div>
+                
                 <div class="welcome-instruction">
                     <p>👆 Click the menu button in the top-right corner to access all learning materials</p>
                 </div>
@@ -565,9 +574,14 @@
                     } else {
                         newScript.textContent = script.textContent;
                     }
-                    document.head.appendChild(newScript);
-                    document.head.removeChild(newScript);
+                    // Append to body instead of head for better execution
+                    document.body.appendChild(newScript);
                 });
+                
+                // Re-initialize any interactive elements after content loads
+                setTimeout(() => {
+                    initializeEmbeddedContent();
+                }, 100);
                 
             } catch (error) {
                 console.error('Error loading content:', error);
@@ -659,6 +673,43 @@
             }
         });
 
+        // Initialize embedded content functionality
+        function initializeEmbeddedContent() {
+            // Re-trigger any click events for tabs or interactive elements
+            const tabButtons = document.querySelectorAll('.tab-button, .tab-btn, [onclick*="showTab"], [onclick*="openTab"]');
+            tabButtons.forEach(button => {
+                if (button.onclick) {
+                    // Re-bind onclick events
+                    const onclickStr = button.getAttribute('onclick');
+                    if (onclickStr) {
+                        button.onclick = new Function(onclickStr);
+                    }
+                }
+            });
+            
+            // Re-initialize any other interactive elements
+            const interactiveElements = document.querySelectorAll('[onclick], [onchange], [oninput]');
+            interactiveElements.forEach(element => {
+                ['onclick', 'onchange', 'oninput'].forEach(eventType => {
+                    const eventStr = element.getAttribute(eventType);
+                    if (eventStr) {
+                        element[eventType] = new Function('event', eventStr);
+                    }
+                });
+            });
+            
+            // Trigger any initialization functions that might exist
+            if (typeof initializeTabs === 'function') {
+                initializeTabs();
+            }
+            if (typeof initializeContent === 'function') {
+                initializeContent();
+            }
+            if (typeof init === 'function') {
+                init();
+            }
+        }
+
         // Handle escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
@@ -670,5 +721,5 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9933ea57e40db055',t:'MTc2MTI1MDYyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9933fba6e0d6bca7',t:'MTc2MTI1MTMyOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
