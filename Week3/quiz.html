@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Political Science Quiz</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100%;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .quiz-header {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .quiz-title {
+            margin: 0 0 10px 0;
+            font-size: 2em;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .quiz-subtitle {
+            margin: 0;
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .progress-bar {
+            background: #ecf0f1;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid #3498db;
+            transition: all 0.3s ease;
+        }
+
+        .question-card.correct {
+            border-left-color: #27ae60;
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.05), rgba(46, 204, 113, 0.05));
+        }
+
+        .question-card.incorrect {
+            border-left-color: #e74c3c;
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.05), rgba(192, 57, 43, 0.05));
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .question-number {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .question-type {
+            background: rgba(52, 152, 219, 0.1);
+            color: #2980b9;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .question-text {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .options {
+            display: grid;
+            gap: 12px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .option:hover {
+            background: #e3f2fd;
+            border-color: #3498db;
+        }
+
+        .option.selected {
+            background: #3498db;
+            border-color: #2980b9;
+            color: white;
+        }
+
+        .option.correct {
+            background: #27ae60;
+            border-color: #229954;
+            color: white;
+        }
+
+        .option.incorrect {
+            background: #e74c3c;
+            border-color: #c0392b;
+            color: white;
+        }
+
+        .option-letter {
+            background: rgba(0,0,0,0.1);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .short-answer {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1.1em;
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        .short-answer:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: rgba(39, 174, 96, 0.1);
+            border: 1px solid #27ae60;
+            color: #27ae60;
+        }
+
+        .feedback.incorrect {
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+        }
+
+        .feedback-icon {
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .quiz-actions {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 5px 15px rgba(149, 165, 166, 0.3);
+        }
+
+        .results {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: center;
+            display: none;
+        }
+
+        .score-display {
+            font-size: 3em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .score-display.excellent { color: #27ae60; }
+        .score-display.good { color: #f39c12; }
+        .score-display.needs-improvement { color: #e74c3c; }
+
+        .grade-text {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .question-card {
+                padding: 20px;
+            }
+
+            .quiz-actions {
+                padding: 20px;
+            }
+
+            .btn {
+                display: block;
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="quiz-header">
+            <h1 class="quiz-title">📝 Political Science Theory Quiz</h1>
+            <p class="quiz-subtitle">Test your understanding with 7 randomly selected questions</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div id="quizContainer"></div>
+
+        <div class="quiz-actions">
+            <button class="btn" id="submitBtn" onclick="submitQuiz()" disabled>Submit Quiz</button>
+            <button class="btn btn-secondary" id="resetBtn" onclick="resetQuiz()">New Quiz</button>
+        </div>
+
+        <div class="results" id="results">
+            <div class="score-display" id="scoreDisplay">0%</div>
+            <div class="grade-text" id="gradeText"></div>
+            <p>Review your answers above and click "New Quiz" to try again with different questions!</p>
+        </div>
+    </div>
+
+    <script>
+        // Question bank
+        const questionBank = {
+            multipleChoice: [
+                {
+                    question: "Which of the following is not a requirement for causality?",
+                    options: [
+                        "The cause precedes the effect",
+                        "Variables are correlated", 
+                        "The relationship is spurious",
+                        "No third variable explains the relationship"
+                    ],
+                    correct: 2,
+                    explanation: "A spurious relationship is actually what we want to avoid when establishing causality."
+                },
+                {
+                    question: "A theory that claims one cause always produces one specific outcome is:",
+                    options: ["Probabilistic", "Deterministic", "Correlational", "Theoretical"],
+                    correct: 1,
+                    explanation: "Deterministic theories claim that a cause will always produce the same specific outcome."
+                },
+                {
+                    question: "Theories that suggest a cause increases or decreases the likelihood of an event are called:",
+                    options: ["Deterministic theories", "Probabilistic theories", "Spurious relationships", "Hypothetical constructs"],
+                    correct: 1,
+                    explanation: "Probabilistic theories deal with likelihoods rather than certainties."
+                },
+                {
+                    question: "Which fallacy assumes group-level trends apply to individuals?",
+                    options: ["Individualistic fallacy", "Ecological fallacy", "Deductive error", "Inferential bias"],
+                    correct: 1,
+                    explanation: "The ecological fallacy incorrectly applies group-level patterns to individuals."
+                },
+                {
+                    question: "A testable hypothesis must be:",
+                    options: ["Philosophical", "Logical but unmeasurable", "Empirically verifiable with data", "Broad and theoretical"],
+                    correct: 2,
+                    explanation: "Testable hypotheses must be able to be verified or falsified using empirical data."
+                },
+                {
+                    question: "Which of the following best defines explanatory power?",
+                    options: [
+                        "How well a theory predicts the future",
+                        "The ability of a theory to explain an outcome using multiple perspectives",
+                        "The total number of variables in a study",
+                        "The degree of statistical accuracy in data collection"
+                    ],
+                    correct: 1,
+                    explanation: "Explanatory power refers to how well a theory can explain outcomes by considering multiple factors."
+                },
+                {
+                    question: "A null hypothesis typically states:",
+                    options: [
+                        "Variables are directly related",
+                        "There is no relationship between variables",
+                        "The dependent variable predicts the independent variable",
+                        "Causality has been proven"
+                    ],
+                    correct: 1,
+                    explanation: "The null hypothesis assumes no relationship exists between variables."
+                }
+            ],
+            trueFalse: [
+                {
+                    question: "Theories and hypotheses are interchangeable terms.",
+                    correct: false,
+                    explanation: "Theories are broader explanatory frameworks, while hypotheses are specific testable predictions."
+                },
+                {
+                    question: "A causal explanation connects an independent variable to a dependent variable.",
+                    correct: true,
+                    explanation: "Causal explanations show how independent variables influence dependent variables."
+                },
+                {
+                    question: "Most political science theories are deterministic.",
+                    correct: false,
+                    explanation: "Most political science theories are probabilistic because human behavior is complex and unpredictable."
+                },
+                {
+                    question: "A spurious relationship occurs when a third variable explains the observed correlation.",
+                    correct: true,
+                    explanation: "Spurious relationships happen when an unseen third variable causes both observed variables."
+                },
+                {
+                    question: "Literature reviews are only for summarizing previous studies, not for developing new theories.",
+                    correct: false,
+                    explanation: "Literature reviews both summarize existing work and provide insights for developing new theories."
+                }
+            ],
+            shortAnswer: [
+                {
+                    question: "What three sources of information are used to build theory?",
+                    answer: "Inductive observations, deductive reasoning, and insights from the literature.",
+                    explanation: "These three sources provide the foundation for developing comprehensive theories."
+                },
+                {
+                    question: "Give an example of a null and research hypothesis for the theory \"education increases voter turnout.\"",
+                    answer: "H₀: Education level is not related to voter turnout.\nH₁: People with higher education levels are more likely to vote.",
+                    explanation: "The null hypothesis assumes no relationship, while the research hypothesis predicts a positive relationship."
+                },
+                {
+                    question: "Why is ruling out third variables essential in establishing causality?",
+                    answer: "Because if another variable explains both the cause and effect, the observed relationship is spurious, not causal.",
+                    explanation: "Third variables can create false correlations that appear causal but are actually spurious."
+                }
+            ]
+        };
+
+        let currentQuiz = [];
+        let userAnswers = {};
+        let quizSubmitted = false;
+
+        function generateQuiz() {
+            currentQuiz = [];
+            
+            // Select 1 short answer
+            const shortAnswers = [...questionBank.shortAnswer];
+            currentQuiz.push({
+                type: 'shortAnswer',
+                ...shortAnswers[Math.floor(Math.random() * shortAnswers.length)]
+            });
+            
+            // Select 3 true/false
+            const trueFalse = [...questionBank.trueFalse];
+            for (let i = 0; i < 3; i++) {
+                const randomIndex = Math.floor(Math.random() * trueFalse.length);
+                currentQuiz.push({
+                    type: 'trueFalse',
+                    ...trueFalse.splice(randomIndex, 1)[0]
+                });
+            }
+            
+            // Select 3 multiple choice
+            const multipleChoice = [...questionBank.multipleChoice];
+            for (let i = 0; i < 3; i++) {
+                const randomIndex = Math.floor(Math.random() * multipleChoice.length);
+                currentQuiz.push({
+                    type: 'multipleChoice',
+                    ...multipleChoice.splice(randomIndex, 1)[0]
+                });
+            }
+            
+            // Shuffle the quiz
+            currentQuiz = currentQuiz.sort(() => Math.random() - 0.5);
+        }
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = '';
+            
+            currentQuiz.forEach((question, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-card';
+                questionDiv.id = `question-${index}`;
+                
+                let questionHTML = `
+                    <div class="question-header">
+                        <div class="question-number">${index + 1}</div>
+                        <div class="question-type">${getQuestionTypeLabel(question.type)}</div>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                `;
+                
+                if (question.type === 'multipleChoice') {
+                    questionHTML += '<div class="options">';
+                    question.options.forEach((option, optIndex) => {
+                        questionHTML += `
+                            <div class="option" onclick="selectOption(${index}, ${optIndex})">
+                                <div class="option-letter">${String.fromCharCode(65 + optIndex)}</div>
+                                <span>${option}</span>
+                            </div>
+                        `;
+                    });
+                    questionHTML += '</div>';
+                } else if (question.type === 'trueFalse') {
+                    questionHTML += `
+                        <div class="options">
+                            <div class="option" onclick="selectTrueFalse(${index}, true)">
+                                <div class="option-letter">T</div>
+                                <span>True</span>
+                            </div>
+                            <div class="option" onclick="selectTrueFalse(${index}, false)">
+                                <div class="option-letter">F</div>
+                                <span>False</span>
+                            </div>
+                        </div>
+                    `;
+                } else if (question.type === 'shortAnswer') {
+                    questionHTML += `
+                        <textarea class="short-answer" id="shortAnswer-${index}" 
+                                  placeholder="Type your answer here..." 
+                                  oninput="updateShortAnswer(${index})"></textarea>
+                    `;
+                }
+                
+                questionHTML += `<div class="feedback" id="feedback-${index}"></div>`;
+                
+                questionDiv.innerHTML = questionHTML;
+                container.appendChild(questionDiv);
+            });
+        }
+
+        function getQuestionTypeLabel(type) {
+            switch(type) {
+                case 'multipleChoice': return 'Multiple Choice';
+                case 'trueFalse': return 'True/False';
+                case 'shortAnswer': return 'Short Answer';
+                default: return '';
+            }
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            if (quizSubmitted) return;
+            
+            const questionDiv = document.getElementById(`question-${questionIndex}`);
+            const options = questionDiv.querySelectorAll('.option');
+            
+            options.forEach(option => option.classList.remove('selected'));
+            options[optionIndex].classList.add('selected');
+            
+            userAnswers[questionIndex] = optionIndex;
+            updateProgress();
+        }
+
+        function selectTrueFalse(questionIndex, value) {
+            if (quizSubmitted) return;
+            
+            const questionDiv = document.getElementById(`question-${questionIndex}`);
+            const options = questionDiv.querySelectorAll('.option');
+            
+            options.forEach(option => option.classList.remove('selected'));
+            options[value ? 0 : 1].classList.add('selected');
+            
+            userAnswers[questionIndex] = value;
+            updateProgress();
+        }
+
+        function updateShortAnswer(questionIndex) {
+            if (quizSubmitted) return;
+            
+            const textarea = document.getElementById(`shortAnswer-${questionIndex}`);
+            userAnswers[questionIndex] = textarea.value.trim();
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const answered = Object.keys(userAnswers).filter(key => {
+                const answer = userAnswers[key];
+                return answer !== undefined && answer !== null && answer !== '';
+            }).length;
+            
+            const progress = (answered / currentQuiz.length) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = answered < currentQuiz.length;
+        }
+
+        function submitQuiz() {
+            if (quizSubmitted) return;
+            
+            quizSubmitted = true;
+            let correctAnswers = 0;
+            
+            currentQuiz.forEach((question, index) => {
+                const questionDiv = document.getElementById(`question-${index}`);
+                const feedbackDiv = document.getElementById(`feedback-${index}`);
+                const userAnswer = userAnswers[index];
+                
+                let isCorrect = false;
+                let feedbackText = '';
+                
+                if (question.type === 'multipleChoice') {
+                    isCorrect = userAnswer === question.correct;
+                    const options = questionDiv.querySelectorAll('.option');
+                    
+                    options.forEach((option, optIndex) => {
+                        if (optIndex === question.correct) {
+                            option.classList.add('correct');
+                        } else if (optIndex === userAnswer && !isCorrect) {
+                            option.classList.add('incorrect');
+                        }
+                    });
+                    
+                    feedbackText = isCorrect ? 
+                        `<span class="feedback-icon">✓</span>Correct! ${question.explanation}` :
+                        `<span class="feedback-icon">✗</span>Incorrect. ${question.explanation}`;
+                        
+                } else if (question.type === 'trueFalse') {
+                    isCorrect = userAnswer === question.correct;
+                    const options = questionDiv.querySelectorAll('.option');
+                    
+                    options.forEach((option, optIndex) => {
+                        const isTrue = optIndex === 0;
+                        if (isTrue === question.correct) {
+                            option.classList.add('correct');
+                        } else if (isTrue === userAnswer && !isCorrect) {
+                            option.classList.add('incorrect');
+                        }
+                    });
+                    
+                    feedbackText = isCorrect ? 
+                        `<span class="feedback-icon">✓</span>Correct! ${question.explanation}` :
+                        `<span class="feedback-icon">✗</span>Incorrect. ${question.explanation}`;
+                        
+                } else if (question.type === 'shortAnswer') {
+                    // For short answer, we'll mark as correct if they provided an answer
+                    // In a real system, this would need manual grading
+                    isCorrect = userAnswer && userAnswer.length > 10; // Basic length check
+                    feedbackText = `<span class="feedback-icon">📝</span><strong>Model Answer:</strong> ${question.answer}<br><br>${question.explanation}`;
+                }
+                
+                if (isCorrect) {
+                    correctAnswers++;
+                    questionDiv.classList.add('correct');
+                    feedbackDiv.classList.add('correct');
+                } else {
+                    questionDiv.classList.add('incorrect');
+                    feedbackDiv.classList.add('incorrect');
+                }
+                
+                feedbackDiv.innerHTML = feedbackText;
+                feedbackDiv.style.display = 'block';
+            });
+            
+            showResults(correctAnswers);
+            document.getElementById('submitBtn').disabled = true;
+        }
+
+        function showResults(correctAnswers) {
+            const percentage = Math.round((correctAnswers / currentQuiz.length) * 100);
+            const resultsDiv = document.getElementById('results');
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const gradeText = document.getElementById('gradeText');
+            
+            scoreDisplay.textContent = `${percentage}%`;
+            
+            let grade, gradeClass, message;
+            if (percentage >= 90) {
+                grade = 'A';
+                gradeClass = 'excellent';
+                message = 'Excellent work! You have a strong understanding of political science theory.';
+            } else if (percentage >= 80) {
+                grade = 'B';
+                gradeClass = 'good';
+                message = 'Good job! You understand most concepts well.';
+            } else if (percentage >= 70) {
+                grade = 'C';
+                gradeClass = 'good';
+                message = 'Fair performance. Review the concepts and try again.';
+            } else {
+                grade = 'F';
+                gradeClass = 'needs-improvement';
+                message = 'Keep studying! Review the material and retake the quiz.';
+            }
+            
+            scoreDisplay.className = `score-display ${gradeClass}`;
+            gradeText.innerHTML = `<strong>Grade: ${grade}</strong><br>${message}<br>You got ${correctAnswers} out of ${currentQuiz.length} questions correct.`;
+            
+            resultsDiv.style.display = 'block';
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetQuiz() {
+            // Reset all variables
+            userAnswers = {};
+            quizSubmitted = false;
+            
+            // Generate new quiz
+            generateQuiz();
+            renderQuiz();
+            
+            // Reset UI
+            document.getElementById('progressFill').style.width = '0%';
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('results').style.display = 'none';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize quiz on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            generateQuiz();
+            renderQuiz();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9933d60bd5f4b055',t:'MTc2MTI0OTc4OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
