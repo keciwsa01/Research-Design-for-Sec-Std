@@ -3,653 +3,672 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Theory and Hypotheses - Learning Hub</title>
+    <title>Political Science Learning Hub</title>
     <style>
         body {
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100%;
         }
 
-        .container {
-            display: flex;
-            min-height: 100vh;
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        /* Menu Bubble Styles */
+        .menu-bubble {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
-        .sidebar {
-            width: 280px;
-            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 0;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-            transition: width 0.3s ease;
-            position: relative;
-        }
-
-        .sidebar.collapsed {
+        .menu-toggle {
             width: 60px;
-        }
-
-        .sidebar-header {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            padding: 25px 20px;
-            text-align: center;
-            border-bottom: 2px solid #34495e;
-            position: relative;
-        }
-
-        .toggle-btn {
-            position: absolute;
-            top: 50%;
-            right: -15px;
-            transform: translateY(-50%);
-            background: #3498db;
-            border: none;
-            color: white;
-            width: 30px;
-            height: 30px;
+            height: 60px;
             border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
             cursor: pointer;
-            font-size: 0.8em;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .toggle-btn:hover {
-            background: #2980b9;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .sidebar-header h1 {
-            margin: 0;
-            font-size: 1.4em;
-            font-weight: 600;
-            transition: opacity 0.3s ease;
-        }
-
-        .sidebar-header p {
-            margin: 8px 0 0 0;
-            opacity: 0.9;
-            font-size: 0.9em;
-            transition: opacity 0.3s ease;
-        }
-
-        .sidebar.collapsed .sidebar-header h1,
-        .sidebar.collapsed .sidebar-header p {
-            opacity: 0;
-        }
-
-        .nav-menu {
-            padding: 20px 0;
-        }
-
-        .nav-item {
-            display: block;
-            width: 100%;
-            background: none;
-            border: none;
+            font-size: 1.5em;
             color: white;
-            padding: 15px 25px;
-            text-align: left;
-            font-size: 1em;
-            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
             transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
-        .sidebar.collapsed .nav-item {
-            padding: 15px 18px;
-            text-align: center;
-        }
-
-        .nav-item-text {
-            transition: opacity 0.3s ease;
-        }
-
-        .sidebar.collapsed .nav-item-text {
-            opacity: 0;
-        }
-
-        .nav-item:hover {
-            background: rgba(52, 152, 219, 0.2);
-            border-left-color: #3498db;
-            transform: translateX(5px);
-        }
-
-        .nav-item.active {
-            background: rgba(52, 152, 219, 0.3);
-            border-left-color: #3498db;
-            font-weight: 600;
-        }
-
-        .nav-item::before {
-            content: "📚";
-            margin-right: 10px;
-            font-size: 1.1em;
-        }
-
-        .nav-item[data-section="overview"]::before { content: "🏠"; }
-        .nav-item[data-section="content"]::before { content: "📖"; }
-        .nav-item[data-section="examples"]::before { content: "💡"; }
-        .nav-item[data-section="extended"]::before { content: "🔬"; }
-        .nav-item[data-section="glossary"]::before { content: "📝"; }
-        .nav-item[data-section="interactives"]::before { content: "🎯"; }
-        .nav-item[data-section="discussion"]::before { content: "💬"; }
-        .nav-item[data-section="quiz"]::before { content: "🎓"; }
-
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .main-header {
-            background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
-            padding: 20px 30px;
-            border-bottom: 1px solid #bdc3c7;
-        }
-
-        .main-header h2 {
-            margin: 0;
-            color: #2c3e50;
-            font-size: 1.8em;
-            font-weight: 400;
-        }
-
-        .content-wrapper {
-            flex: 1;
             position: relative;
             overflow: hidden;
         }
 
-        .embed-area {
-            width: 100%;
-            height: 100%;
+        .menu-toggle::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s ease;
-            background: #f8f9fa;
-            overflow-y: auto;
-            padding: 0;
-        }
-
-        .embed-area.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #ecf0f1;
-            border-top: 4px solid #3498db;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 50px auto;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        @keyframes spin {
+        .menu-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .menu-toggle:hover::before {
+            opacity: 1;
+        }
+
+        .menu-expanded {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 350px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.8) translateY(-20px);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 999;
+        }
+
+        .menu-expanded.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
+        }
+
+        .menu-header {
+            padding: 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px 20px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        .welcome-content {
+        .menu-title {
+            margin: 0;
+            font-size: 1.3em;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu-subtitle {
+            margin: 5px 0 0 0;
+            font-size: 0.9em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+
+        .close-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg);
+        }
+
+        .menu-items {
+            padding: 0;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 25px;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 0;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(155, 89, 182, 0.1));
+            transition: width 0.3s ease;
+        }
+
+        .menu-item:hover::before {
+            width: 100%;
+        }
+
+        .menu-item:hover {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.05), rgba(155, 89, 182, 0.05));
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .menu-item-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            color: white;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu-item.content .menu-item-icon {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .menu-item.examples .menu-item-icon {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .menu-item.extended-examples .menu-item-icon {
+            background: linear-gradient(135deg, #16a085, #1abc9c);
+        }
+
+        .menu-item.glossary .menu-item-icon {
+            background: linear-gradient(135deg, #27ae60, #229954);
+        }
+
+        .menu-item.interactives .menu-item-icon {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+        }
+
+        .menu-item.discussion .menu-item-icon {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .menu-item.quiz .menu-item-icon {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+        }
+
+        .menu-item-content {
+            flex: 1;
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu-item-title {
+            margin: 0 0 5px 0;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .menu-item-status {
+            margin: 0;
+            font-size: 0.8em;
+            padding: 3px 8px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .status-ready {
+            background: rgba(39, 174, 96, 0.1);
+            color: #27ae60;
+        }
+
+        .status-coming-soon {
+            background: rgba(149, 165, 166, 0.1);
+            color: #7f8c8d;
+        }
+
+        /* Content Area */
+        .content-area {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        .welcome-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
             text-align: center;
             padding: 40px;
-            max-width: 900px;
-            width: 100%;
-            margin: 0 auto;
         }
 
-        .welcome-content h3 {
-            color: #2c3e50;
-            font-size: 2.2em;
-            margin-bottom: 20px;
+        .welcome-content {
+            max-width: 600px;
+            background: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.05) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+
+        .welcome-title {
+            margin: 0 0 20px 0;
+            font-size: 2.5em;
             font-weight: 300;
+            color: #2c3e50;
+            position: relative;
+            z-index: 2;
         }
 
-        .welcome-content p {
+        .welcome-subtitle {
+            margin: 0 0 30px 0;
+            font-size: 1.2em;
             color: #7f8c8d;
-            font-size: 1.1em;
             line-height: 1.6;
-            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-instruction {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(155, 89, 182, 0.1));
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-instruction p {
+            margin: 0;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .embedded-content {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+            border: none;
+            background: white;
+        }
+
+        .embedded-content.active {
+            display: block;
+        }
+
+        /* Overlay for mobile */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 998;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                max-width: 100%;
+            .menu-expanded {
+                width: 300px;
+                right: 10px;
+                top: 10px;
             }
-            
-            .sidebar {
-                width: 100%;
-                order: 2;
+
+            .menu-bubble {
+                top: 10px;
+                right: 10px;
             }
-            
-            .sidebar.collapsed {
-                width: 100%;
-            }
-            
-            .toggle-btn {
-                display: none;
-            }
-            
-            .sidebar-header {
-                padding: 15px 20px;
-            }
-            
-            .sidebar-header h1 {
-                font-size: 1.2em;
-            }
-            
-            .nav-menu {
-                display: flex;
-                overflow-x: auto;
-                padding: 10px;
-                gap: 10px;
-            }
-            
-            .nav-item {
-                white-space: nowrap;
-                min-width: 140px;
-                text-align: center;
-                padding: 12px 15px;
-                font-size: 0.9em;
-                border-radius: 8px;
-                border-left: none;
-                transform: none;
-            }
-            
-            .nav-item:hover {
-                transform: none;
-                border-left: none;
-            }
-            
-            .nav-item.active {
-                border-left: none;
-                background: rgba(52, 152, 219, 0.8);
-            }
-            
-            .main-content {
-                order: 1;
-            }
-            
-            .main-header {
-                padding: 15px 20px;
-            }
-            
-            .main-header h2 {
-                font-size: 1.4em;
-            }
-            
+
             .welcome-content {
-                padding: 15px;
+                padding: 40px 25px;
+                margin: 20px;
             }
-            
-            .welcome-content h3 {
-                font-size: 1.8em;
-            }
-            
-            /* Mobile-specific grid adjustments */
-            .welcome-content div[style*="grid-template-columns: 1fr 1fr"] {
-                display: block !important;
-            }
-            
-            .welcome-content div[style*="grid-template-columns: 1fr 1fr"] > div {
-                margin-bottom: 20px !important;
+
+            .welcome-title {
+                font-size: 2em;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <button class="toggle-btn" onclick="toggleSidebar()" title="Toggle Menu">
-                    <span id="toggleIcon">◀</span>
-                </button>
-                <h1>Theory & Hypotheses</h1>
-                <p>Learning Hub</p>
-            </div>
-            
-            <nav class="nav-menu">
-                <button class="nav-item active" data-section="overview" onclick="loadSection('overview', 'Theory and Hypotheses Overview')"><span class="nav-item-text">Overview</span></button>
-                <button class="nav-item" data-section="content" onclick="loadSection('content', 'Content')"><span class="nav-item-text">Content</span></button>
-                <button class="nav-item" data-section="examples" onclick="loadSection('examples', 'Examples of Theories and Hypotheses')"><span class="nav-item-text">Examples of Theories and Hypotheses</span></button>
-                <button class="nav-item" data-section="extended" onclick="loadSection('extended', 'Extended Political Science Examples')"><span class="nav-item-text">Extended Political Science Examples</span></button>
-                <button class="nav-item" data-section="glossary" onclick="loadSection('glossary', 'Glossary')"><span class="nav-item-text">Glossary</span></button>
-                <button class="nav-item" data-section="interactives" onclick="loadSection('interactives', 'Interactives')"><span class="nav-item-text">Interactives</span></button>
-                <button class="nav-item" data-section="discussion" onclick="loadSection('discussion', 'Discussion')"><span class="nav-item-text">Discussion</span></button>
-                <button class="nav-item" data-section="quiz" onclick="loadSection('quiz', 'Quiz')"><span class="nav-item-text">Quiz</span></button>
-            </nav>
-        </aside>
+    <!-- Menu Bubble -->
+    <div class="menu-bubble">
+        <button class="menu-toggle" onclick="toggleMenu()">
+            📚
+        </button>
+    </div>
 
-        <main class="main-content">
-            <header class="main-header">
-                <h2 id="pageTitle">Theory and Hypotheses Overview</h2>
-            </header>
-            
-            <div class="content-wrapper">
-                <div class="embed-area active" id="embedArea">
-                    <div class="welcome-content">
-                        <!-- Hero Section with SVG -->
-                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; padding: 40px; margin-bottom: 30px; color: white; position: relative; overflow: hidden; text-align: center;">
-                            <div style="position: absolute; top: -50px; right: -50px; opacity: 0.1;">
-                                <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
-                                    <circle cx="100" cy="100" r="80" stroke="white" stroke-width="2"/>
-                                    <circle cx="100" cy="100" r="60" stroke="white" stroke-width="2"/>
-                                    <circle cx="100" cy="100" r="40" stroke="white" stroke-width="2"/>
-                                    <circle cx="100" cy="100" r="20" stroke="white" stroke-width="2"/>
-                                </svg>
-                            </div>
-                            <h3 style="color: white; font-size: 2.5em; margin-bottom: 20px; position: relative; z-index: 2;">Theory and Hypotheses</h3>
-                            <div style="position: relative; z-index: 2; max-width: 600px; margin: 0 auto;">
-                                <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; backdrop-filter: blur(10px);">
-                                    <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px;">
-                                        <div style="background: #3498db; padding: 12px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2em;">
-                                            🧠
-                                        </div>
-                                        <h4 style="margin: 0; color: white; font-size: 1.3em;">Research Foundation</h4>
-                                    </div>
-                                    <p style="margin: 0; color: rgba(255,255,255,0.9); line-height: 1.6; font-size: 1.1em;">Explore the building blocks of scientific inquiry and evidence-based understanding.</p>
-                                </div>
-                            </div>
-                        </div>
+    <!-- Expanded Menu -->
+    <div class="menu-expanded" id="menuExpanded">
+        <div class="menu-header">
+            <h3 class="menu-title">🎓 Learning Hub</h3>
+            <p class="menu-subtitle">Political Science Theory</p>
+            <button class="close-btn" onclick="toggleMenu()">×</button>
+        </div>
+        <div class="menu-items">
+            <button class="menu-item content" onclick="loadContent('content')">
+                <div class="menu-item-icon">📖</div>
+                <div class="menu-item-content">
+                    <h4 class="menu-item-title">Main Content</h4>
+                    <span class="menu-item-status status-ready">Ready</span>
+                </div>
+            </button>
+            <button class="menu-item examples" onclick="loadContent('examples')">
+                <div class="menu-item-icon">💡</div>
+                <div class="menu-item-content">
+                    <h4 class="menu-item-title">Theory Examples</h4>
+                    <span class="menu-item-status status-ready">Ready</span>
+                </div>
+            </button>
+            <button class="menu-item extended-examples" onclick="loadContent('extended-examples')">
+                <div class="menu-item-icon">🔍</div>
+                <div class="menu-item-content">
+                    <h4 class="menu-item-title">Extended Examples</h4>
+                    <span class="menu-item-status status-ready">Ready</span>
+                </div>
+            </button>
+            <button class="menu-item glossary" onclick="loadContent('glossary')">
+                <div class="menu-item-icon">📚</div>
+                <div class="menu-item-content">
+                    <h4 class="menu-item-title">Glossary</h4>
+                    <span class="menu-item-status status-ready">Ready</span>
+                </div>
+            </button>
+            <button class="menu-item interactives" onclick="loadContent('interactives')">
+                <div class="menu-item-icon">🎯</div>
+                <div class="menu-item-content">
+                    <h4 class="menu-item-title">Interactive Activities</h4>
+                    <span class="menu-item-status status-ready">Ready</span>
+                </div>
+            </button>
+            <button class="menu-item discussion" onclick="loadContent('discussion')">
+                <div class="menu-item-icon">💭</div>
+                <div class="menu-item-content">
+                    <h4 class="menu-item-title">Discussion Questions</h4>
+                    <span class="menu-item-status status-ready">Ready</span>
+                </div>
+            </button>
+            <button class="menu-item quiz" onclick="loadContent('quiz')">
+                <div class="menu-item-icon">📝</div>
+                <div class="menu-item-content">
+                    <h4 class="menu-item-title">Final Assessment</h4>
+                    <span class="menu-item-status status-ready">Ready</span>
+                </div>
+            </button>
+        </div>
+    </div>
 
-                        <!-- Content Cards -->
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px;">
-                            <!-- Theory Card -->
-                            <div style="background: linear-gradient(135deg, #74b9ff, #0984e3); border-radius: 15px; padding: 30px; color: white; position: relative; overflow: hidden; min-height: 180px;">
-                                <div style="position: absolute; top: -20px; right: -20px; opacity: 0.2;">
-                                    <svg width="100" height="100" viewBox="0 0 100 100" fill="white">
-                                        <path d="M50 10 L90 90 L10 90 Z"/>
-                                    </svg>
-                                </div>
-                                <div style="position: relative; z-index: 2;">
-                                    <div style="background: rgba(255,255,255,0.25); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.6em; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                                        🔍
-                                    </div>
-                                    <h4 style="margin: 0 0 15px 0; font-size: 1.5em; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">Theory</h4>
-                                    <p style="margin: 0; font-size: 1.05em; line-height: 1.5; font-weight: 400; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">Generalized explanations that connect causes and effects, answering the fundamental question "why?"</p>
-                                </div>
-                            </div>
+    <!-- Menu Overlay for mobile -->
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
 
-                            <!-- Hypothesis Card -->
-                            <div style="background: linear-gradient(135deg, #fd79a8, #e84393); border-radius: 15px; padding: 30px; color: white; position: relative; overflow: hidden; min-height: 180px;">
-                                <div style="position: absolute; top: -20px; right: -20px; opacity: 0.2;">
-                                    <svg width="100" height="100" viewBox="0 0 100 100" fill="white">
-                                        <rect x="20" y="20" width="60" height="60" rx="10"/>
-                                        <circle cx="50" cy="50" r="15"/>
-                                    </svg>
-                                </div>
-                                <div style="position: relative; z-index: 2;">
-                                    <div style="background: rgba(255,255,255,0.25); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.6em; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                                        🧪
-                                    </div>
-                                    <h4 style="margin: 0 0 15px 0; font-size: 1.5em; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">Hypotheses</h4>
-                                    <p style="margin: 0; font-size: 1.05em; line-height: 1.5; font-weight: 400; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">Specific, testable statements about relationships between variables that can be measured with data.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Main Content -->
-                        <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: left;">
-                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
-                                <div style="background: linear-gradient(135deg, #00b894, #00a085); padding: 12px; border-radius: 50%; color: white; font-size: 1.2em;">
-                                    📚
-                                </div>
-                                <h4 style="margin: 0; color: #2d3436; font-size: 1.4em;">Understanding the Connection</h4>
-                            </div>
-                            
-                            <p style="color: #636e72; font-size: 1.1em; line-height: 1.7; margin-bottom: 20px;">Social science research relies on theory to explain why things happen the way they do. A <strong style="color: #2d3436;">theory</strong> is a generalized explanation that connects causes and effects—essentially answering the question "why?"</p>
-                            
-                            <p style="color: #636e72; font-size: 1.1em; line-height: 1.7; margin-bottom: 25px;">To test these explanations, researchers create <strong style="color: #2d3436;">hypotheses</strong>—specific, testable statements about how two or more variables are related. For example, a theory might claim that education affects political participation, while a hypothesis might state, "People with more education are more likely to vote."</p>
-                            
-                            <!-- Example Box -->
-                            <div style="background: linear-gradient(135deg, #ffeaa7, #fdcb6e); border-radius: 12px; padding: 20px; margin-top: 25px; position: relative; overflow: hidden;">
-                                <div style="position: absolute; top: -10px; right: -10px; opacity: 0.3;">
-                                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-                                        <path d="M40 10 L70 40 L40 70 L10 40 Z" stroke="#e17055" stroke-width="2"/>
-                                    </svg>
-                                </div>
-                                <div style="position: relative; z-index: 2;">
-                                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                                        <span style="font-size: 1.2em;">💡</span>
-                                        <strong style="color: #2d3436;">Example Connection</strong>
-                                    </div>
-                                    <p style="margin: 0; color: #2d3436; font-style: italic;">Theory: Education influences political engagement<br>
-                                    Hypothesis: "People with higher education levels are more likely to vote in elections"</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Content Area -->
+    <div class="content-area" id="contentArea">
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <div class="welcome-content">
+                <h1 class="welcome-title">🎓 Political Science Theory</h1>
+                <p class="welcome-subtitle">
+                    Master the fundamentals of political science research and theory building through interactive learning materials.
+                </p>
+                <div class="welcome-instruction">
+                    <p>👆 Click the menu button in the top-right corner to access all learning materials</p>
                 </div>
             </div>
-        </main>
+        </div>
+
+        <!-- Embedded Content Container -->
+        <div class="embedded-content" id="embeddedContent"></div>
     </div>
 
     <script>
-        let currentSection = 'overview';
-        let sidebarCollapsed = false;
-        
-        function toggleSidebar() {
-            const sidebar = document.querySelector('.sidebar');
-            const toggleIcon = document.getElementById('toggleIcon');
+        let menuOpen = false;
+        let currentContent = null;
+
+        function toggleMenu() {
+            const menuExpanded = document.getElementById('menuExpanded');
+            const menuOverlay = document.getElementById('menuOverlay');
             
-            sidebarCollapsed = !sidebarCollapsed;
+            menuOpen = !menuOpen;
             
-            if (sidebarCollapsed) {
-                sidebar.classList.add('collapsed');
-                toggleIcon.textContent = '▶';
+            if (menuOpen) {
+                menuExpanded.classList.add('active');
+                menuOverlay.classList.add('active');
             } else {
-                sidebar.classList.remove('collapsed');
-                toggleIcon.textContent = '◀';
+                menuExpanded.classList.remove('active');
+                menuOverlay.classList.remove('active');
             }
         }
-        
-        function loadSection(section, title) {
-            // Update active nav item
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            document.querySelector(`[data-section="${section}"]`).classList.add('active');
-            
-            // Update page title
-            document.getElementById('pageTitle').textContent = title;
-            
-            // Fade out current content
-            const embedArea = document.getElementById('embedArea');
-            embedArea.classList.remove('active');
-            
-            // Show loading spinner
-            setTimeout(() => {
-                embedArea.innerHTML = '<div class="loading-spinner"></div>';
-                
-                // For overview, show the built-in content
-                if (section === 'overview') {
-                    setTimeout(() => {
-                        embedArea.innerHTML = `
-                            <div class="welcome-content">
-                                <!-- Hero Section with SVG -->
-                                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; padding: 40px; margin-bottom: 30px; color: white; position: relative; overflow: hidden; text-align: center;">
-                                    <div style="position: absolute; top: -50px; right: -50px; opacity: 0.1;">
-                                        <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
-                                            <circle cx="100" cy="100" r="80" stroke="white" stroke-width="2"/>
-                                            <circle cx="100" cy="100" r="60" stroke="white" stroke-width="2"/>
-                                            <circle cx="100" cy="100" r="40" stroke="white" stroke-width="2"/>
-                                            <circle cx="100" cy="100" r="20" stroke="white" stroke-width="2"/>
-                                        </svg>
-                                    </div>
-                                    <h3 style="color: white; font-size: 2.5em; margin-bottom: 20px; position: relative; z-index: 2;">Theory and Hypotheses</h3>
-                                    <div style="position: relative; z-index: 2; max-width: 600px; margin: 0 auto;">
-                                        <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; backdrop-filter: blur(10px);">
-                                            <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px;">
-                                                <div style="background: #3498db; padding: 12px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2em;">
-                                                    🧠
-                                                </div>
-                                                <h4 style="margin: 0; color: white; font-size: 1.3em;">Research Foundation</h4>
-                                            </div>
-                                            <p style="margin: 0; color: rgba(255,255,255,0.9); line-height: 1.6; font-size: 1.1em;">Explore the building blocks of scientific inquiry and evidence-based understanding.</p>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <!-- Content Cards -->
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px;">
-                                    <!-- Theory Card -->
-                                    <div style="background: linear-gradient(135deg, #74b9ff, #0984e3); border-radius: 15px; padding: 30px; color: white; position: relative; overflow: hidden; min-height: 180px;">
-                                        <div style="position: absolute; top: -20px; right: -20px; opacity: 0.2;">
-                                            <svg width="100" height="100" viewBox="0 0 100 100" fill="white">
-                                                <path d="M50 10 L90 90 L10 90 Z"/>
-                                            </svg>
-                                        </div>
-                                        <div style="position: relative; z-index: 2;">
-                                            <div style="background: rgba(255,255,255,0.25); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.6em; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                                                🔍
-                                            </div>
-                                            <h4 style="margin: 0 0 15px 0; font-size: 1.5em; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">Theory</h4>
-                                            <p style="margin: 0; font-size: 1.05em; line-height: 1.5; font-weight: 400; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">Generalized explanations that connect causes and effects, answering the fundamental question "why?"</p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Hypothesis Card -->
-                                    <div style="background: linear-gradient(135deg, #fd79a8, #e84393); border-radius: 15px; padding: 30px; color: white; position: relative; overflow: hidden; min-height: 180px;">
-                                        <div style="position: absolute; top: -20px; right: -20px; opacity: 0.2;">
-                                            <svg width="100" height="100" viewBox="0 0 100 100" fill="white">
-                                                <rect x="20" y="20" width="60" height="60" rx="10"/>
-                                                <circle cx="50" cy="50" r="15"/>
-                                            </svg>
-                                        </div>
-                                        <div style="position: relative; z-index: 2;">
-                                            <div style="background: rgba(255,255,255,0.25); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.6em; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                                                🧪
-                                            </div>
-                                            <h4 style="margin: 0 0 15px 0; font-size: 1.5em; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">Hypotheses</h4>
-                                            <p style="margin: 0; font-size: 1.05em; line-height: 1.5; font-weight: 400; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">Specific, testable statements about relationships between variables that can be measured with data.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Main Content -->
-                                <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: left;">
-                                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
-                                        <div style="background: linear-gradient(135deg, #00b894, #00a085); padding: 12px; border-radius: 50%; color: white; font-size: 1.2em;">
-                                            📚
-                                        </div>
-                                        <h4 style="margin: 0; color: #2d3436; font-size: 1.4em;">Understanding the Connection</h4>
-                                    </div>
-                                    
-                                    <p style="color: #636e72; font-size: 1.1em; line-height: 1.7; margin-bottom: 20px;">Social science research relies on theory to explain why things happen the way they do. A <strong style="color: #2d3436;">theory</strong> is a generalized explanation that connects causes and effects—essentially answering the question "why?"</p>
-                                    
-                                    <p style="color: #636e72; font-size: 1.1em; line-height: 1.7; margin-bottom: 25px;">To test these explanations, researchers create <strong style="color: #2d3436;">hypotheses</strong>—specific, testable statements about how two or more variables are related. For example, a theory might claim that education affects political participation, while a hypothesis might state, "People with more education are more likely to vote."</p>
-                                    
-                                    <!-- Example Box -->
-                                    <div style="background: linear-gradient(135deg, #ffeaa7, #fdcb6e); border-radius: 12px; padding: 20px; margin-top: 25px; position: relative; overflow: hidden;">
-                                        <div style="position: absolute; top: -10px; right: -10px; opacity: 0.3;">
-                                            <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-                                                <path d="M40 10 L70 40 L40 70 L10 40 Z" stroke="#e17055" stroke-width="2"/>
-                                            </svg>
-                                        </div>
-                                        <div style="position: relative; z-index: 2;">
-                                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                                                <span style="font-size: 1.2em;">💡</span>
-                                                <strong style="color: #2d3436;">Example Connection</strong>
-                                            </div>
-                                            <p style="margin: 0; color: #2d3436; font-style: italic;">Theory: Education influences political engagement<br>
-                                            Hypothesis: "People with higher education levels are more likely to vote in elections"</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        
-                        embedArea.classList.add('active');
-                        currentSection = section;
-                    }, 600);
-                } else {
-                    // Load external HTML files for other sections
-                    const fileMap = {
-                        'content': 'content.html',
-                        'examples': 'examples.html',
-                        'extended': 'extended-examples.html',
-                        'glossary': 'glossary.html',
-                        'interactives': 'interactives.html',
-                        'discussion': 'discussion.html',
-                        'quiz': 'quiz.html'
-                    };
-                    
-                    const fileName = fileMap[section];
-                    
-                    if (fileName) {
-                        fetch(fileName)
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('File not found');
-                                }
-                                return response.text();
-                            })
-                            .then(html => {
-                                setTimeout(() => {
-                                    embedArea.innerHTML = html;
-                                    
-                                    // Execute any scripts in the loaded HTML
-                                    const scripts = embedArea.querySelectorAll('script');
-                                    scripts.forEach(script => {
-                                        const newScript = document.createElement('script');
-                                        if (script.src) {
-                                            newScript.src = script.src;
-                                        } else {
-                                            newScript.textContent = script.textContent;
-                                        }
-                                        document.head.appendChild(newScript);
-                                        document.head.removeChild(newScript);
-                                    });
-                                    
-                                    // Process any CSS styles in the loaded HTML
-                                    const styles = embedArea.querySelectorAll('style');
-                                    styles.forEach(style => {
-                                        const newStyle = document.createElement('style');
-                                        newStyle.textContent = style.textContent;
-                                        document.head.appendChild(newStyle);
-                                    });
-                                    
-                                    embedArea.classList.add('active');
-                                    currentSection = section;
-                                }, 600);
-                            })
-                            .catch(error => {
-                                setTimeout(() => {
-                                    embedArea.innerHTML = `
-                                        <div class="welcome-content">
-                                            <h3>${title}</h3>
-                                            <p style="color: #e74c3c;">⚠️ Content file "${fileName}" not found.</p>
-                                            <p style="color: #95a5a6; font-style: italic;">Please create the HTML file to load this section.</p>
-                                        </div>
-                                    `;
-                                    embedArea.classList.add('active');
-                                    currentSection = section;
-                                }, 600);
-                            });
+        async function loadContent(contentType) {
+            // Close menu
+            toggleMenu();
+            
+            // All content is now available - no coming soon pages
+            
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            const embeddedContent = document.getElementById('embeddedContent');
+            
+            // Show loading state
+            embeddedContent.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: white;">
+                    <div style="text-align: center; padding: 40px;">
+                        <div style="width: 50px; height: 50px; border: 4px solid #f3f3f3; border-top: 4px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;"></div>
+                        <p style="color: #7f8c8d; font-size: 1.1em;">Loading ${getContentTitle(contentType)}...</p>
+                    </div>
+                </div>
+                <style>
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
                     }
+                </style>
+            `;
+            
+            // Hide welcome screen and show embedded content
+            welcomeScreen.style.display = 'none';
+            embeddedContent.classList.add('active');
+            
+            try {
+                // Fetch the content
+                const response = await fetch(`${contentType}.html`);
+                if (!response.ok) {
+                    throw new Error(`Failed to load ${contentType}.html`);
                 }
-            }, 200);
+                
+                let html = await response.text();
+                
+                // Extract body content and inline styles/scripts
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                // Get the body content
+                const bodyContent = doc.body.innerHTML;
+                
+                // Get styles and scripts
+                const styles = Array.from(doc.querySelectorAll('style')).map(style => style.outerHTML).join('\n');
+                const scripts = Array.from(doc.querySelectorAll('script')).map(script => script.outerHTML).join('\n');
+                
+                // Combine everything
+                const fullContent = styles + bodyContent + scripts;
+                
+                // Load the content
+                embeddedContent.innerHTML = fullContent;
+                currentContent = contentType;
+                
+                // Execute any scripts that were loaded
+                const scriptElements = embeddedContent.querySelectorAll('script');
+                scriptElements.forEach(script => {
+                    const newScript = document.createElement('script');
+                    if (script.src) {
+                        newScript.src = script.src;
+                    } else {
+                        newScript.textContent = script.textContent;
+                    }
+                    document.head.appendChild(newScript);
+                    document.head.removeChild(newScript);
+                });
+                
+            } catch (error) {
+                console.error('Error loading content:', error);
+                embeddedContent.innerHTML = `
+                    <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: white;">
+                        <div style="text-align: center; padding: 40px; max-width: 500px;">
+                            <div style="font-size: 3em; margin-bottom: 20px;">⚠️</div>
+                            <h2 style="color: #e74c3c; margin-bottom: 15px;">Content Not Found</h2>
+                            <p style="color: #7f8c8d; line-height: 1.6;">
+                                The ${getContentTitle(contentType)} page (${contentType}.html) could not be loaded. 
+                                Please make sure the file exists in the same directory.
+                            </p>
+                            <button onclick="showWelcome()" style="
+                                background: linear-gradient(135deg, #667eea, #764ba2);
+                                color: white;
+                                border: none;
+                                padding: 12px 24px;
+                                border-radius: 8px;
+                                cursor: pointer;
+                                font-size: 1em;
+                                margin-top: 20px;
+                            ">Return to Home</button>
+                        </div>
+                    </div>
+                `;
+            }
         }
+
+        function showComingSoon(contentType) {
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            const embeddedContent = document.getElementById('embeddedContent');
+            
+            embeddedContent.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: white;">
+                    <div style="text-align: center; padding: 40px; max-width: 500px;">
+                        <div style="font-size: 3em; margin-bottom: 20px;">🚧</div>
+                        <h2 style="color: #f39c12; margin-bottom: 15px;">Coming Soon</h2>
+                        <p style="color: #7f8c8d; line-height: 1.6; margin-bottom: 30px;">
+                            ${getContentTitle(contentType)} is currently under development. 
+                            Check back soon for this exciting new feature!
+                        </p>
+                        <button onclick="showWelcome()" style="
+                            background: linear-gradient(135deg, #667eea, #764ba2);
+                            color: white;
+                            border: none;
+                            padding: 12px 24px;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-size: 1em;
+                        ">Return to Home</button>
+                    </div>
+                </div>
+            `;
+            
+            welcomeScreen.style.display = 'none';
+            embeddedContent.classList.add('active');
+        }
+
+        function showWelcome() {
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            const embeddedContent = document.getElementById('embeddedContent');
+            
+            welcomeScreen.style.display = 'flex';
+            embeddedContent.classList.remove('active');
+            embeddedContent.innerHTML = '';
+            currentContent = null;
+        }
+
+        function getContentTitle(contentType) {
+            const titles = {
+                'content': 'Main Content',
+                'examples': 'Theory Examples',
+                'extended-examples': 'Extended Examples',
+                'glossary': 'Glossary',
+                'interactives': 'Interactive Activities',
+                'discussion': 'Discussion Questions',
+                'quiz': 'Final Assessment'
+            };
+            return titles[contentType] || contentType;
+        }
+
+        // Close menu when clicking outside on desktop
+        document.addEventListener('click', function(e) {
+            const menuBubble = document.querySelector('.menu-bubble');
+            const menuExpanded = document.getElementById('menuExpanded');
+            
+            if (menuOpen && !menuBubble.contains(e.target) && !menuExpanded.contains(e.target)) {
+                toggleMenu();
+            }
+        });
+
+        // Handle escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (menuOpen) {
+                    toggleMenu();
+                } else if (currentContent) {
+                    showWelcome();
+                }
+            }
+        });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99338412358d1d64',t:'MTc2MTI0NjQzMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9933ea57e40db055',t:'MTc2MTI1MDYyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
