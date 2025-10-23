@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Political Science Glossary</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100%;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
+        }
+
+        .search-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .search-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .search-icon {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4em;
+            color: white;
+        }
+
+        .search-title {
+            margin: 0;
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e6ed;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #3498db;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .search-input::placeholder {
+            color: #95a5a6;
+        }
+
+        .glossary-grid {
+            display: grid;
+            gap: 20px;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .term-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 5px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .term-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(155, 89, 182, 0.1));
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .term-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-left-color: #3498db;
+        }
+
+        .term-card:hover::before {
+            transform: scale(1.2);
+            opacity: 0.8;
+        }
+
+        .term-card:nth-child(odd) {
+            border-left-color: #e74c3c;
+        }
+
+        .term-card:nth-child(even) {
+            border-left-color: #27ae60;
+        }
+
+        .term-card:nth-child(3n) {
+            border-left-color: #f39c12;
+        }
+
+        .term-card:nth-child(4n) {
+            border-left-color: #9b59b6;
+        }
+
+        .term-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .term-icon {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .term-title {
+            margin: 0;
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #2c3e50;
+            line-height: 1.2;
+        }
+
+        .term-definition {
+            font-size: 1.1em;
+            line-height: 1.7;
+            color: #34495e;
+            margin: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #7f8c8d;
+            font-size: 1.2em;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .no-results-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .term-count {
+            background: rgba(52, 152, 219, 0.1);
+            color: #2980b9;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 25px 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .search-container {
+                padding: 20px;
+            }
+
+            .term-card {
+                padding: 20px;
+            }
+
+            .term-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .term-title {
+                font-size: 1.3em;
+            }
+
+            .term-definition {
+                font-size: 1em;
+            }
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Political Science Glossary</h1>
+        </div>
+
+        <div class="search-container">
+            <div class="search-header">
+                <div class="search-icon">🔍</div>
+                <h2 class="search-title">Search Terms</h2>
+            </div>
+            <input 
+                type="text" 
+                class="search-input" 
+                id="searchInput" 
+                placeholder="Type to search for terms..."
+                autocomplete="off"
+            >
+            <div class="term-count" id="termCount">11 terms available</div>
+        </div>
+
+        <div class="glossary-grid" id="glossaryGrid">
+            <div class="term-card" data-term="causal explanations">
+                <div class="term-header">
+                    <div class="term-icon">🔗</div>
+                    <h3 class="term-title">Causal Explanations</h3>
+                </div>
+                <p class="term-definition">
+                    Explanations that establish cause-and-effect relationships among variables.
+                </p>
+            </div>
+
+            <div class="term-card" data-term="deterministic theories">
+                <div class="term-header">
+                    <div class="term-icon">⚡</div>
+                    <h3 class="term-title">Deterministic Theories</h3>
+                </div>
+                <p class="term-definition">
+                    Theories that posit that an outcome is the only possible result associated with a particular cause.
+                </p>
+            </div>
+
+            <div class="term-card" data-term="ecological fallacy">
+                <div class="term-header">
+                    <div class="term-icon">🌍</div>
+                    <h3 class="term-title">Ecological Fallacy</h3>
+                </div>
+                <p class="term-definition">
+                    Inferring characteristics about any one individual based on a general trend found within a group.
+                </p>
+            </div>
+
+            <div class="term-card" data-term="explanatory power">
+                <div class="term-header">
+                    <div class="term-icon">💪</div>
+                    <h3 class="term-title">Explanatory Power</h3>
+                </div>
+                <p class="term-definition">
+                    The power of a theory to explain as much of an outcome as possible by evaluating multiple theories at the same time.
+                </p>
+            </div>
+
+            <div class="term-card" data-term="individualistic fallacy">
+                <div class="term-header">
+                    <div class="term-icon">👤</div>
+                    <h3 class="term-title">Individualistic Fallacy</h3>
+                </div>
+                <p class="term-definition">
+                    Inferring a characteristic about a group based on observations from only one individual or case that belongs to the group.
+                </p>
+            </div>
+
+            <div class="term-card" data-term="null hypothesis">
+                <div class="term-header">
+                    <div class="term-icon">❌</div>
+                    <h3 class="term-title">Null Hypothesis</h3>
+                </div>
+                <p class="term-definition">
+                    A hypothesis that states that there is no relationship between an independent and a dependent variable.
+                </p>
+            </div>
+
+            <div class="term-card" data-term="probabilistic theories">
+                <div class="term-header">
+                    <div class="term-icon">🎲</div>
+                    <h3 class="term-title">Probabilistic Theories</h3>
+                </div>
+                <p class="term-definition">
+                    Theories of causation that suggest that the likelihood of an event occurring is either higher or lower for a particular reason (i.e., the presence of a certain value of one or more independent variables).
+                </p>
+            </div>
+
+            <div class="term-card" data-term="research hypotheses">
+                <div class="term-header">
+                    <div class="term-icon">🔬</div>
+                    <h3 class="term-title">Research Hypotheses</h3>
+                </div>
+                <p class="term-definition">
+                    An expectation of how two or more variables are related.
+                </p>
+            </div>
+
+            <div class="term-card" data-term="spurious">
+                <div class="term-header">
+                    <div class="term-icon">⚠️</div>
+                    <h3 class="term-title">Spurious</h3>
+                </div>
+                <p class="term-definition">
+                    When two variables under investigation are empirically correlated, but the relationship between them is not a causal one.
+                </p>
+            </div>
+
+            <div class="term-card" data-term="testable">
+                <div class="term-header">
+                    <div class="term-icon">🧪</div>
+                    <h3 class="term-title">Testable</h3>
+                </div>
+                <p class="term-definition">
+                    A property in which a statement can be evaluated empirically with data to determine whether a specific hypothesis is either true or false.
+                </p>
+            </div>
+
+            <div class="term-card" data-term="theory">
+                <div class="term-header">
+                    <div class="term-icon">🧠</div>
+                    <h3 class="term-title">Theory</h3>
+                </div>
+                <p class="term-definition">
+                    A generalized explanation for an observable outcome.
+                </p>
+            </div>
+        </div>
+
+        <div class="no-results" id="noResults" style="display: none;">
+            <div class="no-results-icon">🔍</div>
+            <p>No terms found matching your search.</p>
+            <small>Try searching for different keywords or check your spelling.</small>
+        </div>
+    </div>
+
+    <script>
+        function initializeGlossary() {
+            const searchInput = document.getElementById('searchInput');
+            const glossaryGrid = document.getElementById('glossaryGrid');
+            const noResults = document.getElementById('noResults');
+            const termCount = document.getElementById('termCount');
+            const termCards = document.querySelectorAll('.term-card');
+            const totalTerms = termCards.length;
+
+            function filterTerms() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                let visibleCount = 0;
+
+                termCards.forEach(card => {
+                    const termName = card.getAttribute('data-term').toLowerCase();
+                    const termTitle = card.querySelector('.term-title').textContent.toLowerCase();
+                    const termDefinition = card.querySelector('.term-definition').textContent.toLowerCase();
+                    
+                    const matches = termName.includes(searchTerm) || 
+                                  termTitle.includes(searchTerm) || 
+                                  termDefinition.includes(searchTerm);
+
+                    if (matches) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeIn 0.3s ease-in-out';
+                        visibleCount++;
+                        
+                        // Highlight matching text
+                        highlightText(card, searchTerm);
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Update term count
+                if (searchTerm === '') {
+                    termCount.textContent = `${totalTerms} terms available`;
+                } else {
+                    termCount.textContent = `${visibleCount} of ${totalTerms} terms found`;
+                }
+
+                // Show/hide no results message
+                if (visibleCount === 0 && searchTerm !== '') {
+                    noResults.style.display = 'block';
+                    glossaryGrid.style.display = 'none';
+                } else {
+                    noResults.style.display = 'none';
+                    glossaryGrid.style.display = 'grid';
+                }
+            }
+
+            function highlightText(card, searchTerm) {
+                if (searchTerm === '') return;
+
+                const title = card.querySelector('.term-title');
+                const definition = card.querySelector('.term-definition');
+                
+                // Remove existing highlights
+                title.innerHTML = title.textContent;
+                definition.innerHTML = definition.textContent;
+
+                if (searchTerm.length > 0) {
+                    const regex = new RegExp(`(${searchTerm})`, 'gi');
+                    
+                    title.innerHTML = title.textContent.replace(regex, '<span class="highlight">$1</span>');
+                    definition.innerHTML = definition.textContent.replace(regex, '<span class="highlight">$1</span>');
+                }
+            }
+
+            // Add event listener for search input
+            searchInput.addEventListener('input', filterTerms);
+
+            // Add keyboard navigation
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    searchInput.value = '';
+                    filterTerms();
+                    searchInput.blur();
+                }
+            });
+
+            // Focus search input when page loads
+            searchInput.focus();
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializeGlossary);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9933af4226dab055',t:'MTc2MTI0ODIwMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
