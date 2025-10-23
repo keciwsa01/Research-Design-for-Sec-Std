@@ -15,23 +15,29 @@
         }
 
         .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
+            width: 100%;
+            padding: 0;
+            margin: 0;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
+        .glossary-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .header-row {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px;
-            border-radius: 20px;
+        }
+
+        .header-cell {
+            padding: 30px;
+            text-align: center;
             position: relative;
             overflow: hidden;
         }
 
-        .header::before {
+        .header-cell::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -47,21 +53,30 @@
             100% { transform: rotate(360deg); }
         }
 
-        .header h1 {
+        .header-title {
             margin: 0;
             font-size: 2.5em;
             font-weight: 300;
+            color: white;
             position: relative;
             z-index: 2;
+        }
+
+        .search-row {
+            background: #f8f9fa;
+        }
+
+        .search-cell {
+            padding: 30px;
+            position: relative;
         }
 
         .search-container {
             background: white;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            padding: 30px;
-            margin-bottom: 30px;
-            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin: 0;
         }
 
         .search-header {
@@ -109,6 +124,14 @@
 
         .search-input::placeholder {
             color: #95a5a6;
+        }
+
+        .content-row {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .content-cell {
+            padding: 30px;
         }
 
         .glossary-grid {
@@ -239,19 +262,23 @@
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 10px;
+            .header-cell {
+                padding: 20px;
             }
 
-            .header {
-                padding: 25px 20px;
-            }
-
-            .header h1 {
+            .header-title {
                 font-size: 2em;
             }
 
+            .search-cell {
+                padding: 20px;
+            }
+
             .search-container {
+                padding: 20px;
+            }
+
+            .content-cell {
                 padding: 20px;
             }
 
@@ -284,26 +311,33 @@
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>📚 Political Science Glossary</h1>
-        </div>
-
-        <div class="search-container">
-            <div class="search-header">
-                <div class="search-icon">🔍</div>
-                <h2 class="search-title">Search Terms</h2>
-            </div>
-            <input 
-                type="text" 
-                class="search-input" 
-                id="searchInput" 
-                placeholder="Type to search for terms..."
-                autocomplete="off"
-            >
-            <div class="term-count" id="termCount">11 terms available</div>
-        </div>
-
-        <div class="glossary-grid" id="glossaryGrid">
+        <table class="glossary-table">
+            <tr class="header-row">
+                <td class="header-cell">
+                    <h1 class="header-title">📚 Political Science Glossary</h1>
+                </td>
+            </tr>
+            <tr class="search-row">
+                <td class="search-cell">
+                    <div class="search-container">
+                        <div class="search-header">
+                            <div class="search-icon">🔍</div>
+                            <h2 class="search-title">Search Terms</h2>
+                        </div>
+                        <input 
+                            type="text" 
+                            class="search-input" 
+                            id="searchInput" 
+                            placeholder="Type to search for terms..."
+                            autocomplete="off"
+                        >
+                        <div class="term-count" id="termCount">11 terms available</div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="content-row">
+                <td class="content-cell">
+                    <div class="glossary-grid" id="glossaryGrid">
             <div class="term-card" data-term="causal explanations">
                 <div class="term-header">
                     <div class="term-icon">🔗</div>
@@ -415,11 +449,16 @@
             </div>
         </div>
 
-        <div class="no-results" id="noResults" style="display: none;">
-            <div class="no-results-icon">🔍</div>
-            <p>No terms found matching your search.</p>
-            <small>Try searching for different keywords or check your spelling.</small>
-        </div>
+                    </div>
+
+                    <div class="no-results" id="noResults" style="display: none;">
+                        <div class="no-results-icon">🔍</div>
+                        <p>No terms found matching your search.</p>
+                        <small>Try searching for different keywords or check your spelling.</small>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 
     <script>
@@ -510,5 +549,5 @@
         // Initialize when page loads
         document.addEventListener('DOMContentLoaded', initializeGlossary);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9933af4226dab055',t:'MTc2MTI0ODIwMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9933b81d96cbbca7',t:'MTc2MTI0ODU2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
