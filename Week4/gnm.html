@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Selection and Hypothesis Testing Guide</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        .section-card {
+            transition: all 0.3s ease;
+        }
+        .section-card:hover {
+            transform: translateY(-2px);
+        }
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background: #6366F1;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .scroll-to-top:hover {
+            background: #4F46E5;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+        .scroll-to-top.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .matrix-cell {
+            border: 2px solid #E5E7EB;
+            transition: all 0.3s ease;
+        }
+        .matrix-cell:hover {
+            border-color: #6366F1;
+            transform: scale(1.02);
+        }
+        .critical-cell {
+            border-color: #EF4444;
+            background: linear-gradient(135deg, #FEF2F2 0%, #FECACA 100%);
+        }
+        .useful-cell {
+            border-color: #10B981;
+            background: linear-gradient(135deg, #F0FDF4 0%, #BBF7D0 100%);
+        }
+        .neutral-cell {
+            border-color: #6B7280;
+            background: linear-gradient(135deg, #F9FAFB 0%, #E5E7EB 100%);
+        }
+        .debate-box {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border-left: 4px solid #F59E0B;
+        }
+        .example-highlight {
+            background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
+            border-left: 4px solid #3B82F6;
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="min-h-full bg-gradient-to-br from-indigo-50 to-purple-100">
+  <div class="container mx-auto px-4 py-8 max-w-7xl"><!-- Header -->
+   <header class="text-center mb-8">
+    <h1 id="guide-title" class="text-5xl font-bold text-gray-800 mb-2">Case Selection and Hypothesis Testing Guide</h1>
+    <p id="student-info" class="text-lg text-gray-600 mb-4">Methodological Briefing</p>
+    <div class="bg-white rounded-lg shadow-md p-4 max-w-3xl mx-auto">
+     <p class="text-gray-700 font-medium">Master the strategic selection of cases for quantitative and qualitative research designs</p>
+    </div>
+   </header><!-- Executive Summary -->
+   <section class="bg-white rounded-xl shadow-lg p-6 mb-6 section-card">
+    <h2 class="text-3xl font-bold text-indigo-800 mb-6">📋 Executive Summary</h2>
+    <div class="debate-box p-6 rounded-lg mb-6">
+     <h3 class="text-xl font-semibold text-amber-800 mb-4">🎯 The Central Debate</h3>
+     <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+       <h4 class="font-semibold text-red-800 mb-2">Quantitative Wisdom</h4>
+       <p class="text-sm text-red-700 mb-2"><strong>Never select on the dependent variable</strong></p>
+       <p class="text-xs text-red-600">Eliminates variation needed for statistical inference</p>
+      </div>
+      <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+       <h4 class="font-semibold text-green-800 mb-2">Qualitative Practice</h4>
+       <p class="text-sm text-green-700 mb-2"><strong>Often selects on the outcome</strong></p>
+       <p class="text-xs text-green-600">Strategic targeting for set-theoretic hypotheses</p>
+      </div>
+     </div>
+    </div>
+    <div class="bg-indigo-50 p-5 rounded-lg">
+     <h3 class="text-lg font-semibold text-indigo-800 mb-3">🔑 Key Insight</h3>
+     <p class="text-indigo-700 mb-3">The appropriateness of case selection depends on the <strong>type of hypothesis being tested</strong>:</p>
+     <ul class="text-sm text-indigo-600 space-y-1">
+      <li>• <strong>Statistical hypotheses</strong> (additive, linear models) → Random selection</li>
+      <li>• <strong>Set-theoretic hypotheses</strong> (necessary/sufficient conditions) → Purposive selection</li>
+     </ul>
+    </div>
+   </section><!-- Causal Models -->
+   <section class="bg-white rounded-xl shadow-lg p-6 mb-6 section-card">
+    <h2 class="text-3xl font-bold text-blue-800 mb-6">🔬 Causal Models and Selection Logic</h2>
+    <div class="grid lg:grid-cols-2 gap-6"><!-- Statistical Model -->
+     <div class="bg-blue-50 p-6 rounded-lg">
+      <h3 class="text-xl font-semibold text-blue-800 mb-4">📊 Statistical Model</h3>
+      <div class="space-y-4">
+       <div>
+        <h4 class="font-medium text-blue-700 mb-2">Objective:</h4>
+        <p class="text-sm text-blue-600">Estimate average treatment effect of X on Y across population</p>
+       </div>
+       <div>
+        <h4 class="font-medium text-blue-700 mb-2">Logic:</h4>
+        <p class="text-sm text-blue-600">Assumes additive, linear relationship. How does change in X correlate with change in Y?</p>
+       </div>
+       <div>
+        <h4 class="font-medium text-blue-700 mb-2">Optimal Strategy:</h4>
+        <p class="text-sm text-blue-600 font-semibold">Random selection from larger population</p>
+        <p class="text-xs text-blue-500 mt-1">Ensures representativeness and unbiased correlation estimates</p>
+       </div>
+      </div>
+     </div><!-- Set-Theoretic Model -->
+     <div class="bg-purple-50 p-6 rounded-lg">
+      <h3 class="text-xl font-semibold text-purple-800 mb-4">🎯 Set-Theoretic Model</h3>
+      <div class="space-y-4">
+       <div>
+        <h4 class="font-medium text-purple-700 mb-2">Objective:</h4>
+        <p class="text-sm text-purple-600">Evaluate necessary and/or sufficient conditions</p>
+       </div>
+       <div>
+        <h4 class="font-medium text-purple-700 mb-2">Logic:</h4>
+        <p class="text-sm text-purple-600">Not about "average" effects but logical dependencies</p>
+       </div>
+       <div>
+        <h4 class="font-medium text-purple-700 mb-2">Optimal Strategy:</h4>
+        <p class="text-sm text-purple-600 font-semibold">Purposive selection of specific case types</p>
+        <p class="text-xs text-purple-500 mt-1">Strategic targeting for maximum analytical leverage</p>
+       </div>
+      </div>
+     </div>
+    </div><!-- Condition Types Table -->
+    <div class="mt-8">
+     <h3 class="text-xl font-semibold text-gray-800 mb-4">🔍 Testing Different Condition Types</h3>
+     <div class="overflow-x-auto">
+      <table class="w-full border-collapse bg-white rounded-lg shadow-sm">
+       <thead>
+        <tr class="bg-gray-50">
+         <th class="border border-gray-300 p-3 text-left font-semibold text-gray-800">Condition Type</th>
+         <th class="border border-gray-300 p-3 text-left font-semibold text-gray-800">Hypothesis</th>
+         <th class="border border-gray-300 p-3 text-left font-semibold text-gray-800">Causal Logic</th>
+         <th class="border border-gray-300 p-3 text-left font-semibold text-gray-800">Optimal Selection Strategy</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td class="border border-gray-300 p-3 font-medium text-green-800">Necessary Condition</td>
+         <td class="border border-gray-300 p-3 text-sm">X is necessary for Y<br><span class="text-xs text-gray-500">(Y → X)</span></td>
+         <td class="border border-gray-300 p-3 text-sm">Y cannot occur without X</td>
+         <td class="border border-gray-300 p-3 text-sm"><strong>Select cases where Y=1</strong><br><span class="text-xs text-gray-600">Search for disconfirming evidence: Y=1 but X=0</span></td>
+        </tr>
+        <tr class="bg-gray-50">
+         <td class="border border-gray-300 p-3 font-medium text-red-800">Sufficient Condition</td>
+         <td class="border border-gray-300 p-3 text-sm">X is sufficient for Y<br><span class="text-xs text-gray-500">(X → Y)</span></td>
+         <td class="border border-gray-300 p-3 text-sm">X always produces Y</td>
+         <td class="border border-gray-300 p-3 text-sm"><strong>Select cases where X=1</strong><br><span class="text-xs text-gray-600">Search for disconfirming evidence: X=1 but Y=0</span></td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </section><!-- Geddes Example -->
+   <section class="bg-white rounded-xl shadow-lg p-6 mb-6 section-card">
+    <h2 class="text-3xl font-bold text-orange-800 mb-6">📈 The Geddes Example: Labor Repression &amp; Economic Growth</h2>
+    <div class="example-highlight p-6 rounded-lg mb-6">
+     <h3 class="text-xl font-semibold text-blue-800 mb-4">🔬 Competing Interpretations of the Same Data</h3>
+     <p class="text-blue-700 mb-4">Geddes (1991, 2003) analyzed the relationship between labor repression and economic growth, sparking debate about case selection methods.</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
+     <div class="bg-red-50 p-5 rounded-lg border-l-4 border-red-500">
+      <h4 class="font-semibold text-red-800 mb-3">📊 Geddes's Statistical Argument</h4>
+      <div class="space-y-3">
+       <p class="text-sm text-red-700"><strong>Criticism:</strong> Scholars who select only high-growth East Asian countries (South Korea, Taiwan, Singapore) are committing selection bias.</p>
+       <p class="text-sm text-red-700"><strong>Evidence:</strong> Bivariate analysis of larger sample shows R² = .023 (virtually no linear relationship)</p>
+       <p class="text-sm text-red-700"><strong>Conclusion:</strong> Labor repression is not a significant predictor of growth</p>
+      </div>
+     </div>
+     <div class="bg-green-50 p-5 rounded-lg border-l-4 border-green-500">
+      <h4 class="font-semibold text-green-800 mb-3">🎯 Set-Theoretic Counter-Argument</h4>
+      <div class="space-y-3">
+       <p class="text-sm text-green-700"><strong>Key Evidence:</strong> "Empty space" in upper-left quadrant of scatterplot</p>
+       <p class="text-sm text-green-700"><strong>Pattern:</strong> No cases of high growth + low repression</p>
+       <p class="text-sm text-green-700"><strong>Conclusion:</strong> Strong support for labor repression as <em>necessary condition</em> for high growth</p>
+      </div>
+     </div>
+    </div>
+    <div class="bg-yellow-50 p-4 rounded-lg mt-6">
+     <h4 class="font-medium text-yellow-800 mb-2">🔑 Key Insight</h4>
+     <p class="text-sm text-yellow-700">The same data supports different conclusions depending on whether you're testing <strong>statistical correlations</strong> or <strong>set-theoretic relationships</strong>. Selecting high-growth cases to test necessity is perfectly valid and efficient.</p>
+    </div>
+   </section><!-- 2x2 Framework -->
+   <section class="bg-white rounded-xl shadow-lg p-6 mb-6 section-card">
+    <h2 class="text-3xl font-bold text-purple-800 mb-6">🎯 The 2x2 Framework for Purposive Selection</h2>
+    <div class="bg-purple-50 p-5 rounded-lg mb-6">
+     <p class="text-purple-700 mb-3">Cases can be categorized based on presence (1) or absence (0) of cause (X) and outcome (Y):</p>
+    </div><!-- 2x2 Matrix -->
+    <div class="max-w-4xl mx-auto mb-8">
+     <div class="grid grid-cols-3 gap-2 text-center"><!-- Headers -->
+      <div></div>
+      <div class="font-semibold text-gray-700 p-3">
+       Outcome Present (Y=1)
+      </div>
+      <div class="font-semibold text-gray-700 p-3">
+       Outcome Absent (Y=0)
+      </div><!-- Row 1 -->
+      <div class="font-semibold text-gray-700 p-3">
+       Cause Present (X=1)
+      </div>
+      <div class="matrix-cell useful-cell p-4 rounded-lg">
+       <div class="font-bold text-green-800 text-lg">
+        (1,1)
+       </div>
+       <div class="text-xs text-green-700 mt-2">
+        Cause + Outcome Present
+       </div>
+      </div>
+      <div class="matrix-cell critical-cell p-4 rounded-lg">
+       <div class="font-bold text-red-800 text-lg">
+        (1,0)
+       </div>
+       <div class="text-xs text-red-700 mt-2">
+        Cause Present, Outcome Absent
+       </div>
+      </div><!-- Row 2 -->
+      <div class="font-semibold text-gray-700 p-3">
+       Cause Absent (X=0)
+      </div>
+      <div class="matrix-cell critical-cell p-4 rounded-lg">
+       <div class="font-bold text-red-800 text-lg">
+        (0,1)
+       </div>
+       <div class="text-xs text-red-700 mt-2">
+        Cause Absent, Outcome Present
+       </div>
+      </div>
+      <div class="matrix-cell neutral-cell p-4 rounded-lg">
+       <div class="font-bold text-gray-700 text-lg">
+        (0,0)
+       </div>
+       <div class="text-xs text-gray-600 mt-2">
+        Both Absent
+       </div>
+      </div>
+     </div>
+    </div><!-- Cell Analysis -->
+    <div class="grid md:grid-cols-2 gap-6">
+     <div class="space-y-4">
+      <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+       <h4 class="font-semibold text-red-800 mb-2">🚨 Cell (0,1) - Critical for Necessity</h4>
+       <p class="text-sm text-red-700">Outcome present, cause absent. <strong>Most critical</strong> for testing necessary conditions. One case here falsifies "X necessary for Y"</p>
+      </div>
+      <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+       <h4 class="font-semibold text-red-800 mb-2">🚨 Cell (1,0) - Critical for Sufficiency</h4>
+       <p class="text-sm text-red-700">Cause present, outcome absent. <strong>Most critical</strong> for testing sufficient conditions. One case here disproves "X sufficient for Y"</p>
+      </div>
+     </div>
+     <div class="space-y-4">
+      <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+       <h4 class="font-semibold text-green-800 mb-2">✅ Cell (1,1) - Process Tracing</h4>
+       <p class="text-sm text-green-700">Both present. Consistent with both hypotheses. <strong>Excellent</strong> for in-depth process tracing to explore causal mechanisms</p>
+      </div>
+      <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-gray-500">
+       <h4 class="font-semibold text-gray-800 mb-2">➖ Cell (0,0) - Limited Leverage</h4>
+       <p class="text-sm text-gray-700">Both absent. Consistent with both hypotheses but provides <strong>least analytical leverage</strong>. Often most populated</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Selection Strategies -->
+   <section class="bg-white rounded-xl shadow-lg p-6 mb-6 section-card">
+    <h2 class="text-3xl font-bold text-green-800 mb-6">🛠️ Key Case Selection Strategies</h2>
+    <div class="space-y-6"><!-- Random Selection -->
+     <div class="border border-gray-200 rounded-lg p-5">
+      <h3 class="text-xl font-semibold text-blue-800 mb-4">🎲 1. Random Selection</h3>
+      <div class="grid md:grid-cols-3 gap-4">
+       <div class="bg-blue-50 p-4 rounded-lg">
+        <h4 class="font-medium text-blue-800 mb-2">Goal</h4>
+        <p class="text-sm text-blue-700">Representative sample of larger population</p>
+       </div>
+       <div class="bg-green-50 p-4 rounded-lg">
+        <h4 class="font-medium text-green-800 mb-2">Primary Use</h4>
+        <p class="text-sm text-green-700">Standard strategy in quantitative research for statistical models</p>
+       </div>
+       <div class="bg-red-50 p-4 rounded-lg">
+        <h4 class="font-medium text-red-800 mb-2">Limitation</h4>
+        <p class="text-sm text-red-700">Inefficient for small-N studies; may miss crucial cases from cells (0,1) or (1,0)</p>
+       </div>
+      </div>
+     </div><!-- Substantively Important -->
+     <div class="border border-gray-200 rounded-lg p-5">
+      <h3 class="text-xl font-semibold text-purple-800 mb-4">⭐ 2. Substantively Important Cases</h3>
+      <div class="grid md:grid-cols-3 gap-4">
+       <div class="bg-purple-50 p-4 rounded-lg">
+        <h4 class="font-medium text-purple-800 mb-2">Goal</h4>
+        <p class="text-sm text-purple-700">Explain specific cases of major theoretical/historical interest</p>
+       </div>
+       <div class="bg-green-50 p-4 rounded-lg">
+        <h4 class="font-medium text-green-800 mb-2">Primary Use</h4>
+        <p class="text-sm text-green-700">Common in qualitative research (e.g., French Revolution)</p>
+       </div>
+       <div class="bg-yellow-50 p-4 rounded-lg">
+        <h4 class="font-medium text-yellow-800 mb-2">Logic</h4>
+        <p class="text-sm text-yellow-700">"Good theories must explain substantively important cases"</p>
+       </div>
+      </div>
+     </div><!-- Statistical Model Based -->
+     <div class="border border-gray-200 rounded-lg p-5">
+      <h3 class="text-xl font-semibold text-orange-800 mb-4">📊 3. Selection Based on Large-N Statistical Models</h3>
+      <div class="grid md:grid-cols-2 gap-4 mb-4">
+       <div class="bg-orange-50 p-4 rounded-lg">
+        <h4 class="font-medium text-orange-800 mb-2">Goal</h4>
+        <p class="text-sm text-orange-700">Use case studies to supplement and unpack statistical findings</p>
+       </div>
+       <div class="bg-blue-50 p-4 rounded-lg">
+        <h4 class="font-medium text-blue-800 mb-2">Primary Use</h4>
+        <p class="text-sm text-blue-700">Multi-method research combining quantitative and qualitative approaches</p>
+       </div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+       <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+        <h5 class="font-medium text-green-800 mb-2">Typical Cases</h5>
+        <p class="text-sm text-green-700">Cases on or near regression line, representing average relationship</p>
+       </div>
+       <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+        <h5 class="font-medium text-red-800 mb-2">Deviant/Off-Line Cases</h5>
+        <p class="text-sm text-red-700">Cases with large residuals poorly explained by statistical model</p>
+       </div>
+      </div>
+      <div class="bg-yellow-50 p-3 rounded mt-4">
+       <p class="text-sm text-yellow-800"><strong>Limitation:</strong> Remains anchored to statistical logic; may not effectively discover set-theoretic relationships not captured by linear regression</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Conclusion -->
+   <section class="bg-white rounded-xl shadow-lg p-6 section-card">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">🎯 Conclusion: Aligning Method with Research Goals</h2>
+    <div class="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-lg mb-6">
+     <h3 class="text-xl font-semibold text-indigo-800 mb-4">🔑 Key Principle</h3>
+     <p class="text-indigo-700 text-lg font-medium">There is no universally superior case selection strategy. The choice must align with research goals and causal arguments.</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
+     <div class="bg-blue-50 p-5 rounded-lg border-l-4 border-blue-500">
+      <h4 class="font-semibold text-blue-800 mb-3">📊 For Statistical Inference</h4>
+      <p class="text-sm text-blue-700 mb-2"><strong>Goal:</strong> Estimate average causal effects within population</p>
+      <p class="text-sm text-blue-700"><strong>Method:</strong> Random selection is ideal</p>
+     </div>
+     <div class="bg-purple-50 p-5 rounded-lg border-l-4 border-purple-500">
+      <h4 class="font-semibold text-purple-800 mb-3">🎯 For Set-Theoretic Analysis</h4>
+      <p class="text-sm text-purple-700 mb-2"><strong>Goal:</strong> Test necessary/sufficient conditions or conduct process tracing</p>
+      <p class="text-sm text-purple-700"><strong>Method:</strong> Purposive selection is required</p>
+     </div>
+    </div>
+    <div class="bg-green-50 p-5 rounded-lg mt-6">
+     <h4 class="font-semibold text-green-800 mb-3">✅ Methodological Legitimacy</h4>
+     <p class="text-green-700">Qualitative research rightfully uses purposive selection because its objectives differ from quantitative research. By strategically targeting specific cells in the 2x2 causal table, qualitative researchers maximize analytical leverage for evaluating set-theoretic hypotheses. This is not a methodological flaw but a rigorous procedure for theory building and testing.</p>
+    </div>
+   </section>
+  </div><!-- Floating Scroll to Top Button --> <button id="scroll-to-top" class="scroll-to-top hidden" onclick="scrollToTop()" title="Scroll to top"> ↑ </button>
+  <script>
+        const defaultConfig = {
+            guide_title: "Case Selection and Hypothesis Testing Guide",
+            student_name: "Your Name",
+            course_info: "Research Methods Course"
+        };
+
+        async function initializeApp() {
+            if (window.elementSdk) {
+                await window.elementSdk.init({
+                    defaultConfig,
+                    onConfigChange: async (config) => {
+                        const customFont = config.font_family || 'Inter';
+                        const baseSize = config.font_size || 16;
+                        const baseFontStack = 'system-ui, sans-serif';
+                        
+                        // Apply font family
+                        document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+                        
+                        // Apply font sizing
+                        document.getElementById('guide-title').style.fontSize = `${baseSize * 3.125}px`;
+                        document.querySelectorAll('h2').forEach(el => el.style.fontSize = `${baseSize * 1.875}px`);
+                        document.querySelectorAll('h3').forEach(el => el.style.fontSize = `${baseSize * 1.25}px`);
+                        document.querySelectorAll('p, td, li').forEach(el => el.style.fontSize = `${baseSize}px`);
+                        document.querySelectorAll('.text-sm').forEach(el => el.style.fontSize = `${baseSize * 0.875}px`);
+                        document.querySelectorAll('.text-xs').forEach(el => el.style.fontSize = `${baseSize * 0.75}px`);
+                        
+                        // Apply colors
+                        const primaryColor = config.primary_color || '#6366F1';
+                        const backgroundColor = config.background_color || '#F0F4FF';
+                        const surfaceColor = config.surface_color || '#FFFFFF';
+                        const textColor = config.text_color || '#1F2937';
+                        const accentColor = config.accent_color || '#10B981';
+                        
+                        document.body.style.background = `linear-gradient(to bottom right, ${backgroundColor}, #E0E7FF)`;
+                        document.querySelectorAll('.bg-white').forEach(el => el.style.backgroundColor = surfaceColor);
+                        document.querySelectorAll('h1, h2, h3, h4, h5').forEach(el => el.style.color = textColor);
+                        document.querySelector('.scroll-to-top').style.backgroundColor = primaryColor;
+                        
+                        // Update text content
+                        document.getElementById('guide-title').textContent = config.guide_title || defaultConfig.guide_title;
+                        const studentInfo = `${config.student_name || defaultConfig.student_name} • ${config.course_info || defaultConfig.course_info}`;
+                        document.getElementById('student-info').textContent = studentInfo;
+                    },
+                    mapToCapabilities: (config) => ({
+                        recolorables: [
+                            {
+                                get: () => config.primary_color || "#6366F1",
+                                set: (value) => {
+                                    config.primary_color = value;
+                                    window.elementSdk.setConfig({ primary_color: value });
+                                }
+                            },
+                            {
+                                get: () => config.background_color || "#F0F4FF",
+                                set: (value) => {
+                                    config.background_color = value;
+                                    window.elementSdk.setConfig({ background_color: value });
+                                }
+                            },
+                            {
+                                get: () => config.surface_color || "#FFFFFF",
+                                set: (value) => {
+                                    config.surface_color = value;
+                                    window.elementSdk.setConfig({ surface_color: value });
+                                }
+                            },
+                            {
+                                get: () => config.text_color || "#1F2937",
+                                set: (value) => {
+                                    config.text_color = value;
+                                    window.elementSdk.setConfig({ text_color: value });
+                                }
+                            },
+                            {
+                                get: () => config.accent_color || "#10B981",
+                                set: (value) => {
+                                    config.accent_color = value;
+                                    window.elementSdk.setConfig({ accent_color: value });
+                                }
+                            }
+                        ],
+                        borderables: [],
+                        fontEditable: {
+                            get: () => config.font_family || "Inter",
+                            set: (value) => {
+                                config.font_family = value;
+                                window.elementSdk.setConfig({ font_family: value });
+                            }
+                        },
+                        fontSizeable: {
+                            get: () => config.font_size || 16,
+                            set: (value) => {
+                                config.font_size = value;
+                                window.elementSdk.setConfig({ font_size: value });
+                            }
+                        }
+                    }),
+                    mapToEditPanelValues: (config) => new Map([
+                        ["guide_title", config.guide_title || defaultConfig.guide_title],
+                        ["student_name", config.student_name || defaultConfig.student_name],
+                        ["course_info", config.course_info || defaultConfig.course_info]
+                    ])
+                });
+            }
+            
+            initScrollButton();
+        }
+
+        function initScrollButton() {
+            const scrollButton = document.getElementById('scroll-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollButton.classList.remove('hidden');
+                } else {
+                    scrollButton.classList.add('hidden');
+                }
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9975787e019d44e2',t:'MTc2MTkzODAxNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
