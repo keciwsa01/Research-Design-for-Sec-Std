@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Replication Strategy Study Guide</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+        .section-card {
+            transition: all 0.3s ease;
+        }
+        .section-card:hover {
+            transform: translateY(-2px);
+        }
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background: #3B82F6;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .scroll-to-top:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+        .scroll-to-top.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="min-h-full bg-gradient-to-br from-amber-50 to-orange-100">
+  <div class="container mx-auto px-4 py-8 max-w-7xl"><!-- Header -->
+   <header class="text-center mb-8">
+    <h1 id="guide-title" class="text-5xl font-bold text-gray-800 mb-2">Replication Strategy Study Guide</h1>
+    <p id="student-info" class="text-lg text-gray-600 mb-4">Academic Research Methods</p>
+   </header><!-- Main Content -->
+   <div class="max-w-5xl mx-auto"><!-- Study Sections -->
+    <main class="space-y-6"><!-- Section 1: Core Strategy -->
+     <section class="bg-white rounded-xl shadow-lg p-6 section-card">
+      <h2 class="text-2xl font-bold text-blue-800 mb-4">📚 I. The Replication-First Strategy</h2>
+      <div class="space-y-4">
+       <div class="bg-blue-50 p-4 rounded-lg">
+        <h3 class="font-semibold text-blue-800 mb-2">Core Principle</h3>
+        <p class="text-blue-700">Begin original research by first replicating an existing published work, then improve upon just one defensible aspect.</p>
+       </div>
+       <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-green-50 p-4 rounded-lg">
+         <h4 class="font-semibold text-green-800 mb-2">✅ Benefits</h4>
+         <ul class="text-sm text-green-700 space-y-1">
+          <li>• Establishes cutting edge position</li>
+          <li>• Reduces burden of proof</li>
+          <li>• Mirrors professional practice</li>
+          <li>• Promotes scientific norms</li>
+         </ul>
+        </div>
+        <div class="bg-purple-50 p-4 rounded-lg">
+         <h4 class="font-semibold text-purple-800 mb-2">🎯 Key Insight</h4>
+         <p class="text-sm text-purple-700">"Authors who make their data available are more than twice as cited and influential as those who do not."</p>
+        </div>
+       </div>
+      </div>
+     </section><!-- Section 2: Three-Stage Process -->
+     <section class="bg-white rounded-xl shadow-lg p-6 section-card">
+      <h2 class="text-2xl font-bold text-green-800 mb-4">🔄 II. The Three-Stage Process</h2>
+      <div class="space-y-6"><!-- Stage 1 -->
+       <div class="border-l-4 border-green-500 pl-4">
+        <h3 class="text-xl font-semibold text-green-800 mb-3">Stage 1: Selection &amp; Replication</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+         <div class="bg-green-50 p-3 rounded-lg">
+          <h4 class="font-medium text-green-800 mb-2">Article Selection</h4>
+          <ul class="text-sm text-green-700 space-y-1">
+           <li>• Peer-reviewed journal</li>
+           <li>• Published within 4-5 years</li>
+           <li>• Prominent authors/journals preferred</li>
+          </ul>
+         </div>
+         <div class="bg-yellow-50 p-3 rounded-lg">
+          <h4 class="font-medium text-yellow-800 mb-2">⚠️ Expect Difficulty</h4>
+          <p class="text-sm text-yellow-700">Replication is "highly uncertain and difficult" - even with original data, success isn't guaranteed.</p>
+         </div>
+        </div>
+       </div><!-- Stage 2 -->
+       <div class="border-l-4 border-blue-500 pl-4">
+        <h3 class="text-xl font-semibold text-blue-800 mb-3">Stage 2: Original Contribution</h3>
+        <div class="space-y-3">
+         <div class="bg-blue-50 p-3 rounded-lg">
+          <h4 class="font-medium text-blue-800 mb-2">Improvement Strategy</h4>
+          <ol class="text-sm text-blue-700 space-y-1 list-decimal list-inside">
+           <li>Improve presentation without changing assumptions</li>
+           <li>Make minimal methodological changes</li>
+           <li>Isolate and justify key changes</li>
+           <li>Incorporate further improvements if beneficial</li>
+          </ol>
+         </div>
+        </div>
+       </div><!-- Stage 3 -->
+       <div class="border-l-4 border-purple-500 pl-4">
+        <h3 class="text-xl font-semibold text-purple-800 mb-3">Stage 3: Validation &amp; Finalization</h3>
+        <div class="bg-purple-50 p-3 rounded-lg">
+         <h4 class="font-medium text-purple-800 mb-2">Critical Question</h4>
+         <p class="text-sm text-purple-700 font-semibold">"Whose mind are you going to change about what?"</p>
+         <p class="text-xs text-purple-600 mt-1">If you can't answer this, your paper lacks contribution.</p>
+        </div>
+       </div>
+      </div>
+     </section><!-- Section 3: Collaboration Rules -->
+     <section class="bg-white rounded-xl shadow-lg p-6 section-card">
+      <h2 class="text-2xl font-bold text-orange-800 mb-4">🤝 III. Collaboration Ground Rules</h2>
+      <div class="overflow-x-auto">
+       <table class="w-full border-collapse border border-gray-300">
+        <thead>
+         <tr class="bg-orange-50">
+          <th class="border border-gray-300 px-4 py-2 text-left font-semibold text-orange-800">Rule</th>
+          <th class="border border-gray-300 px-4 py-2 text-left font-semibold text-orange-800">Rationale</th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td class="border border-gray-300 px-4 py-2 font-medium">Mandatory Co-authorship</td>
+          <td class="border border-gray-300 px-4 py-2 text-sm">Nearly half of political science articles are coauthored - mirrors real practice</td>
+         </tr>
+         <tr class="bg-gray-50">
+          <td class="border border-gray-300 px-4 py-2 font-medium">Alphabetical Listing</td>
+          <td class="border border-gray-300 px-4 py-2 text-sm">Signals equal contribution in social sciences</td>
+         </tr>
+         <tr>
+          <td class="border border-gray-300 px-4 py-2 font-medium">20 Pages Max (10 Better)</td>
+          <td class="border border-gray-300 px-4 py-2 text-sm">Journal space is scarce - conciseness increases publication likelihood</td>
+         </tr>
+         <tr class="bg-gray-50">
+          <td class="border border-gray-300 px-4 py-2 font-medium">Internal Peer Review</td>
+          <td class="border border-gray-300 px-4 py-2 text-sm">Improves quality and builds professional networks</td>
+         </tr>
+         <tr>
+          <td class="border border-gray-300 px-4 py-2 font-medium">Delayed Author Contact</td>
+          <td class="border border-gray-300 px-4 py-2 text-sm">Protects students during first professional interactions</td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </section><!-- Section 4: Style Guidelines -->
+     <section class="bg-white rounded-xl shadow-lg p-6 section-card">
+      <h2 class="text-2xl font-bold text-red-800 mb-4">✍️ IV. Style &amp; Composition</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+       <div>
+        <h3 class="font-semibold text-red-800 mb-3">Structure &amp; Organization</h3>
+        <ul class="space-y-2 text-sm text-red-700">
+         <li>• Clear section headings that summarize key points</li>
+         <li>• Immediate identification of research question</li>
+         <li>• No separate literature review section</li>
+         <li>• Technical details in appendices</li>
+        </ul>
+       </div>
+       <div>
+        <h3 class="font-semibold text-red-800 mb-3">Tone &amp; Professionalism</h3>
+        <ul class="space-y-2 text-sm text-red-700">
+         <li>• Be forthright about weaknesses</li>
+         <li>• Respectful language toward original authors</li>
+         <li>• Objective demonstration, not personal belief</li>
+         <li>• Use active voice</li>
+        </ul>
+       </div>
+      </div>
+      <div class="mt-4 bg-red-50 p-4 rounded-lg">
+       <h4 class="font-semibold text-red-800 mb-2">Key Problems to Avoid</h4>
+       <div class="grid md:grid-cols-2 gap-4">
+        <ul class="text-sm text-red-700 space-y-1">
+         <li>• Presenting uninterpreted coefficients</li>
+         <li>• Omitting uncertainty measures</li>
+         <li>• Using "statistically significant"</li>
+        </ul>
+        <ul class="text-sm text-red-700 space-y-1">
+         <li>• Misusing terminology</li>
+         <li>• Post-treatment bias</li>
+         <li>• Insufficient replication detail</li>
+        </ul>
+       </div>
+      </div>
+     </section>
+    </main><!-- Key Terms Section -->
+    <section class="bg-white rounded-xl shadow-lg p-6 mt-6">
+     <h2 class="text-2xl font-bold text-indigo-800 mb-6">📖 Key Terms &amp; Definitions</h2>
+     <div class="grid md:grid-cols-2 gap-6">
+      <div class="space-y-4">
+       <div class="border-l-4 border-indigo-500 pl-4">
+        <h3 class="font-semibold text-indigo-800 mb-1">Replication-First Strategy</h3>
+        <p class="text-sm text-gray-700">A research approach that begins with replicating existing work before making original contributions, establishing credibility and reducing burden of proof.</p>
+       </div>
+       <div class="border-l-4 border-green-500 pl-4">
+        <h3 class="font-semibold text-green-800 mb-1">Defensible Improvement</h3>
+        <p class="text-sm text-gray-700">A methodological enhancement that can be clearly justified and demonstrated to strengthen the original research without fundamentally changing its core assumptions.</p>
+       </div>
+       <div class="border-l-4 border-blue-500 pl-4">
+        <h3 class="font-semibold text-blue-800 mb-1">Burden of Proof</h3>
+        <p class="text-sm text-gray-700">The responsibility to demonstrate that your research contribution is valid and meaningful. Reduced when building on replicated work.</p>
+       </div>
+       <div class="border-l-4 border-purple-500 pl-4">
+        <h3 class="font-semibold text-purple-800 mb-1">Post-Treatment Bias</h3>
+        <p class="text-sm text-gray-700">A methodological error where variables affected by the treatment are incorrectly used as controls, leading to biased estimates.</p>
+       </div>
+       <div class="border-l-4 border-red-500 pl-4">
+        <h3 class="font-semibold text-red-800 mb-1">Alphabetical Authorship</h3>
+        <p class="text-sm text-gray-700">A convention in social sciences where co-authors are listed alphabetically to signal equal contribution to the research.</p>
+       </div>
+      </div>
+      <div class="space-y-4">
+       <div class="border-l-4 border-orange-500 pl-4">
+        <h3 class="font-semibold text-orange-800 mb-1">Research Note</h3>
+        <p class="text-sm text-gray-700">A shorter academic publication format (typically 10-20 pages) that presents focused findings or methodological improvements.</p>
+       </div>
+       <div class="border-l-4 border-teal-500 pl-4">
+        <h3 class="font-semibold text-teal-800 mb-1">Uncertainty Measures</h3>
+        <p class="text-sm text-gray-700">Statistical indicators (confidence intervals, standard errors) that quantify the precision of research estimates, essential for proper interpretation.</p>
+       </div>
+       <div class="border-l-4 border-pink-500 pl-4">
+        <h3 class="font-semibold text-pink-800 mb-1">Cutting Edge Position</h3>
+        <p class="text-sm text-gray-700">The advantage gained by successfully replicating recent work, positioning your research at the forefront of current knowledge in the field.</p>
+       </div>
+       <div class="border-l-4 border-yellow-500 pl-4">
+        <h3 class="font-semibold text-yellow-800 mb-1">Internal Peer Review</h3>
+        <p class="text-sm text-gray-700">The process of having classmates or colleagues review your work before submission, improving quality and building professional networks.</p>
+       </div>
+       <div class="border-l-4 border-gray-500 pl-4">
+        <h3 class="font-semibold text-gray-800 mb-1">Active Voice</h3>
+        <p class="text-sm text-gray-700">A writing style where the subject performs the action, preferred in academic writing for clarity and directness (e.g., "We analyzed" vs. "Analysis was conducted").</p>
+       </div>
+      </div>
+     </div>
+    </section>
+   </div>
+  </div><!-- Floating Scroll to Top Button --> <button id="scroll-to-top" class="scroll-to-top hidden" onclick="scrollToTop()" title="Scroll to top"> ↑ </button>
+  <script>
+        const defaultConfig = {
+            guide_title: "Replication Strategy Study Guide",
+            student_name: "Your Name",
+            course_info: "Course Name & Semester"
+        };
+
+        async function initializeApp() {
+            if (window.elementSdk) {
+                await window.elementSdk.init({
+                    defaultConfig,
+                    onConfigChange: async (config) => {
+                        document.getElementById('guide-title').textContent = config.guide_title || defaultConfig.guide_title;
+                        const studentInfo = `${config.student_name || defaultConfig.student_name} • ${config.course_info || defaultConfig.course_info}`;
+                        document.getElementById('student-info').textContent = studentInfo;
+                    },
+                    mapToCapabilities: (config) => ({
+                        recolorables: [
+                            {
+                                get: () => config.primary_color || "#1E40AF",
+                                set: (value) => {
+                                    config.primary_color = value;
+                                    window.elementSdk.setConfig({ primary_color: value });
+                                }
+                            },
+                            {
+                                get: () => config.background_color || "#FEF3C7",
+                                set: (value) => {
+                                    config.background_color = value;
+                                    window.elementSdk.setConfig({ background_color: value });
+                                }
+                            },
+                            {
+                                get: () => config.surface_color || "#FFFFFF",
+                                set: (value) => {
+                                    config.surface_color = value;
+                                    window.elementSdk.setConfig({ surface_color: value });
+                                }
+                            },
+                            {
+                                get: () => config.text_color || "#1F2937",
+                                set: (value) => {
+                                    config.text_color = value;
+                                    window.elementSdk.setConfig({ text_color: value });
+                                }
+                            },
+                            {
+                                get: () => config.accent_color || "#059669",
+                                set: (value) => {
+                                    config.accent_color = value;
+                                    window.elementSdk.setConfig({ accent_color: value });
+                                }
+                            }
+                        ],
+                        borderables: [],
+                        fontEditable: {
+                            get: () => config.font_family || "Georgia",
+                            set: (value) => {
+                                config.font_family = value;
+                                window.elementSdk.setConfig({ font_family: value });
+                            }
+                        },
+                        fontSizeable: {
+                            get: () => config.font_size || 16,
+                            set: (value) => {
+                                config.font_size = value;
+                                window.elementSdk.setConfig({ font_size: value });
+                            }
+                        }
+                    }),
+                    mapToEditPanelValues: (config) => new Map([
+                        ["guide_title", config.guide_title || defaultConfig.guide_title],
+                        ["student_name", config.student_name || defaultConfig.student_name],
+                        ["course_info", config.course_info || defaultConfig.course_info]
+                    ])
+                });
+            }
+            
+            // Initialize scroll button functionality
+            initScrollButton();
+        }
+
+        function initScrollButton() {
+            const scrollButton = document.getElementById('scroll-to-top');
+            
+            // Show/hide button based on scroll position
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollButton.classList.remove('hidden');
+                } else {
+                    scrollButton.classList.add('hidden');
+                }
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Initialize the app when the page loads
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9975257f82a3bae9',t:'MTc2MTkzNDYxNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
