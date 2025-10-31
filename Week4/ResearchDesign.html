@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Political Science Research Design Guide</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+        .section-card {
+            transition: all 0.3s ease;
+        }
+        .section-card:hover {
+            transform: translateY(-2px);
+        }
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background: #3B82F6;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .scroll-to-top:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+        .scroll-to-top.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .example-box {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-left: 4px solid #3b82f6;
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="min-h-full bg-gradient-to-br from-blue-50 to-indigo-100">
+  <div class="container mx-auto px-4 py-8 max-w-7xl"><!-- Header -->
+   <header class="text-center mb-8">
+    <h1 id="guide-title" class="text-5xl font-bold text-gray-800 mb-2">Political Science Research Design Guide</h1>
+    <p id="student-info" class="text-lg text-gray-600 mb-4">Research Methods &amp; Methodology</p>
+    <div class="bg-white rounded-lg shadow-md p-4 max-w-2xl mx-auto">
+     <p class="text-gray-700 font-medium">Master the fundamentals of research design, sampling methods, and analytical approaches in political science</p>
+    </div>
+   </header><!-- Main Content -->
+   <div class="max-w-6xl mx-auto"><!-- Foundation Section -->
+    <section class="bg-white rounded-xl shadow-lg p-6 mb-6 section-card">
+     <h2 class="text-3xl font-bold text-blue-800 mb-6">🏗️ I. Foundation of Research Design</h2>
+     <div class="grid lg:grid-cols-2 gap-6 mb-6">
+      <div class="bg-blue-50 p-5 rounded-lg">
+       <h3 class="text-xl font-semibold text-blue-800 mb-3">What is Research Design?</h3>
+       <p class="text-blue-700 mb-3">A deliberate plan that outlines how a research question will be answered. It specifies the type of information to be used and dictates how conclusions can be generalized.</p>
+       <div class="bg-blue-100 p-3 rounded text-sm text-blue-800"><strong>Key Point:</strong> The selection of a design is strategic, based on the research question and available data.
+       </div>
+      </div>
+      <div class="space-y-4">
+       <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+        <h4 class="font-semibold text-green-800 mb-2">📊 Unit of Analysis</h4>
+        <p class="text-sm text-green-700">The general grouping of what is being studied (individuals, states, countries, policies)</p>
+        <p class="text-xs text-green-600 mt-1"><em>Example: In a study of U.S. states, the unit is "states"</em></p>
+       </div>
+       <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
+        <h4 class="font-semibold text-purple-800 mb-2">🎯 Research Population</h4>
+        <p class="text-sm text-purple-700">The complete set of all possible observations within a unit of analysis that share particular characteristics</p>
+        <p class="text-xs text-purple-600 mt-1"><em>Example: If studying only southern states, population becomes "southern states"</em></p>
+       </div>
+      </div>
+     </div>
+    </section><!-- Classification Section -->
+    <section class="bg-white rounded-xl shadow-lg p-6 mb-6 section-card">
+     <h2 class="text-3xl font-bold text-green-800 mb-6">📋 II. Classification of Research Designs</h2>
+     <div class="space-y-6"><!-- Quantitative vs Qualitative -->
+      <div class="border border-gray-200 rounded-lg p-5">
+       <h3 class="text-xl font-semibold text-green-800 mb-4">1. Quantitative vs. Qualitative</h3>
+       <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-blue-50 p-4 rounded-lg">
+         <h4 class="font-semibold text-blue-800 mb-2">📈 Quantitative ("Large-n")</h4>
+         <p class="text-sm text-blue-700 mb-3">Uses numerical measures for many observations to identify statistical correlations</p>
+         <div class="example-box p-3 rounded text-xs"><strong>Example:</strong> Tausanovitch &amp; Warshaw (2014) analyzed 428-1,619 U.S. cities, finding liberal populations correlate with liberal policies and higher taxes.
+         </div>
+        </div>
+        <div class="bg-orange-50 p-4 rounded-lg">
+         <h4 class="font-semibold text-orange-800 mb-2">📝 Qualitative (Case Study)</h4>
+         <p class="text-sm text-orange-700 mb-3">In-depth analysis of few cases to understand how and why events unfolded</p>
+         <div class="example-box p-3 rounded text-xs"><strong>Example:</strong> Moore (2015) studied VA's "entrepreneurial bureaucrats" who secured agency survival through private partnerships despite reputation issues.
+         </div>
+        </div>
+       </div>
+      </div><!-- Experimental vs Observational -->
+      <div class="border border-gray-200 rounded-lg p-5">
+       <h3 class="text-xl font-semibold text-green-800 mb-4">2. Experimental vs. Observational</h3>
+       <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-red-50 p-4 rounded-lg">
+         <h4 class="font-semibold text-red-800 mb-2">🧪 Experimental</h4>
+         <p class="text-sm text-red-700 mb-3">Researcher controls treatment assignment to identify precise causal mechanisms</p>
+         <div class="example-box p-3 rounded text-xs"><strong>Example:</strong> Hock et al. (2012) randomly called 108 business owners about civic meetings. Attendance: 8.3% (treatment) vs 4.7% (control).
+         </div>
+        </div>
+        <div class="bg-teal-50 p-4 rounded-lg">
+         <h4 class="font-semibold text-teal-800 mb-2">👁️ Observational</h4>
+         <p class="text-sm text-teal-700 mb-3">No manipulation; identifies patterns in existing data as they occur naturally</p>
+         <div class="example-box p-3 rounded text-xs"><strong>Example:</strong> Dube et al. (2013) found 60% increase in gun homicides in Mexican border areas after U.S. assault weapons ban expired.
+         </div>
+        </div>
+       </div>
+      </div><!-- Comparative -->
+      <div class="border border-gray-200 rounded-lg p-5">
+       <h3 class="text-xl font-semibold text-green-800 mb-4">3. Comparative Designs</h3>
+       <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-yellow-50 p-4 rounded-lg">
+         <h4 class="font-semibold text-yellow-800 mb-2">🔄 Most Similar Systems</h4>
+         <p class="text-sm text-yellow-700 mb-3">Similar cases; isolate varying factor to explain different outcomes</p>
+         <div class="example-box p-3 rounded text-xs"><strong>Example:</strong> Nepstad (2013) compared Egypt, Syria, Bahrain (similar contexts) to explain different military defection patterns in Arab Spring.
+         </div>
+        </div>
+        <div class="bg-pink-50 p-4 rounded-lg">
+         <h4 class="font-semibold text-pink-800 mb-2">🌍 Most Different Systems</h4>
+         <p class="text-sm text-pink-700 mb-3">Different cases with same outcome; find common causal factor</p>
+         <div class="example-box p-3 rounded text-xs"><strong>Example:</strong> Skocpol (1979) compared French, Russian, Chinese revolutions (very different contexts) to identify common revolutionary causes.
+         </div>
+        </div>
+       </div>
+      </div><!-- Mixed Methods -->
+      <div class="bg-indigo-50 p-5 rounded-lg border-l-4 border-indigo-500">
+       <h3 class="text-xl font-semibold text-indigo-800 mb-3">🔀 Mixed-Methods Designs</h3>
+       <p class="text-indigo-700 mb-3">Combines different approaches for more complete answers to complex questions</p>
+       <div class="example-box p-3 rounded text-sm"><strong>Example:</strong> Wallace et al. (2014) used quantitative survey analysis (large protests decreased Latino political efficacy, small ones increased it) + 100+ qualitative interviews (revealed larger protests had divisive messaging, smaller ones had unified frames).
+       </div>
+      </div>
+     </div>
+    </section><!-- Sampling Section -->
+    <section class="bg-white rounded-xl shadow-lg p-6 mb-6 section-card">
+     <h2 class="text-3xl font-bold text-purple-800 mb-6">🎯 III. Sampling and Generalization</h2>
+     <div class="bg-purple-50 p-5 rounded-lg mb-6">
+      <h3 class="text-xl font-semibold text-purple-800 mb-3">Core Concept</h3>
+      <p class="text-purple-700 mb-2">Most studies use a <strong>sample</strong> (smaller group) to make inferences about a larger <strong>population</strong> through <strong>generalization</strong>.</p>
+      <div class="bg-red-100 p-3 rounded text-sm text-red-800"><strong>⚠️ Sample Bias:</strong> When a sample doesn't adequately reflect its population, leading to faulty inferences.
+      </div>
+     </div>
+     <div class="grid lg:grid-cols-2 gap-6"><!-- Probability Samples -->
+      <div>
+       <h3 class="text-2xl font-semibold text-blue-800 mb-4">📊 Probability Samples</h3>
+       <p class="text-gray-700 mb-4">Based on randomization - every observation has equal, independent chance of selection</p>
+       <div class="space-y-4">
+        <div class="bg-blue-50 p-4 rounded-lg">
+         <h4 class="font-semibold text-blue-800 mb-2">Key Statistical Concepts</h4>
+         <ul class="text-sm text-blue-700 space-y-1">
+          <li><strong>Population Parameter:</strong> True characteristic of entire population (often unknown)</li>
+          <li><strong>Sample Statistic:</strong> Information from sample used to estimate parameter</li>
+          <li><strong>Sampling Error:</strong> Expected difference between statistic and true parameter</li>
+          <li><strong>Margin of Error:</strong> Measure of estimate precision</li>
+          <li><strong>Confidence Interval:</strong> Range expected to contain true parameter (e.g., 52%-56%)</li>
+          <li><strong>Confidence Level:</strong> Probability method will work (typically 95%)</li>
+         </ul>
+        </div>
+        <div class="space-y-3">
+         <div class="border-l-4 border-green-500 pl-3">
+          <h5 class="font-medium text-green-800">Simple Random Sample</h5>
+          <p class="text-sm text-gray-600">Equal chance for all observations</p>
+         </div>
+         <div class="border-l-4 border-blue-500 pl-3">
+          <h5 class="font-medium text-blue-800">Systematic Sample</h5>
+          <p class="text-sm text-gray-600">Every nth observation from random start</p>
+         </div>
+         <div class="border-l-4 border-purple-500 pl-3">
+          <h5 class="font-medium text-purple-800">Stratified Random Sample</h5>
+          <p class="text-sm text-gray-600">Random selection within predetermined categories (e.g., World Values Survey)</p>
+         </div>
+         <div class="border-l-4 border-orange-500 pl-3">
+          <h5 class="font-medium text-orange-800">Cluster Sample</h5>
+          <p class="text-sm text-gray-600">Random clusters, then observations within clusters</p>
+         </div>
+        </div>
+       </div>
+      </div><!-- Nonprobability Samples -->
+      <div>
+       <h3 class="text-2xl font-semibold text-red-800 mb-4">🎲 Nonprobability Samples</h3>
+       <p class="text-gray-700 mb-4">Not based on randomization - unknown selection probability, higher bias risk</p>
+       <div class="space-y-3">
+        <div class="bg-red-50 p-4 rounded-lg">
+         <h5 class="font-medium text-red-800 mb-1">Quota Sample</h5>
+         <p class="text-sm text-red-700">Deliberate selection to mirror population characteristics (e.g., 6 legislators from 60% majority party)</p>
+        </div>
+        <div class="bg-orange-50 p-4 rounded-lg">
+         <h5 class="font-medium text-orange-800 mb-1">Convenience Sample</h5>
+         <p class="text-sm text-orange-700">Cases with easiest access (language, geography)</p>
+        </div>
+        <div class="bg-yellow-50 p-4 rounded-lg">
+         <h5 class="font-medium text-yellow-800 mb-1">Purposive Sample</h5>
+         <p class="text-sm text-yellow-700">Cases believed to yield strongest results (e.g., most intense ethnic conflicts)</p>
+        </div>
+        <div class="bg-pink-50 p-4 rounded-lg">
+         <h5 class="font-medium text-pink-800 mb-1">Snowball Sample</h5>
+         <p class="text-sm text-pink-700">Start with one case, use it to identify others</p>
+        </div>
+       </div>
+       <div class="bg-gray-100 p-3 rounded mt-4 text-sm text-gray-700"><strong>Standard:</strong> 1,000 randomly selected individuals typically produces ±3% margin of error at 95% confidence level
+       </div>
+      </div>
+     </div>
+    </section><!-- Data Collection Timing -->
+    <section class="bg-white rounded-xl shadow-lg p-6 mb-6 section-card">
+     <h2 class="text-3xl font-bold text-indigo-800 mb-6">⏰ IV. Data Collection by Time</h2>
+     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-indigo-50 p-4 rounded-lg text-center">
+       <h3 class="font-semibold text-indigo-800 mb-2">📸 Cross-Section</h3>
+       <p class="text-sm text-indigo-700">Data at single moment - provides "snapshot"</p>
+      </div>
+      <div class="bg-green-50 p-4 rounded-lg text-center">
+       <h3 class="font-semibold text-green-800 mb-2">⏮️⏭️ Pre-Post</h3>
+       <p class="text-sm text-green-700">Same subjects before/after event or treatment</p>
+      </div>
+      <div class="bg-blue-50 p-4 rounded-lg text-center">
+       <h3 class="font-semibold text-blue-800 mb-2">📊 Panel</h3>
+       <p class="text-sm text-blue-700">Same subjects over multiple time points</p>
+      </div>
+      <div class="bg-purple-50 p-4 rounded-lg text-center">
+       <h3 class="font-semibold text-purple-800 mb-2">📈 Longitudinal</h3>
+       <p class="text-sm text-purple-700">Different subjects at each time point (e.g., WVS waves)</p>
+      </div>
+     </div>
+    </section><!-- Key Terms Section -->
+    <section class="bg-white rounded-xl shadow-lg p-6">
+     <h2 class="text-3xl font-bold text-gray-800 mb-6">📚 Key Terms &amp; Definitions</h2>
+     <div class="grid md:grid-cols-2 gap-6">
+      <div class="space-y-4">
+       <div class="border-l-4 border-blue-500 pl-4">
+        <h3 class="font-semibold text-blue-800 mb-1">Research Design</h3>
+        <p class="text-sm text-gray-700">Deliberate plan outlining how a research question will be answered, specifying information type and generalization methods.</p>
+       </div>
+       <div class="border-l-4 border-green-500 pl-4">
+        <h3 class="font-semibold text-green-800 mb-1">Unit of Analysis</h3>
+        <p class="text-sm text-gray-700">The general grouping of what is being studied (individuals, states, countries, policies).</p>
+       </div>
+       <div class="border-l-4 border-purple-500 pl-4">
+        <h3 class="font-semibold text-purple-800 mb-1">Sample Bias</h3>
+        <p class="text-sm text-gray-700">When a sample doesn't adequately reflect its population, leading to faulty inferences.</p>
+       </div>
+       <div class="border-l-4 border-red-500 pl-4">
+        <h3 class="font-semibold text-red-800 mb-1">Confidence Interval</h3>
+        <p class="text-sm text-gray-700">Range of values expected to contain the true population parameter (e.g., 52%-56% from 54% ± 2%).</p>
+       </div>
+       <div class="border-l-4 border-orange-500 pl-4">
+        <h3 class="font-semibold text-orange-800 mb-1">Treatment Group</h3>
+        <p class="text-sm text-gray-700">In experiments, the group that receives the independent variable manipulation.</p>
+       </div>
+       <div class="border-l-4 border-teal-500 pl-4">
+        <h3 class="font-semibold text-teal-800 mb-1">Large-n Study</h3>
+        <p class="text-sm text-gray-700">Quantitative research using numerical measures for many observations to identify statistical correlations.</p>
+       </div>
+      </div>
+      <div class="space-y-4">
+       <div class="border-l-4 border-indigo-500 pl-4">
+        <h3 class="font-semibold text-indigo-800 mb-1">Generalization</h3>
+        <p class="text-sm text-gray-700">The ability to apply sample conclusions to observations not formally studied in the research population.</p>
+       </div>
+       <div class="border-l-4 border-pink-500 pl-4">
+        <h3 class="font-semibold text-pink-800 mb-1">Control Group</h3>
+        <p class="text-sm text-gray-700">In experiments, the group that does not receive the treatment, used for comparison.</p>
+       </div>
+       <div class="border-l-4 border-yellow-500 pl-4">
+        <h3 class="font-semibold text-yellow-800 mb-1">Margin of Error</h3>
+        <p class="text-sm text-gray-700">A measure of the precision of an estimate, typically ±3% for 1,000-person samples at 95% confidence.</p>
+       </div>
+       <div class="border-l-4 border-gray-500 pl-4">
+        <h3 class="font-semibold text-gray-800 mb-1">Population Parameter</h3>
+        <p class="text-sm text-gray-700">True characteristic of entire population (often unknown), estimated using sample statistics.</p>
+       </div>
+       <div class="border-l-4 border-cyan-500 pl-4">
+        <h3 class="font-semibold text-cyan-800 mb-1">Case Study</h3>
+        <p class="text-sm text-gray-700">Qualitative research involving in-depth, descriptive investigation of one or more cases.</p>
+       </div>
+       <div class="border-l-4 border-lime-500 pl-4">
+        <h3 class="font-semibold text-lime-800 mb-1">Stratified Sample</h3>
+        <p class="text-sm text-gray-700">Population divided into categories (strata), then random selection from each stratum proportionally.</p>
+       </div>
+      </div>
+     </div>
+    </section>
+   </div>
+  </div><!-- Floating Scroll to Top Button --> <button id="scroll-to-top" class="scroll-to-top hidden" onclick="scrollToTop()" title="Scroll to top"> ↑ </button>
+  <script>
+        const defaultConfig = {
+            guide_title: "Political Science Research Design Guide",
+            student_name: "Your Name",
+            course_info: "Course Name & Semester"
+        };
+
+        async function initializeApp() {
+            if (window.elementSdk) {
+                await window.elementSdk.init({
+                    defaultConfig,
+                    onConfigChange: async (config) => {
+                        document.getElementById('guide-title').textContent = config.guide_title || defaultConfig.guide_title;
+                        const studentInfo = `${config.student_name || defaultConfig.student_name} • ${config.course_info || defaultConfig.course_info}`;
+                        document.getElementById('student-info').textContent = studentInfo;
+                    },
+                    mapToCapabilities: (config) => ({
+                        recolorables: [
+                            {
+                                get: () => config.primary_color || "#3B82F6",
+                                set: (value) => {
+                                    config.primary_color = value;
+                                    window.elementSdk.setConfig({ primary_color: value });
+                                }
+                            },
+                            {
+                                get: () => config.background_color || "#EBF4FF",
+                                set: (value) => {
+                                    config.background_color = value;
+                                    window.elementSdk.setConfig({ background_color: value });
+                                }
+                            },
+                            {
+                                get: () => config.surface_color || "#FFFFFF",
+                                set: (value) => {
+                                    config.surface_color = value;
+                                    window.elementSdk.setConfig({ surface_color: value });
+                                }
+                            },
+                            {
+                                get: () => config.text_color || "#1F2937",
+                                set: (value) => {
+                                    config.text_color = value;
+                                    window.elementSdk.setConfig({ text_color: value });
+                                }
+                            },
+                            {
+                                get: () => config.accent_color || "#10B981",
+                                set: (value) => {
+                                    config.accent_color = value;
+                                    window.elementSdk.setConfig({ accent_color: value });
+                                }
+                            }
+                        ],
+                        borderables: [],
+                        fontEditable: {
+                            get: () => config.font_family || "Georgia",
+                            set: (value) => {
+                                config.font_family = value;
+                                window.elementSdk.setConfig({ font_family: value });
+                            }
+                        },
+                        fontSizeable: {
+                            get: () => config.font_size || 16,
+                            set: (value) => {
+                                config.font_size = value;
+                                window.elementSdk.setConfig({ font_size: value });
+                            }
+                        }
+                    }),
+                    mapToEditPanelValues: (config) => new Map([
+                        ["guide_title", config.guide_title || defaultConfig.guide_title],
+                        ["student_name", config.student_name || defaultConfig.student_name],
+                        ["course_info", config.course_info || defaultConfig.course_info]
+                    ])
+                });
+            }
+            
+            initScrollButton();
+        }
+
+        function initScrollButton() {
+            const scrollButton = document.getElementById('scroll-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollButton.classList.remove('hidden');
+                } else {
+                    scrollButton.classList.add('hidden');
+                }
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9975654bd089bf8b',t:'MTc2MTkzNzIzMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
